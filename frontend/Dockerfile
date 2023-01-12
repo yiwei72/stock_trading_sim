@@ -1,6 +1,6 @@
-FROM ubuntu:18.04
+# FROM ubuntu:18.04
 
-RUN apt update
+# RUN apt update
 
 FROM apache
 COPY . /var/www/html
