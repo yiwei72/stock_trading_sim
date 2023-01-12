@@ -1,10 +1,10 @@
-name: Docker Image CI
+name: frontend-CI
 
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    paths: [ "frontend" ]
+  
       
 jobs:
   build:
@@ -25,12 +25,12 @@ jobs:
       -
         name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+        run: echo "::set-output name=date::$(date +'%Y_%m_%d_%H.%M.%S')"
       -
         name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./Dockerfile
+          file: ./frontend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ece651:${{ steps.date.outputs.date }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ece651:frontend_${{ steps.date.outputs.date }}
