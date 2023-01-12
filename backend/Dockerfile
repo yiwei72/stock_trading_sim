@@ -7,7 +7,7 @@ WORKDIR /workdir/server
 COPY pom.xml /workdir/server/pom.xml
 RUN mvn dependency:go-offline
 
-COPY src /workdir/server/src
+COPY src /workdir/server
 RUN mvn install
 
 FROM builder as dev-envs

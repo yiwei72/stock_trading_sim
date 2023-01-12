@@ -3,8 +3,10 @@
 FROM --platform=$BUILDPLATFORM node:lts AS development
 
 RUN mkdir -p /code
+RUN ls
 WORKDIR /code
-COPY . /code
+COPY package.json /code
+COPY package-lock.json /code
 
 RUN npm ci
 COPY . /code
