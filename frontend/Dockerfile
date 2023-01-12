@@ -2,10 +2,9 @@
 
 FROM --platform=$BUILDPLATFORM node:lts AS development
 
-WORKDIR /frontend
 RUN mkdir -p /code
-COPY ./package.json /code
-COPY ./package-lock.json /code
+COPY frontend/package.json /code
+COPY frontend/package-lock.json /code
 
 WORKDIR /code
 RUN npm ci
