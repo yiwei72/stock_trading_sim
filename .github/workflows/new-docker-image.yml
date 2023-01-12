@@ -23,8 +23,9 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       -
-        name: Get date
-        run: DATE=$(date +%Y%m%d)
+        name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y%m%d')"
       -
         name: Build and push
         uses: docker/build-push-action@v3
@@ -32,4 +33,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ece651:${{ env.DATE }} 
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ece651:${{ steps.date.outputs.date }}
