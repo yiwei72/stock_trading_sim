@@ -4,9 +4,7 @@ FROM --platform=$BUILDPLATFORM node:lts AS development
 
 RUN mkdir -p /code
 WORKDIR /code
-COPY src /code
-COPY package.json /code
-COPY package-lock.json /code
+COPY . /code
 
 RUN npm ci
 COPY . /code
