@@ -2,6 +2,7 @@
 
 FROM --platform=$BUILDPLATFORM node:lts AS development
 
+RUN mkdir -p /code
 WORKDIR /code
 COPY package.json /code/package.json
 COPY package-lock.json /code/package-lock.json
