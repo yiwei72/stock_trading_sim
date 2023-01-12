@@ -3,7 +3,7 @@ name: frontend-CI
 on:
   push:
     branches: [ "main" ]
-    paths: [ "frontend" ]
+    paths: [ "frontend/**" ]
   
       
 jobs:
