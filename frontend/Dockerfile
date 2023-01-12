@@ -3,12 +3,10 @@
 FROM --platform=$BUILDPLATFORM node:lts AS development
 
 RUN mkdir -p /code
-COPY frontend/package.json /code
-COPY frontend/package-lock.json /code
+COPY frontend/* /code
 
 WORKDIR /code
 RUN npm ci
-COPY . /code
 
 ENV CI=true
 ENV PORT=3000
