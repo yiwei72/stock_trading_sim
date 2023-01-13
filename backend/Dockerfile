@@ -10,11 +10,6 @@ RUN mvn install
 
 FROM builder as dev-envs
 
-RUN <<EOF
-useradd -s /bin/bash -m vscode
-groupadd docker
-usermod -aG docker vscode
-EOF
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
 CMD ["mvn", "spring-boot:run"]
