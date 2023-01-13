@@ -28,8 +28,8 @@
 11. back to step 7.
 
 ### Linux:
-1. use **cd** command to go into the repo directory.
-2. run **docker-compile up**. The docker containers will keep running in the terminal. It does not stop.
+1. use `cd` command to go into the repo directory.
+2. run `docker-compile up`. The docker containers will keep running in the terminal. It does not stop.
 3. Open "127.0.0.1" on your browser and do your test/checking. Modify your code.
 4. In the running terminal from step 2, use **ctrl+c** to end the docker container process.
 5. back to step 2
