@@ -36,7 +36,7 @@
 
 <br/><br/>
 # AWS Database login:
-- Endpoint: project-database.cbifqpta8wxq.us-east-2.rds.amazonaws.com
+- Endpoint: database-1.cbifqpta8wxq.us-east-2.rds.amazonaws.com
 - Port: 3306
-- Master username: admin
-- Password: ZQm4MhN22b0ezfHYlTNK
+- Username: admin
+- Password: ECE651123
