@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootTest
 class DatabaseTests {
@@ -17,7 +19,10 @@ class DatabaseTests {
 
     @Test
     void testConnection() {
-        System.out.println(userMapper.selectByExample(null).toString());
+        Map<String,Object> fromAdminUser = new HashMap<>();
+        fromAdminUser.put("id", 1);
+        fromAdminUser.put("name", userMapper.selectByPrimaryKey("admin@uwaterloo.ca").getFirstName());
+        System.out.println(fromAdminUser);
     }
 
 }
