@@ -5,3 +5,7 @@ spring:
     url: jdbc:mysql://database-1.cbifqpta8wxq.us-east-2.rds.amazonaws.com:3306/stock_trader
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis:
+  type-aliases-package: com.company.project.pojo
+  mapper-locations: classpath:com/company/project/mapper/*.xml
