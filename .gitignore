@@ -134,5 +134,5 @@ dmypy.json
 compose.yaml
 compose-dev.yaml
 
-# idea maven project file
-project.iml
+# idea project file
+*.iml
