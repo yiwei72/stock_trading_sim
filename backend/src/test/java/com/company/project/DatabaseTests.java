@@ -25,4 +25,9 @@ class DatabaseTests {
         System.out.println(fromAdminUser);
     }
 
+    @Test
+    void testConnectionByPojo() {
+        System.out.println(userMapper.selectByPrimaryKey("admin@uwaterloo.ca").getEmail());
+    }
+
 }
