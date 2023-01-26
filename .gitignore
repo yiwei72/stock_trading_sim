@@ -135,4 +135,4 @@ compose.yaml
 compose-dev.yaml
 
 # idea maven project file
-backend/project.iml
+project.iml
