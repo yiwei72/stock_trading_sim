@@ -19,10 +19,15 @@ class DatabaseTests {
 
     @Test
     void testConnection() {
-        Map<String,Object> fromAdminUser = new HashMap<>();
-        fromAdminUser.put("id", 1);
-        fromAdminUser.put("name", userMapper.selectByPrimaryKey("admin@uwaterloo.ca").getFirstName());
-        System.out.println(fromAdminUser);
+        Map<String,Object> fromAdminUser 
+        = new HashMap<>();
+        fromAdminUser.put("id", 
+        1);
+
+        fromAdminUser.put("name", 
+        userMapper.selectByPrimaryKey("admin@uwaterloo.ca").getFirstName());
+        System.out.println(
+            fromAdminUser);
     }
 
     @Test
