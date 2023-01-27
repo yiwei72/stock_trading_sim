@@ -12,22 +12,19 @@ import java.util.Map;
 @SpringBootTest
 class DatabaseTests {
 
-    @Autowired
-    DataSource dataSource;
-    @Autowired
-    private UserMapper userMapper;
+  @Autowired DataSource dataSource;
+  @Autowired private UserMapper userMapper;
 
-    @Test
-    void testConnection() {
-        Map<String,Object> fromAdminUser = new HashMap<>();
-        fromAdminUser.put("id", 1);
-        fromAdminUser.put("name", userMapper.selectByPrimaryKey("admin@uwaterloo.ca").getFirstName());
-        System.out.println(fromAdminUser);
-    }
+  @Test
+  void testConnection() {
+    Map<String, Object> fromAdminUser = new HashMap<>();
+    fromAdminUser.put("id", 1);
+    fromAdminUser.put("name", userMapper.selectByPrimaryKey("admin@uwaterloo.ca").getFirstName());
+    System.out.println(fromAdminUser);
+  }
 
-    @Test
-    void testConnectionByPojo() {
-        System.out.println(userMapper.selectByPrimaryKey("admin@uwaterloo.ca").getEmail());
-    }
-
+  @Test
+  void testConnectionByPojo() {
+    System.out.println(userMapper.selectByPrimaryKey("admin@uwaterloo.ca").getEmail());
+  }
 }
