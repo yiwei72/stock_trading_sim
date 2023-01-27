@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class Result<T> implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     //RESULT_CODE_SUCCESS = 200
     //RESULT_CODE_SERVER_ERROR = 500
@@ -18,7 +17,7 @@ public class Result<T> implements Serializable {
     @ApiModelProperty("result message")
     private String message;
 
-    //result data, can be any object needed
+    //can be any object needed
     //default null
     @ApiModelProperty("result data")
     private T data;

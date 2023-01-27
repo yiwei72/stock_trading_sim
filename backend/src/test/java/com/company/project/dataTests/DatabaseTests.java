@@ -1,4 +1,4 @@
-package com.company.project;
+package com.company.project.dataTests;
 
 import com.company.project.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
