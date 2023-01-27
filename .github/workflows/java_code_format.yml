@@ -1,13 +1,18 @@
-name: reviewdog
+name: java_code_format
+
 on: [pull_request]
+
 jobs:
-  checkstyle:
-    name: runner / checkstyle
+  formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: dbelyaev/action-checkstyle@v0.5.1
+      - if: github.event_name != 'pull_request'
+        uses: actions/checkout@v3
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v3
         with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-          level: warning
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - uses: axel-op/googlejavaformat-action@v3
+        with:
+          args: "--skip-sorting-imports --replace"
