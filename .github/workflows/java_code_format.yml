@@ -1,6 +1,6 @@
 name: java_code_format
 
-on: [pull_request ]
+on: [pull_request]
 
 jobs:
   formatting:
@@ -10,3 +10,4 @@ jobs:
       - uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--skip-sorting-imports --replace"
+          branch: ${{ github.head_ref }}
