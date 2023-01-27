@@ -1,5 +1,8 @@
 package com.company.project.pojo;
 
+import lombok.Data;
+
+@Data
 public class User {
     /**
      *
