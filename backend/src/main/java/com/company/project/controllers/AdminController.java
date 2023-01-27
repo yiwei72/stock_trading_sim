@@ -1,6 +1,7 @@
 package com.company.project.controllers;
 
 import com.company.project.controllers.param.AdminLoginParam;
+import com.company.project.controllers.param.AdminSignupParam;
 import com.company.project.service.AdminService;
 import com.company.project.util.Result;
 import com.company.project.util.ResultGenerator;
@@ -34,4 +35,31 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/signup")
+    public Result<String> signup(@RequestBody AdminSignupParam adminSignupParam) {
+        if (adminService.signup(adminSignupParam.getEmail(), adminSignupParam.getPassword(), adminSignupParam.getFirstName(), adminSignupParam.getLastName())) {
+            Result result = ResultGenerator.genSuccessResult();
+            result.setData("Signup success.");
+            return result;
+        }
+        else {
+            Result result = ResultGenerator.genFailResult();
+            result.setData("Email has been used, please choose another email.");
+            return result;
+        }
+    }
+
+    @PostMapping("/delete/user")
+    public Result<String> deleteUserByEmail(@RequestBody String email) {
+        if (adminService.deleteUserByEmail(email)) {
+            Result result = ResultGenerator.genSuccessResult();
+            result.setData("Delete " + email + " success.");
+            return result;
+        }
+        else {
+            Result result = ResultGenerator.genFailResult();
+            result.setData("No such user.");
+            return result;
+        }
+    }
 }
