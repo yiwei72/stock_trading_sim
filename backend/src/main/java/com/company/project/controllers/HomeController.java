@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-  @Autowired private UserMapper userMapper;
+    @Autowired private UserMapper userMapper;
 
-  @GetMapping("/")
-  public Greeting showHome(String name, Model model) {
-    return new Greeting(1, userMapper.selectByPrimaryKey("admin@uwaterloo.ca").getEmail());
-  }
+    @GetMapping("/")
+    public Greeting showHome(String name, Model model) {
+        return new Greeting(1, userMapper.selectByPrimaryKey("admin@uwaterloo.ca").getEmail());
+    }
 }
