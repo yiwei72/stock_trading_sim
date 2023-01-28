@@ -13,8 +13,7 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
     private static final Double DEFAULT_INIT_BALANCE = 100000000.0;
 
-    @Resource
-    private UserMapper userMapper;
+    @Resource private UserMapper userMapper;
 
     @Override
     public boolean login(String email, String password) {

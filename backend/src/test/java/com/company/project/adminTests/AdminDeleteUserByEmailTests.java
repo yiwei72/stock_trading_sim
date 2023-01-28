@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class AdminDeleteUserByEmailTests {
-    @Autowired
-    private AdminController adminController;
+    @Autowired private AdminController adminController;
 
     @Test
     void testSuccessfulDeleteUserByEmail() {

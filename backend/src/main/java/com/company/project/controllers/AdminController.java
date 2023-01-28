@@ -18,8 +18,7 @@ import javax.annotation.Resource;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Resource
-    private AdminService adminService;
+    @Resource private AdminService adminService;
 
     @PostMapping("/login")
     public Result<String> login(@RequestBody AdminLoginParam adminLoginParam) {
@@ -27,8 +26,7 @@ public class AdminController {
             Result result = ResultGenerator.genSuccessResult();
             result.setData("Login success.");
             return result;
-        }
-        else {
+        } else {
             Result result = ResultGenerator.genFailResult();
             result.setData("Email or password is incorrect.");
             return result;
@@ -37,12 +35,15 @@ public class AdminController {
 
     @PostMapping("/signup")
     public Result<String> signup(@RequestBody AdminSignupParam adminSignupParam) {
-        if (adminService.signup(adminSignupParam.getEmail(), adminSignupParam.getPassword(), adminSignupParam.getFirstName(), adminSignupParam.getLastName())) {
+        if (adminService.signup(
+                adminSignupParam.getEmail(),
+                adminSignupParam.getPassword(),
+                adminSignupParam.getFirstName(),
+                adminSignupParam.getLastName())) {
             Result result = ResultGenerator.genSuccessResult();
             result.setData("Signup success.");
             return result;
-        }
-        else {
+        } else {
             Result result = ResultGenerator.genFailResult();
             result.setData("Email has been used, please choose another email.");
             return result;
@@ -55,8 +56,7 @@ public class AdminController {
             Result result = ResultGenerator.genSuccessResult();
             result.setData("Delete " + email + " success.");
             return result;
-        }
-        else {
+        } else {
             Result result = ResultGenerator.genFailResult();
             result.setData("No such user.");
             return result;

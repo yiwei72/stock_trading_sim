@@ -9,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class AdminLoginTests {
 
-    @Autowired
-    private AdminController adminController;
+    @Autowired private AdminController adminController;
 
     @Test
     void testSuccessfulLogin() {

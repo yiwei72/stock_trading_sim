@@ -44,8 +44,7 @@ public class User {
      */
     private Double balance;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String email, String password, String firstName, String lastName, Double balance) {
         this.email = email;
