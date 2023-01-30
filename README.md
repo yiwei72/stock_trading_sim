@@ -1,3 +1,13 @@
+# Project Status:
+### CI
+Frontend [![node.js CI](https://github.com/yiwei72/ECE651/actions/workflows/nodejs.yml/badge.svg)](https://github.com/yiwei72/ECE651/actions/workflows/nodejs.yml)
+
+Backend  [![java_code_format](https://github.com/yiwei72/ECE651/actions/workflows/java_code_format.yml/badge.svg)](https://github.com/yiwei72/ECE651/actions/workflows/java_code_format.yml)
+
+### Code Coverage
+[![codecov](https://codecov.io/gh/yiwei72/ECE651/branch/main/graph/badge.svg?token=1AZGLUY11I)](https://codecov.io/gh/yiwei72/ECE651)
+
+<br/><br/>
 # Setups:
 1. clone the repo to your local directory
 2. **Windows/Mac:** install Docker Desktop
@@ -22,14 +32,13 @@
 5. Under **Choose source**, select **Local directory** and put in where you cloned the repo.
 6. Continue to the end & **wait** for the environment to finish preparation.
 7. Open "127.0.0.1" on your browser and do your test/checking.
-8. Under "Dev Environments", **Stop** the running env. **DO NOT DELETE**.
+8. Under "Dev Environments", **Stop** the running env. **Delete** the running dev.
 9. Modify your code.
-10. After the code is modified, **Start** the running env.
-11. back to step 7.
+10. After the code is modified, go back to step 3.
 
 ### Linux:
 1. use `cd` command to go into the repo directory.
-2. run `docker-compile up`. The docker containers will keep running in the terminal. It does not stop.
+2. run `docker-compose up`. The docker containers will keep running in the terminal. It does not stop.
 3. Open "127.0.0.1" on your browser and do your test/checking. Modify your code.
 4. In the running terminal from step 2, use **ctrl+c** to end the docker container process.
 5. back to step 2
