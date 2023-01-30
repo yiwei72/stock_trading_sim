@@ -136,3 +136,6 @@ compose-dev.yaml
 
 # idea project file
 *.iml
+
+# vscode configuration file
+.vscode/
