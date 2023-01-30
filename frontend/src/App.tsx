@@ -1,43 +1,34 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useState } from "react";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Welcome from "./components/Welcome";
 
-type Greeting = {
-  id: number;
-  name: string;
-};
+interface Props { }
 
-function App() {
-  const [greeting, setGreeting] = useState<Greeting>();
-  useEffect(() => {
-    fetch("/api")
-      .then(res => res.json())
-      .then(setGreeting)
-      .catch(console.error);
-  }, [setGreeting]);
+const App: React.FC<Props> = () => {
+  const [page, setPage] = useState("login");
+
+  const handleLogin = () => setPage("welcome");
+  const handleLogout = () => setPage("login");
+  const handleSignUp = () => setPage("signup")
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {greeting ? (
-          <p>Hello from {greeting.name}</p>
-        ) : (
-          <p>Loading...</p>
-        )}
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {page === "login" && (
+        <>
+          <Login handleLogin={handleLogin} handleSignUp={handleSignUp}/>
+        </>
+      )}
+      {page === "signup" && (
+        <>
+          <Signup handleLogin={handleLogin} handleLogout={handleLogout}/>
+        </>
+      )}
+      {page === "welcome" && (
+        <Welcome handleLogout={handleLogout} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
