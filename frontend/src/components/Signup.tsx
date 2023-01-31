@@ -6,7 +6,7 @@ interface SignupProps {
   handleLogout: () => void;
 }
 
-interface UserData {
+interface SignupUserData {
   email: string;
   password: string;
   firstName: string;
@@ -19,7 +19,7 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
   const [confirm_password, setConfirmPassword] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
-  const [userData, setUserData] = useState<UserData>({
+  const [signupUserData, setUserData] = useState<SignupUserData>({
     email: '',
     password: '',
     firstName: '',
@@ -31,7 +31,7 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setUserData({ ...userData, [name]: value });
+    setUserData({ ...signupUserData, [name]: value });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,7 +39,7 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('/api/admin/signup', userData);
+      const response = await axios.post('/api/admin/signup', signupUserData);
       console.log(response.data);
       if (response.data.resultCode == 200) {
         handleLogin();
@@ -62,14 +62,14 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
             type="text"
             placeholder="Email"
             name="email"
-            value={userData.email}
+            value={signupUserData.email}
             onChange={handleInputChange}
           />
           <input
             type="password"
             placeholder="Password"
             name="password"
-            value={userData.password}
+            value={signupUserData.password}
             onChange={handleInputChange}
           />
           <input
@@ -82,14 +82,14 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
             type="text"
             placeholder="Your First Name"
             name="firstName"
-            value={userData.firstName}
+            value={signupUserData.firstName}
             onChange={handleInputChange}
           />
           <input
             type="text"
             placeholder="Your Last Name"
             name="lastName"
-            value={userData.lastName}
+            value={signupUserData.lastName}
             onChange={handleInputChange}
           />
         </div>
