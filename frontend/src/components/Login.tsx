@@ -32,6 +32,9 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
     setIsLoading(true);
 
     try {
+      if (!loginUserData.email || !loginUserData.password) {
+        throw new Error('All fields are required');
+      }
       const response = await axios.post('/api/admin/login', loginUserData);
       console.log(response.data);
       if (response.data.resultCode == 200) {
@@ -39,8 +42,8 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
       } else {
         setErrorMessage(response.data.data);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      setErrorMessage(error.message);
     } finally {
       setIsLoading(false);
     }

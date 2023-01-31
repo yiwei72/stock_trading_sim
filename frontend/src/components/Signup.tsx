@@ -39,6 +39,12 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
     setIsLoading(true);
 
     try {
+      if (!signupUserData.email || !signupUserData.password || !confirm_password || !signupUserData.firstName || !signupUserData.lastName) {
+        throw new Error('All fields are required');
+      }
+      if (signupUserData.password !== confirm_password) {
+        throw new Error('Password and confirm password must match');
+      }
       const response = await axios.post('/api/admin/signup', signupUserData);
       console.log(response.data);
       if (response.data.resultCode == 200) {
@@ -46,8 +52,8 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
       } else {
         setErrorMessage(response.data.data);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      setErrorMessage(error.message);
     } finally {
       setIsLoading(false);
     }
