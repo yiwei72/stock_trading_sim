@@ -2,6 +2,7 @@ package com.company.project.controllers;
 
 import com.company.project.controllers.param.AdminLoginParam;
 import com.company.project.controllers.param.AdminSignupParam;
+import com.company.project.controllers.param.UserIdentifyParam;
 import com.company.project.service.AdminService;
 import com.company.project.util.Result;
 import com.company.project.util.ResultGenerator;
@@ -51,10 +52,10 @@ public class AdminController {
     }
 
     @PostMapping("/delete/user")
-    public Result<String> deleteUserByEmail(@RequestBody String email) {
-        if (adminService.deleteUserByEmail(email)) {
+    public Result<String> deleteUserByEmail(@RequestBody UserIdentifyParam userIdentifyParam) {
+        if (adminService.deleteUserByEmail(userIdentifyParam.getEmail())) {
             Result result = ResultGenerator.genSuccessResult();
-            result.setData("Delete " + email + " success.");
+            result.setData("Delete " + userIdentifyParam.getEmail() + " success.");
             return result;
         } else {
             Result result = ResultGenerator.genFailResult();
