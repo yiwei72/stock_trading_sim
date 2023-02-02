@@ -1,4 +1,6 @@
-package com.company.project.pojo;
+package com.company.project.util;
+
+import com.company.project.pojo.Holding;
 
 import java.io.Serializable;
 import java.util.List;
