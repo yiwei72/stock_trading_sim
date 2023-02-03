@@ -18,16 +18,14 @@ import javax.annotation.Resource;
 @RequestMapping("/user")
 public class UserController {
 
-    @Resource
-    private UserService userService;
+    @Resource private UserService userService;
 
     @PostMapping("/home")
     public Result<UserInformation> showUserHome(@RequestBody UserIdentifyParam userIdentifyParam) {
         UserInformation userInformation = userService.showUserHome(userIdentifyParam.getEmail());
         if (userInformation != null) {
             return ResultGenerator.genSuccessResult(userInformation);
-        }
-        else {
+        } else {
             return ResultGenerator.genFailResult();
         }
     }

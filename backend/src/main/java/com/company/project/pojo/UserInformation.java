@@ -10,10 +10,10 @@ public class UserInformation implements Serializable {
     private Double balance;
     private List<Holding> holding;
 
-    public UserInformation() {
-    }
+    public UserInformation() {}
 
-    public UserInformation(String firstName, String lastName, Double balance, List<Holding> holding) {
+    public UserInformation(
+            String firstName, String lastName, Double balance, List<Holding> holding) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.balance = balance;
@@ -54,11 +54,17 @@ public class UserInformation implements Serializable {
 
     @Override
     public String toString() {
-        return "UserInformation{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", balance=" + balance +
-                ", holding=" + holding +
-                '}';
+        return "UserInformation{"
+                + "firstName='"
+                + firstName
+                + '\''
+                + ", lastName='"
+                + lastName
+                + '\''
+                + ", balance="
+                + balance
+                + ", holding="
+                + holding
+                + '}';
     }
 }

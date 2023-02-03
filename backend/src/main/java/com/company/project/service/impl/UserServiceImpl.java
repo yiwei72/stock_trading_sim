@@ -13,19 +13,16 @@ import javax.annotation.Resource;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Resource
-    private UserMapper userMapper;
+    @Resource private UserMapper userMapper;
 
-    @Resource
-    private HoldingMapper holdingMapper;
+    @Resource private HoldingMapper holdingMapper;
 
     @Override
     public UserInformation showUserHome(String email) {
         User user = userMapper.selectByPrimaryKey(email);
         if (user == null) {
             return null;
-        }
-        else {
+        } else {
             UserInformation userInformation = new UserInformation();
             userInformation.setFirstName(user.getFirstName());
             userInformation.setLastName(user.getLastName());

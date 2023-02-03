@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class ShowUserHomeTests {
-    @Autowired
-    private UserController userController;
+    @Autowired private UserController userController;
 
     @Test
     void testSuccessfulShowUserHome() {
