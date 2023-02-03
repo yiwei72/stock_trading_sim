@@ -2,6 +2,7 @@ package com.company.project.adminTests;
 
 import com.company.project.controllers.AdminController;
 import com.company.project.controllers.param.AdminSignupParam;
+import com.company.project.controllers.param.UserIdentifyParam;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,8 +30,10 @@ public class AdminDeleteUserByEmailTests {
         System.out.println(adminController.signup(adminSignupParam));
 
         // delete the added user
+        UserIdentifyParam userIdentifyParam = new UserIdentifyParam();
+        userIdentifyParam.setEmail(email);
         System.out.print("Test result: ");
-        System.out.println(adminController.deleteUserByEmail(email));
+        System.out.println(adminController.deleteUserByEmail(userIdentifyParam));
         System.out.println();
     }
 
@@ -38,8 +41,12 @@ public class AdminDeleteUserByEmailTests {
     void testDeleteUserByNonexistentEmail() {
         String email = "NoSuchEmail@uwaterloo.ca";
         System.out.println("Current email: " + email);
+
+        // delete non-existent user
+        UserIdentifyParam userIdentifyParam = new UserIdentifyParam();
+        userIdentifyParam.setEmail(email);
         System.out.print("Test result: ");
-        System.out.println(adminController.deleteUserByEmail(email));
+        System.out.println(adminController.deleteUserByEmail(userIdentifyParam));
         System.out.println();
     }
 }
