@@ -47,7 +47,7 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
       }
       const response = await axios.post('/api/admin/signup', signupUserData);
       console.log(response.data);
-      if (response.data.resultCode == 200) {
+      if (response.data.resultCode === 200) {
         handleLogin();
       } else {
         setErrorMessage(response.data.data);
