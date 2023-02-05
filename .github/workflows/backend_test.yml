@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - backend/**
+  push:
+    branches:    
+      - main
 
 env:
   JDK_VERSION: 14
