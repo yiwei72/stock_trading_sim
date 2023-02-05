@@ -14,11 +14,7 @@ interface SignupUserData {
 }
 
 const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
   const [signupUserData, setUserData] = useState<SignupUserData>({
     email: '',
     password: '',

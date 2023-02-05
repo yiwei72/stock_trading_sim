@@ -12,8 +12,6 @@ interface LoginUserData {
 }
 
 const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [loginUserData, setUserData] = useState<LoginUserData>({
     email: '',
     password: '',
