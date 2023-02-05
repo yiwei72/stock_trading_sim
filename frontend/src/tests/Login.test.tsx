@@ -8,7 +8,7 @@ jest.mock('axios', () => ({
 }));
 
 
-it('updates the loginUserData state on input change', () => {
+it('The email and password input boxes can be filled correctly', () => {
   const handleLogin = jest.fn();
   const handleSignUp = jest.fn();
   const { getByPlaceholderText } = render(<Login handleLogin={handleLogin} handleSignUp={handleSignUp} />);
@@ -20,4 +20,22 @@ it('updates the loginUserData state on input change', () => {
   const passwordInput = getByPlaceholderText('Password');
   fireEvent.change(passwordInput, { target: { value: 'password', name: 'password' } });
   expect(passwordInput.getAttribute('value')).toBe('password');
+});
+
+it('Displays an error message when email or password is missing', () => {
+  const handleLogin = jest.fn();
+  const handleSignUp = jest.fn();
+  const { getByPlaceholderText, getByText } = render(<Login handleLogin={handleLogin} handleSignUp={handleSignUp} />);
+
+  const emailInput = getByPlaceholderText('Email');
+  fireEvent.change(emailInput, { target: { value: '', name: 'email' } });
+
+  const passwordInput = getByPlaceholderText('Password');
+  fireEvent.change(passwordInput, { target: { value: '', name: 'password' } });
+
+  const submitButton = getByText('Log In');
+  fireEvent.click(submitButton);
+
+  const errorMessage = getByText('All fields are required');
+  expect(errorMessage).toBeDefined();
 });
