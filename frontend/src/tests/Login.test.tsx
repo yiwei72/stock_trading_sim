@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import Login from '../components/Login';
 
 jest.mock('axios', () => ({
@@ -23,6 +23,7 @@ describe('Test Login component', () => {
     expect(passwordInput.getAttribute('value')).toBe('password');
   });
   
+
   it('displays an error message when email or password is missing', () => {
     const handleLogin = jest.fn();
     const handleSignUp = jest.fn();
@@ -40,6 +41,7 @@ describe('Test Login component', () => {
     const errorMessage = getByText('All fields are required');
     expect(errorMessage).toBeDefined();
   });
+
 
   it('should make a POST request to the correct endpoint', async () => {
     // Arrange
@@ -68,4 +70,30 @@ describe('Test Login component', () => {
       expect(axios.post).toHaveBeenCalledWith('/api/admin/login', loginUserData);
     });
   });
+
+
+  it('calls handleLogin function when response from server has result code 200', async () => {
+    const handleLogin = jest.fn();
+    const handleSignUp = jest.fn();
+
+    const { getByPlaceholderText, getByText } = render(
+      <Login handleLogin={handleLogin} handleSignUp={handleSignUp} />
+    );
+
+    const emailInput = getByPlaceholderText('Email');
+    const passwordInput = getByPlaceholderText('Password');
+    const submitButton = getByText('Log In');
+
+    fireEvent.change(emailInput, { target: { value: 'test@email.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'password' } });
+
+    const responseData = { resultCode: 200 };
+    (axios.post as jest.MockedFunction<typeof axios.post>).mockResolvedValueOnce({ data: responseData });
+
+    fireEvent.click(submitButton);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(handleLogin).toHaveBeenCalled();
+  });
+
 });
