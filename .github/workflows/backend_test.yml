@@ -1,0 +1,48 @@
+name: backend_test
+
+on:
+  pull_request:
+    paths:
+      - backend/**
+
+env:
+  JDK_VERSION: 14
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ env.JDK_VERSION }}
+
+    - name: Build and test
+      run: mvn install
+      env:
+        MAVEN_OPTS: "-Dmaven.repo.local=${HOME}/.m2/repository"
+      shell: bash
+      id: mvn_install
+      working-directory: ./backend
+
+    - name: Check test result
+      run: |
+        if grep -q '\[ERROR\]' "$GITHUB_WORKSPACE/backend/target/surefire-reports/TEST-*.xml"; then
+          echo "Tests failed"
+          exit 1
+        else
+          echo "Tests passed"
+        fi
+      if: steps.mvn_install.outputs.status == 0
+
+    - name: Upload code coverage to Codecov
+      uses: codecov/codecov-action@v1
+      if: steps.mvn_install.outputs.status == 0
+      with:
+        file: backend/target/site/jacoco/jacoco.xml
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/yiwei72/ECE651/branch/main/graph/badge.svg?token=1AZGLUY11I)](https://codecov.io/gh/yiwei72/ECE651)
 # Setups:
 1. clone the repo to your local directory
 2. **Windows/Mac:** install Docker Desktop
