@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 
 interface Props {
@@ -20,15 +20,15 @@ interface Stock {
 
 const Welcome: React.FC<Props> = ({ handleLogout }) => {
   const sampleUser: User = {
-    firstName: "",
-    lastName: "",
-    balance: 0
+    firstName: "John",
+    lastName: "Doe",
+    balance: 1000
   };
   const samplestock: Stock = {
-    symbol: "",
-    averagePrice:0 ,
-    quantity: 0,
-    lastUpdated: ""
+    symbol: "a",
+    averagePrice: 1,
+    quantity: 10,
+    lastUpdated: "string"
   };
   const stock1: Stock[] = [samplestock];
   
@@ -36,9 +36,9 @@ const Welcome: React.FC<Props> = ({ handleLogout }) => {
   const [stocks, setStocks] = useState<Stock[]>([...stock1]);
 
   
-  // setUser(sampleUser); same bug
+  setUser({...sampleUser}); 
   // const stock1: Stock[] = [samplestock];
-  // setStocks(stock1) has bug
+  setStocks([...stock1]);
   
   // useEffect(() => {
   //   // Fetch user data from the backend API
