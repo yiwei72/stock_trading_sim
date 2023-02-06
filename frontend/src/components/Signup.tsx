@@ -78,6 +78,7 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
             type="password"
             placeholder="Confirm Password"
             value={confirm_password}
+            name='confirmPassword'
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <input
