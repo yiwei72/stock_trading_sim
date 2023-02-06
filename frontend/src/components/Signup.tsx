@@ -14,11 +14,7 @@ interface SignupUserData {
 }
 
 const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
   const [signupUserData, setUserData] = useState<SignupUserData>({
     email: '',
     password: '',
@@ -47,7 +43,7 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
       }
       const response = await axios.post('/api/admin/signup', signupUserData);
       console.log(response.data);
-      if (response.data.resultCode == 200) {
+      if (response.data.resultCode === 200) {
         handleLogin();
       } else {
         setErrorMessage(response.data.data);
@@ -82,6 +78,7 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
             type="password"
             placeholder="Confirm Password"
             value={confirm_password}
+            name='confirmPassword'
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <input

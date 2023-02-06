@@ -12,8 +12,6 @@ interface LoginUserData {
 }
 
 const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [loginUserData, setUserData] = useState<LoginUserData>({
     email: '',
     password: '',
@@ -37,7 +35,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
       }
       const response = await axios.post('/api/admin/login', loginUserData);
       console.log(response.data);
-      if (response.data.resultCode == 200) {
+      if (response.data.resultCode === 200) {
         handleLogin();
       } else {
         setErrorMessage(response.data.data);
