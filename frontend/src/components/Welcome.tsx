@@ -86,6 +86,9 @@ const Welcome: React.FC<Props> = ({ handleLogout,handleBuy,handleSell }) => {
           ))}
         </tbody>
       </table>
+      <div><button onClick={handleBuy}>Buy</button></div>
+      <div><button onClick={handleSell}>Sell</button></div>
+      <br></br>
       <div>
         <button onClick={handleLogout}>Logout</button>
       </div>
