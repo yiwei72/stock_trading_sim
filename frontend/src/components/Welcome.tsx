@@ -7,7 +7,8 @@ interface Props {
 
 }
 interface User {
-  firstName: string;
+  firstName: 
+  string;
   lastName: string;
   balance: number;
 }
