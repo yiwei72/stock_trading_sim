@@ -13,9 +13,11 @@ interface User {
   lastName: string;
   balance: number;
   holding: Array<{
-    assetNumber: number;
+    assetNumber: 
+    number;
     email: string;
-    stockSymbol: string;
+    stockSymbol: 
+    string;
     price: number;
     quantity: number;
     timeStamp: number;
