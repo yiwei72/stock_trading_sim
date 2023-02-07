@@ -1,27 +1,27 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState } from "react";
 
 interface EmailData {
-    email: string;
-    updateEmail: (newEmail: string) => void;
+  email: string;
+  updateEmail: (newEmail: string) => void;
 }
 
 const EmailContext = createContext<EmailData>({
-    email: '',
-    updateEmail: () => { }
+  email: "",
+  updateEmail: () => {},
 });
 
 const EmailProvider: React.FC = ({ children }) => {
-    const [email, setEmailData] = useState<string>('');
+  const [email, setEmailData] = useState<string>("");
 
-    const updateEmail = (newEmail: string) => {
-        setEmailData(newEmail);
-    };
+  const updateEmail = (newEmail: string) => {
+    setEmailData(newEmail);
+  };
 
-    return (
-        <EmailContext.Provider value={{ email, updateEmail }}>
-            {children}
-        </EmailContext.Provider>
-    );
+  return (
+    <EmailContext.Provider value={{ email, updateEmail }}>
+      {children}
+    </EmailContext.Provider>
+  );
 };
 
 export { EmailContext, EmailProvider };

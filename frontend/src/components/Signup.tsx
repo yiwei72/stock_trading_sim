@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import axios from 'axios';
-import { EmailContext } from '../Context';
+import axios from "axios";
+import { EmailContext } from "../Context";
 
 interface SignupProps {
   handleLogin: () => void;
@@ -18,14 +18,14 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
   const { email, updateEmail } = useContext(EmailContext);
   const [confirm_password, setConfirmPassword] = useState("");
   const [signupUserData, setUserData] = useState<SignupUserData>({
-    email: '',
-    password: '',
-    firstName: '',
-    lastName: '',
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -37,13 +37,19 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
     setIsLoading(true);
 
     try {
-      if (!signupUserData.email || !signupUserData.password || !confirm_password || !signupUserData.firstName || !signupUserData.lastName) {
-        throw new Error('All fields are required');
+      if (
+        !signupUserData.email ||
+        !signupUserData.password ||
+        !confirm_password ||
+        !signupUserData.firstName ||
+        !signupUserData.lastName
+      ) {
+        throw new Error("All fields are required");
       }
       if (signupUserData.password !== confirm_password) {
-        throw new Error('Password and confirm password must match');
+        throw new Error("Password and confirm password must match");
       }
-      const response = await axios.post('/api/admin/signup', signupUserData);
+      const response = await axios.post("/api/admin/signup", signupUserData);
       console.log(response.data);
       updateEmail(signupUserData.email);
       console.log(email);
@@ -82,7 +88,7 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
             type="password"
             placeholder="Confirm Password"
             value={confirm_password}
-            name='confirmPassword'
+            name="confirmPassword"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <input
@@ -101,10 +107,12 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
           />
         </div>
         <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
-          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-          <button onClick={handleLogout}>Already have an account? Log in here.</button>
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+          <button onClick={handleLogout}>
+            Already have an account? Log in here.
+          </button>
           <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Signing Up...' : 'Sign Up'}
+            {isLoading ? "Signing Up..." : "Sign Up"}
           </button>
         </div>
       </form>
