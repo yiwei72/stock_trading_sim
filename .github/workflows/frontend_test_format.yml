@@ -57,9 +57,9 @@ jobs:
     - name: commit changes
       run: |
         git config --global user.email "code@format"
-        git config --global user.name "frontend code format"
+        git config --global user.name "frontend code format" 
         git add .
-        git commit -m "format with prettier"
+        git commit -m "format with prettier" || true
   
     - name: Push Changes
       run: |
