@@ -48,7 +48,7 @@ const Buy: React.FC<Props> = ({ handleLogin }) => {
       console.log(response.data);
       //some handle
         setstockval(response.data);
-      if (response.data.resultCode == 200) {
+      if (response.data.resultCode === 200) {
         //get data here
       } else {
         setErrorMessage(response.data.data);

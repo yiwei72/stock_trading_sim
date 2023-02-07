@@ -15,7 +15,6 @@ interface Stock {
   lastUpdated: string;
 }
 const Buy: React.FC<Props> = ({ handleLogin }) => {
-  const [stock1, setStocks] = useState<Stock|null>(null);
   const [UserData, setUserData] = useState<User>({
     firstName:'',
     lastName: '',
@@ -49,7 +48,7 @@ const Buy: React.FC<Props> = ({ handleLogin }) => {
       console.log(response.data);
       //some handle
         setstockval(response.data);
-      if (response.data.resultCode == 200) {
+      if (response.data.resultCode === 200) {
         //get data here
       } else {
         setErrorMessage(response.data.data);
