@@ -60,7 +60,7 @@ const Buy: React.FC<Props> = ({ handleLogin }) => {
     event.preventDefault();
     fetchStockPrice("AAPL").catch(console.error);
   }
-  
+
   return (
     <div>
       <p>First Name: {UserData.firstName}</p>
@@ -84,7 +84,6 @@ const Buy: React.FC<Props> = ({ handleLogin }) => {
           </div>
         )}
         <button type="submit" disabled={isLoading} onClick={handleClickPrice}>
-          
           {isLoading ? "Refreshing" : "Refresh"}
         </button>
         <form onSubmit={handleSubmit}>
