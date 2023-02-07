@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import axios from 'axios';
+import { EmailContext } from '../Context';
 
 interface Props {
   handleLogout: () => void;
@@ -10,28 +12,39 @@ interface User {
   firstName: string;
   lastName: string;
   balance: number;
-}
-interface Stock {
-  symbol: string;
-  averagePrice: number;
-  quantity: number;
-  lastUpdated: string;
+  holding: Array<{
+    assetNumber: number;
+    email: string;
+    stockSymbol: string;
+    price: number;
+    quantity: number;
+    timeStamp: number;
+  }>;
 }
 const Welcome: React.FC<Props> = ({ handleLogout,handleBuy,handleSell }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [stocks, setStocks] = useState<Stock[]>([]);
+  const { email } = useContext(EmailContext);
+  const [user, setUser] = useState<User>({
+    firstName: '',
+    lastName: '',
+    balance: 0,
+    holding: [],
+  });
 
   useEffect(() => {
-    // Fetch user data from the backend API
-    fetch("https://api.example.com/user")
-      .then(response => response.json())
-      .then(data => setUser(data));
-
-    // Fetch stock data from the backend API
-    fetch("https://api.example.com/stocks")
-      .then(response => response.json())
-      .then(data => setStocks(data));
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.post('/api/user/home', { email: email });
+        console.log(email);
+        const { data } = response.data;
+        console.log(data);
+        setUser(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchUserData();
   }, []);
+
   return (
     <div>
       {/* User Information Table */}
@@ -53,30 +66,26 @@ const Welcome: React.FC<Props> = ({ handleLogout,handleBuy,handleSell }) => {
           )}
         </tbody>
       </table>
+
       {/* Stock Information Table */}
       <table>
         <thead>
           <tr>
             <th>Stock Symbol</th>
-            <th>Average Price</th>
+            <th>Price</th>
             <th>Quantity</th>
-            <th>Last Updated</th>
           </tr>
         </thead>
         <tbody>
-          {stocks.map(stock => (
-            <tr key={stock.symbol}>
-              <td>{stock.symbol}</td>
-              <td>{stock.averagePrice}</td>
-              <td>{stock.quantity}</td>
-              <td>{stock.lastUpdated}</td>
+          {user.holding.map(holding => (
+            <tr key={holding.stockSymbol}>
+              <td>{holding.stockSymbol}</td>
+              <td>{holding.price}</td>
+              <td>{holding.quantity}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <div><button onClick={handleBuy}>Buy</button></div>
-      <div><button onClick={handleSell}>Sell</button></div>
-      <br></br>
       <div>
         <button onClick={handleLogout}>Logout</button>
       </div>
