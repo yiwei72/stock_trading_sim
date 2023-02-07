@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import axios from 'axios';
-import { EmailContext } from '../Context';
+import axios from "axios";
+import { EmailContext } from "../Context";
 
 interface LoginProps {
   handleLogin: () => void;
@@ -15,12 +15,12 @@ interface LoginUserData {
 const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
   const { email, updateEmail } = useContext(EmailContext);
   const [loginUserData, setUserData] = useState<LoginUserData>({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -33,9 +33,9 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
 
     try {
       if (!loginUserData.email || !loginUserData.password) {
-        throw new Error('All fields are required');
+        throw new Error("All fields are required");
       }
-      const response = await axios.post('/api/admin/login', loginUserData);
+      const response = await axios.post("/api/admin/login", loginUserData);
       console.log(response.data);
       updateEmail(loginUserData.email);
       console.log(email);
@@ -52,7 +52,10 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
   };
 
   return (
-    <div className="login-container" style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
+    <div
+      className="login-container"
+      style={{ display: "grid", placeItems: "center", columnGap: 20 }}
+    >
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
@@ -70,14 +73,15 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
             value={loginUserData.password}
             onChange={handleInputChange}
           />
-
         </div>
         <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
-          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Logging In...' : 'Log In'}
+            {isLoading ? "Logging In..." : "Log In"}
           </button>
-          <button onClick={handleSignUp}>Don't have an account? Sign up here.</button>
+          <button onClick={handleSignUp}>
+            Don't have an account? Sign up here.
+          </button>
         </div>
       </form>
     </div>

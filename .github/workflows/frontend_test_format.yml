@@ -1,8 +1,9 @@
-name: frontend_test
+name: frontend_test_format
 
 on:
   push:
     branches: [ main ]
+    
   pull_request:
     paths:
       - frontend/**
@@ -19,6 +20,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
 
     - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -44,3 +47,22 @@ jobs:
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+    
+    - name: install prettier 
+      run: npm install --save-dev prettier
+      
+    - name: run the package
+      run: npx prettier --write "**/*.tsx"
+
+    - name: commit changes
+      run: |
+        git config --global user.email "code@format"
+        git config --global user.name "frontend code format" 
+        git add *.tsx
+        git commit -m "format with prettier" || true
+  
+    - name: Push Changes
+      run: |
+        git push
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -4,19 +4,19 @@ import Signup from "./components/Signup";
 import Welcome from "./components/Welcome";
 import Buy from "./components/Buy";
 import Sell from "./components/Sell";
-import { EmailProvider } from './Context';
+import { EmailProvider } from "./Context";
 
-interface Props { }
+interface Props {}
 
 const App: React.FC<Props> = () => {
   const [page, setPage] = useState("login");
 
   const handleLogin = () => setPage("welcome");
   const handleLogout = () => setPage("login");
-  const handleSignUp = () => setPage("signup")
-  const handleBuy = () => setPage("Buy")
-  const handleSell = () => setPage("Sell")
-  
+  const handleSignUp = () => setPage("signup");
+  const handleBuy = () => setPage("Buy");
+  const handleSell = () => setPage("Sell");
+
   return (
     <EmailProvider>
       <div>
@@ -31,16 +31,16 @@ const App: React.FC<Props> = () => {
           </>
         )}
         {page === "welcome" && (
-          <Welcome handleLogout={handleLogout} handleBuy={handleBuy} handleSell={handleSell} />
+          <Welcome
+            handleLogout={handleLogout}
+            handleBuy={handleBuy}
+            handleSell={handleSell}
+          />
         )}
-        {page === "Buy" && (
-          <Buy handleLogin={handleLogin} />
-        )}
-        {page === "Sell" && (
-          <Sell handleLogin={handleLogin} />
-        )}
+        {page === "Buy" && <Buy handleLogin={handleLogin} />}
+        {page === "Sell" && <Sell handleLogin={handleLogin} />}
       </div>
-    </EmailProvider >
+    </EmailProvider>
   );
 };
 

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from 'axios';
-import { EmailContext } from '../Context';
+import axios from "axios";
+import { EmailContext } from "../Context";
 
 interface Props {
   handleLogout: () => void;
-  handleBuy: ()=>void;
-  handleSell: ()=>void;
-
+  handleBuy: () => void;
+  handleSell: () => void;
 }
 interface User {
   firstName: string;
@@ -21,11 +20,11 @@ interface User {
     timeStamp: number;
   }>;
 }
-const Welcome: React.FC<Props> = ({ handleLogout,handleBuy,handleSell }) => {
+const Welcome: React.FC<Props> = ({ handleLogout, handleBuy, handleSell }) => {
   const { email } = useContext(EmailContext);
   const [user, setUser] = useState<User>({
-    firstName: '',
-    lastName: '',
+    firstName: "",
+    lastName: "",
     balance: 0,
     holding: [],
   });
@@ -33,7 +32,7 @@ const Welcome: React.FC<Props> = ({ handleLogout,handleBuy,handleSell }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.post('/api/user/home', { email: email });
+        const response = await axios.post("/api/user/home", { email: email });
         console.log(email);
         const { data } = response.data;
         console.log(data);
@@ -77,7 +76,7 @@ const Welcome: React.FC<Props> = ({ handleLogout,handleBuy,handleSell }) => {
           </tr>
         </thead>
         <tbody>
-          {user.holding.map(holding => (
+          {user.holding.map((holding) => (
             <tr key={holding.stockSymbol}>
               <td>{holding.stockSymbol}</td>
               <td>{holding.price}</td>
@@ -86,8 +85,12 @@ const Welcome: React.FC<Props> = ({ handleLogout,handleBuy,handleSell }) => {
           ))}
         </tbody>
       </table>
-      <div><button onClick={handleBuy}>Buy</button></div>
-      <div><button onClick={handleSell}>Sell</button></div>
+      <div>
+        <button onClick={handleBuy}>Buy</button>
+      </div>
+      <div>
+        <button onClick={handleSell}>Sell</button>
+      </div>
       <br></br>
       <div>
         <button onClick={handleLogout}>Logout</button>
