@@ -1,7 +1,7 @@
 [![codecov](https://codecov.io/gh/yiwei72/ECE651/branch/main/graph/badge.svg?token=1AZGLUY11I)](https://codecov.io/gh/yiwei72/ECE651)
 [![backend_format](https://github.com/yiwei72/ECE651/actions/workflows/backend_format.yml/badge.svg?branch=main)](https://github.com/yiwei72/ECE651/actions/workflows/backend_format.yml)
 [![backend_test](https://github.com/yiwei72/ECE651/actions/workflows/backend_test.yml/badge.svg?branch=main)](https://github.com/yiwei72/ECE651/actions/workflows/backend_test.yml)
-[![frontend_test](https://github.com/yiwei72/ECE651/actions/workflows/frontend_test.yml/badge.svg?branch=main)](https://github.com/yiwei72/ECE651/actions/workflows/frontend_test.yml)
+[![frontend_test_format](https://github.com/yiwei72/ECE651/actions/workflows/frontend_test_format.yml/badge.svg?branch=main)](https://github.com/yiwei72/ECE651/actions/workflows/frontend_test_format.yml)
 # Setups:
 1. clone the repo to your local directory
 2. **Windows/Mac:** install Docker Desktop
