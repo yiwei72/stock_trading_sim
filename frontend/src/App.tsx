@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Welcome from "./components/Welcome";
+import Buy from "./components/Buy";
+import Sell from "./components/Sell";
 
 interface Props { }
 
@@ -11,7 +13,9 @@ const App: React.FC<Props> = () => {
   const handleLogin = () => setPage("welcome");
   const handleLogout = () => setPage("login");
   const handleSignUp = () => setPage("signup")
-
+  const handleBuy = () => setPage("Buy")
+  const handleSell = () => setPage("Sell")
+  
   return (
     <div>
       {page === "login" && (
@@ -25,7 +29,13 @@ const App: React.FC<Props> = () => {
         </>
       )}
       {page === "welcome" && (
-        <Welcome handleLogout={handleLogout} />
+        <Welcome handleLogout={handleLogout} handleBuy={handleBuy} handleSell={handleSell}/>
+      )}
+      {page === "Buy" && (
+        <Buy handleLogin={handleLogin} />
+      )}
+      {page === "Sell" && (
+        <Sell handleLogin={handleLogin} />
       )}
     </div>
   );
