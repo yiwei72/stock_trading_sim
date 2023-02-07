@@ -43,7 +43,7 @@ const Welcome: React.FC<Props> = ({ handleLogout,handleBuy,handleSell }) => {
       }
     };
     fetchUserData();
-  }, []);
+  }, [email]);
 
   return (
     <div>
