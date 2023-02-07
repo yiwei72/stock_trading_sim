@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from 'axios';
+import { EmailContext } from '../Context';
 
 interface LoginProps {
   handleLogin: () => void;
@@ -12,6 +13,7 @@ interface LoginUserData {
 }
 
 const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
+  const { email, updateEmail } = useContext(EmailContext);
   const [loginUserData, setUserData] = useState<LoginUserData>({
     email: '',
     password: '',
@@ -35,6 +37,8 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
       }
       const response = await axios.post('/api/admin/login', loginUserData);
       console.log(response.data);
+      updateEmail(loginUserData.email);
+      console.log(email);
       if (response.data.resultCode === 200) {
         handleLogin();
       } else {

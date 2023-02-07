@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import axios from 'axios';
+import { EmailContext } from '../Context';
 
 
 interface Props {
@@ -9,48 +11,40 @@ interface User {
   firstName: string;
   lastName: string;
   balance: number;
-}
-
-interface Stock {
-  symbol: string;
-  averagePrice: number;
-  quantity: number;
-  lastUpdated: string;
+  holding: Array<{
+    assetNumber: number;
+    email: string;
+    stockSymbol: string;
+    price: number;
+    quantity: number;
+    timeStamp: number;
+  }>;
 }
 
 const Welcome: React.FC<Props> = ({ handleLogout }) => {
-  const sampleUser: User = {
-    firstName: "John",
-    lastName: "Doe",
-    balance: 1000
-  };
-  const samplestock: Stock = {
-    symbol: "a",
-    averagePrice: 1,
-    quantity: 10,
-    lastUpdated: "string"
-  };
-  const stock1: Stock[] = [samplestock];
+  const { email } = useContext(EmailContext);
   
-  const [user, setUser] = useState<User>({...sampleUser});
-  const [stocks, setStocks] = useState<Stock[]>([...stock1]);
+  const [user, setUser] = useState<User>({
+    firstName: '',
+    lastName: '',
+    balance: 0,
+    holding: [],
+  });
 
-  
-  setUser({...sampleUser}); 
-  // const stock1: Stock[] = [samplestock];
-  setStocks([...stock1]);
-  
-  // useEffect(() => {
-  //   // Fetch user data from the backend API
-  //   fetch("https://api.example.com/user")
-  //     .then(response => response.json())
-  //     .then(data => setUser(data));
-
-  //   // Fetch stock data from the backend API
-  //   fetch("https://api.example.com/stocks")
-  //     .then(response => response.json())
-  //     .then(data => setStocks(data));
-  // }, []);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.post('/api/user/home', { email: email });
+        console.log(email);
+        const { data } = response.data;
+        console.log(data);
+        setUser(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   return (
     // <h1>what is gongig on</h1>
@@ -80,18 +74,16 @@ const Welcome: React.FC<Props> = ({ handleLogout }) => {
       <thead>
         <tr>
           <th>Stock Symbol</th>
-          <th>Average Price</th>
+          <th>Price</th>
           <th>Quantity</th>
-          <th>Last Updated</th>
         </tr>
       </thead>
       <tbody>
-        {stocks.map(stock => (
-          <tr key={stock.symbol}>
-            <td>{stock.symbol}</td>
-            <td>{stock.averagePrice}</td>
-            <td>{stock.quantity}</td>
-            <td>{stock.lastUpdated}</td>
+        {user.holding.map(holding => (
+          <tr key={holding.stockSymbol}>
+            <td>{holding.stockSymbol}</td>
+            <td>{holding.price}</td>
+            <td>{holding.quantity}</td>
           </tr>
         ))}
       </tbody>
@@ -100,10 +92,6 @@ const Welcome: React.FC<Props> = ({ handleLogout }) => {
        <button onClick={handleLogout}>Logout</button>
      </div>
   </div>
-    
-    
-    
-  
   );
 };
 

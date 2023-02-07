@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Welcome from "./components/Welcome";
+import { EmailProvider } from './Context';
 
 interface Props { }
 
@@ -13,21 +14,23 @@ const App: React.FC<Props> = () => {
   const handleSignUp = () => setPage("signup")
 
   return (
-    <div>
-      {page === "login" && (
-        <>
-          <Login handleLogin={handleLogin} handleSignUp={handleSignUp}/>
-        </>
-      )}
-      {page === "signup" && (
-        <>
-          <Signup handleLogin={handleLogin} handleLogout={handleLogout}/>
-        </>
-      )}
-      {page === "welcome" && (
-        <Welcome handleLogout={handleLogout} />
-      )}
-    </div>
+    <EmailProvider>
+      <div>
+        {page === "login" && (
+          <>
+            <Login handleLogin={handleLogin} handleSignUp={handleSignUp} />
+          </>
+        )}
+        {page === "signup" && (
+          <>
+            <Signup handleLogin={handleLogin} handleLogout={handleLogout} />
+          </>
+        )}
+        {page === "welcome" && (
+          <Welcome handleLogout={handleLogout} />
+        )}
+      </div>
+    </EmailProvider>
   );
 };
 
