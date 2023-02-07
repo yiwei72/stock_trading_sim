@@ -44,7 +44,7 @@ const Welcome: React.FC<Props> = ({ handleLogout }) => {
       }
     };
     fetchUserData();
-  }, []);
+  }, [email]);
 
   return (
     // <h1>what is gongig on</h1>
