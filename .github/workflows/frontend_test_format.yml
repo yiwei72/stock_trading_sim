@@ -20,6 +20,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
 
     - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -61,6 +63,6 @@ jobs:
   
     - name: Push Changes
       run: |
-        git push origin ${{ github.ref }}
+        git push
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
