@@ -1,5 +1,6 @@
-import React, { useState }  from "react";
+import React, { useState, useContext } from "react";
 import axios from 'axios';
+import { EmailContext } from '../Context';
 
 interface SignupProps {
   handleLogin: () => void;
@@ -14,6 +15,7 @@ interface SignupUserData {
 }
 
 const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
+  const { email, updateEmail } = useContext(EmailContext);
   const [confirm_password, setConfirmPassword] = useState("");
   const [signupUserData, setUserData] = useState<SignupUserData>({
     email: '',
@@ -43,6 +45,8 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
       }
       const response = await axios.post('/api/admin/signup', signupUserData);
       console.log(response.data);
+      updateEmail(signupUserData.email);
+      console.log(email);
       if (response.data.resultCode === 200) {
         handleLogin();
       } else {
