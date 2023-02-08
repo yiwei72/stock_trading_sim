@@ -18,6 +18,7 @@ To resolve this issue, you should wrap the getStockPrice function in another fun
 export async function fetchStockPrice(symbol: string) {
   const stockPrice = await getStockPrice(symbol).catch(console.error);
   console.log(stockPrice);
+  return stockPrice;
 }
 //tsc alphavantageapi.ts to generate .js file
 //node alphavantageapi.js to test this file function, should print out the stock most recent data with high low, price, volume, etc
