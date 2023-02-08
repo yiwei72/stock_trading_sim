@@ -37,27 +37,27 @@ const Buy: React.FC<Props> = ({ handleLogin }) => {
   //   setstocksymbol(value);
   // };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsLoading(true);
+  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   setIsLoading(true);
 
-    try {
-      //maybe some input restriction
-      const response = await axios.post("/api/admin/login", stockSymbol);
-      console.log(response.data);
-      //some handle
-      setStockVal(response.data);
-      if (response.data.resultCode === 200) {
-        //get data here
-      } else {
-        setErrorMessage(response.data.data);
-      }
-    } catch (error: any) {
-      setErrorMessage(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //   try {
+  //     //maybe some input restriction
+  //     const response = await axios.post("/api/admin/login", stockSymbol);
+  //     console.log(response.data);
+  //     //some handle
+  //     setStockVal(response.data);
+  //     if (response.data.resultCode === 200) {
+  //       //get data here
+  //     } else {
+  //       setErrorMessage(response.data.data);
+  //     }
+  //   } catch (error: any) {
+  //     setErrorMessage(error.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
   async function handleClickPrice(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     setStockVal(await fetchStockPrice(stockSymbol).catch(console.error));
