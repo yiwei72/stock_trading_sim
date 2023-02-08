@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { fetchStockPrice } from "./Api";
 interface Props {
   handleLogin: () => void;
@@ -60,8 +60,18 @@ const Buy: React.FC<Props> = ({ handleLogin }) => {
   // };
   async function handleClickPrice(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    setStockVal(await fetchStockPrice(stockSymbol).catch(console.error));
-    setLastUpdateTime(new Date().toLocaleString());
+    setIsLoading(true);
+    try {
+      if (!stockSymbol) {
+        throw new Error("Stock Symbol is required");
+      }
+      setStockVal(await fetchStockPrice(stockSymbol).catch(console.error));
+      setLastUpdateTime(new Date().toLocaleString());
+    } catch (error: any) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
