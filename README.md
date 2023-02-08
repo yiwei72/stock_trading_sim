@@ -18,25 +18,24 @@
 # How to work on the project:
 ## Switch to a new branch. Do not work on the "main" branch.
 
-### Windows/Mac:
-1. Open **Docker Desktop**
-2. Select **Dev Environments** on the left panel
-3. Click **Create a new environment** in the middle
-4. Click **Get Started**
-5. Under **Choose source**, select **Local directory** and put in where you cloned the repo.
-6. Continue to the end & **wait** for the environment to finish preparation.
-7. Open "127.0.0.1" on your browser and do your test/checking.
-8. Under "Dev Environments", **Stop** the running env. **DO NOT DELETE**.
-9. Modify your code.
-10. After the code is modified, **Start** the running env.
-11. back to step 7.
-
-### Linux:
-1. use `cd` command to go into the repo directory.
+### Windows/Mac/Linux:
+1. use `cd` command to go into the project code directory (Windows: powershell, Mac/Linux: terminal).
 2. run `docker-compile up`. The docker containers will keep running in the terminal. It does not stop.
 3. Open "127.0.0.1" on your browser and do your test/checking. Modify your code.
-4. In the running terminal from step 2, use **ctrl+c** to end the docker container process.
-5. back to step 2
+5. After you are done, use "ctrl + c" to terminate the docker containers.
+<br/><br/>
+
+# How to run tests and get test coverage reports locally:
+## Frontend:
+1. `cd frontent` to change directory into the frontend
+2. run `npm install`, `npm run build` and `npm test` in that order for the first time. Only run `npm run build` and `npm test` afterwards, unless there is a package version change.
+3. open `frontend/coverage/lcov-report/index.html` to view the coverage report.
+
+## Backend:
+1. `cd backend`
+2. run `mvn clean test jacoco:report`
+3. open `backend/target/site/jacoco/index.html` to view the coverage report.
+
 
 <br/><br/>
 # AWS Database login:

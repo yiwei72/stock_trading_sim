@@ -80,3 +80,9 @@ compose-dev.yaml
 
 # backend maven build directory
 backend/target
+
+# frontend code coverage report directory
+frontend/coverage
+
+# frontend local libray directory
+frontend/node_modules
