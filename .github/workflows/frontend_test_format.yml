@@ -41,7 +41,7 @@ jobs:
     - name: Run the tests and generate coverage report
       run: |
         cd frontend/
-        npm test -- --coverage
+        npm test
         
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
