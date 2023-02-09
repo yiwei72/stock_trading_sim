@@ -1,18 +1,14 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
-
-interface LoginProps {
-  handleLogin: () => void;
-  handleSignUp: () => void;
-}
+import { useNavigate } from "react-router-dom";
 
 interface LoginUserData {
   email: string;
   password: string;
 }
 
-const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
+const Login: React.FC = () => {
   const { email, updateEmail } = useContext(EmailContext);
   const [loginUserData, setUserData] = useState<LoginUserData>({
     email: "",
@@ -21,6 +17,12 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/signup");
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -40,9 +42,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
       updateEmail(loginUserData.email);
       console.log(email);
       if (response.data.resultCode === 200) {
-        handleLogin();
-      } else {
-        setErrorMessage(response.data.data);
+        navigate("/welcome");
       }
     } catch (error: any) {
       setErrorMessage(error.message);
@@ -79,7 +79,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
           <button type="submit" disabled={isLoading}>
             {isLoading ? "Logging In..." : "Log In"}
           </button>
-          <button onClick={handleSignUp}>
+          <button onClick={handleClick}>
             Don't have an account? Sign up here.
           </button>
         </div>
