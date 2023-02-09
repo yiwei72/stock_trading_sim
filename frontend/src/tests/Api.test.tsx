@@ -14,7 +14,7 @@ describe('fetchStockPrice', () => {
     });
 
     const stockPrice = await fetchStockPrice('AAPL');
-
+    //testing range
     expect(stockPrice).toBeGreaterThanOrEqual(100);
     expect(stockPrice).toBeLessThanOrEqual(200);
     expect(axios.get).toHaveBeenCalledWith(
