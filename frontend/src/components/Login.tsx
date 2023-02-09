@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
+import { useNavigate } from 'react-router-dom';
 
 interface LoginProps {
   handleLogin: () => void;
@@ -12,15 +13,40 @@ interface LoginUserData {
   password: string;
 }
 
+// interface User {
+//   firstName: string;
+//   lastName: string;
+//   balance: number;
+//   holding: StockHolding[];
+// }
+
+// interface StockHolding {
+//   assetNumber: number;
+//   email: string;
+//   stockSymbol: string;
+//   price: number;
+//   quantity: number;
+//   timeStamp: number;
+// }
+
+// const Login: React.FC = () => {
+
 const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
   const { email, updateEmail } = useContext(EmailContext);
   const [loginUserData, setUserData] = useState<LoginUserData>({
     email: "",
     password: "",
   });
+  // const [user, setUser] = useState<User | null>(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // const navigate = useNavigate();
+
+  // const handleClick = () => {
+  //   navigate("/Signup");
+  // };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -41,8 +67,16 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
       console.log(email);
       if (response.data.resultCode === 200) {
         handleLogin();
-      } else {
-        setErrorMessage(response.data.data);
+      
+      // const responseLogin = await axios.post('/api/admin/login', loginUserData);
+      // console.log(responseLogin.data);
+      // if (responseLogin.data.resultCode === 200) {
+      //   const responseUser = await axios.post('/api/user/home', { email: loginUserData.email });
+      //   setUser(responseUser.data.data);
+      //   console.log(user);
+      //   navigate("/Welcome", { state: { user: responseUser.data.data } });
+      // } else {
+      //   setErrorMessage(responseLogin.data.data);
       }
     } catch (error: any) {
       setErrorMessage(error.message);
@@ -82,6 +116,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
           <button onClick={handleSignUp}>
             Don't have an account? Sign up here.
           </button>
+          {/* <button onClick={handleClick}>Don't have an account? Sign up here.</button> */}
         </div>
       </form>
     </div>

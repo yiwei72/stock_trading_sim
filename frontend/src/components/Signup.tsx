@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
+import { useNavigate } from 'react-router-dom';
 
 interface SignupProps {
   handleLogin: () => void;
@@ -14,6 +15,24 @@ interface SignupUserData {
   lastName: string;
 }
 
+// interface User {
+//   firstName: string;
+//   lastName: string;
+//   balance: number;
+//   holding: StockHolding[];
+// }
+
+// interface StockHolding {
+//   assetNumber: number;
+//   email: string;
+//   stockSymbol: string;
+//   price: number;
+//   quantity: number;
+//   timeStamp: number;
+// }
+
+// const Signup: React.FC = () => {
+
 const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
   const { email, updateEmail } = useContext(EmailContext);
   const [confirm_password, setConfirmPassword] = useState("");
@@ -23,9 +42,16 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
     firstName: "",
     lastName: "",
   });
+  // const [user, setUser] = useState<User | null>(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // const navigate = useNavigate();
+
+  // const handleClick = () => {
+  //   navigate("/Login");
+  // };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -54,7 +80,10 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
       updateEmail(signupUserData.email);
       console.log(email);
       if (response.data.resultCode === 200) {
-        handleLogin();
+        const responseUser = await axios.post('/api/user/home', { email: signupUserData.email });
+        // setUser(responseUser.data.data);
+        // console.log(user);
+        // navigate("/Welcome", { state: { user: responseUser.data.data } });
       } else {
         setErrorMessage(response.data.data);
       }
@@ -111,6 +140,8 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
           <button onClick={handleLogout}>
             Already have an account? Log in here.
           </button>
+          {/* {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          <button onClick={handleClick}>Already have an account? Log in here.</button> */}
           <button type="submit" disabled={isLoading}>
             {isLoading ? "Signing Up..." : "Sign Up"}
           </button>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface Props {
   handleLogout: () => void;
@@ -20,6 +21,9 @@ interface User {
     timeStamp: number;
   }>;
 }
+
+// const Welcome: React.FC<{}> = () => {
+
 const Welcome: React.FC<Props> = ({ handleLogout, handleBuy, handleSell }) => {
   const { email } = useContext(EmailContext);
   const [user, setUser] = useState<User>({
@@ -43,6 +47,14 @@ const Welcome: React.FC<Props> = ({ handleLogout, handleBuy, handleSell }) => {
     };
     fetchUserData();
   }, [email]);
+
+  // const navigate = useNavigate();
+  // const handleClick = () => {
+  //   navigate("/Login");
+  // };
+  
+
+  // const user = useLocation().state as User;
 
   return (
     <div>

@@ -41,6 +41,19 @@ const App: React.FC<Props> = () => {
         {page === "Sell" && <Sell handleLogin={handleLogin} />}
       </div>
     </EmailProvider>
+    
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// const App: React.FC = () => {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<Login />} />
+//         <Route path="/Login" element={<Login />} />
+//         <Route path="/Signup" element={<Signup />} />
+//         <Route path="/Welcome" element={<Welcome />} />
+//       </Routes>
+//     </Router>
   );
 };
 
