@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
+import { useNavigate } from "react-router-dom";
 
-interface Props {
-  handleLogout: () => void;
-  handleBuy: () => void;
-  handleSell: () => void;
-}
 interface User {
   firstName: string;
   lastName: string;
@@ -20,7 +16,8 @@ interface User {
     timeStamp: number;
   }>;
 }
-const Welcome: React.FC<Props> = ({ handleLogout, handleBuy, handleSell }) => {
+
+const Welcome: React.FC = () => {
   const { email } = useContext(EmailContext);
   const [user, setUser] = useState<User>({
     firstName: "",
@@ -29,7 +26,10 @@ const Welcome: React.FC<Props> = ({ handleLogout, handleBuy, handleSell }) => {
     holding: [],
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
+    setIsLoading(true);
     const fetchUserData = async () => {
       try {
         const response = await axios.post("/api/user/home", { email: email });
@@ -39,10 +39,26 @@ const Welcome: React.FC<Props> = ({ handleLogout, handleBuy, handleSell }) => {
         setUser(data);
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchUserData();
   }, [email]);
+
+  const navigate = useNavigate();
+
+  const handleClickBuy = () => {
+    navigate("/buy", { state: { user: user } });
+  };
+
+  const handleClickSell = () => {
+    navigate("/sell", { state: { user: user } });
+  };
+
+  const handleClickLogout = () => {
+    navigate("/login");
+  };
 
   return (
     <div>
@@ -86,14 +102,18 @@ const Welcome: React.FC<Props> = ({ handleLogout, handleBuy, handleSell }) => {
         </tbody>
       </table>
       <div>
-        <button onClick={handleBuy}>Buy</button>
+        <button onClick={handleClickBuy} disabled={isLoading}>
+          Buy
+        </button>
       </div>
       <div>
-        <button onClick={handleSell}>Sell</button>
+        <button onClick={handleClickSell} disabled={isLoading}>
+          Sell
+        </button>
       </div>
       <br></br>
       <div>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleClickLogout}>Logout</button>
       </div>
     </div>
   );

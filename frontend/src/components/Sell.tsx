@@ -1,24 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import axios from "axios";
 import { fetchStockPrice } from "./Api";
-interface Props {
-  handleLogin: () => void;
-}
-interface User {
-  firstName: string;
-  lastName: string;
-  balance: number;
-}
+import { useNavigate, useLocation } from "react-router-dom";
+
+// interface User {
+//   firstName: string;
+//   lastName: string;
+//   balance: number;
+// }
 // interface Stock {
 //   val: number;
 //   lastUpdated: string;
 // }
-const Buy: React.FC<Props> = ({ handleLogin }) => {
-  const [UserData, setUserData] = useState<User>({
-    firstName: "",
-    lastName: "",
-    balance: 0,
-  });
+
+const Sell: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/welcome");
+  };
+
+  // const [UserData, setUserData] = useState<User>({
+  //   firstName: "",
+  //   lastName: "",
+  //   balance: 0,
+  // });
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -26,16 +32,20 @@ const Buy: React.FC<Props> = ({ handleLogin }) => {
   const [stockVal, setStockVal] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState("");
   const [amount, setAmount] = useState(0);
-  useEffect(() => {
-    // Fetch user data from the backend API
-    fetch("https://api.example.com/user")
-      .then((response) => response.json())
-      .then((data) => setUserData(data));
-  }, []);
+  // useEffect(() => {
+  //   // Fetch user data from the backend API
+  //   fetch("https://api.example.com/user")
+  //     .then((response) => response.json())
+  //     .then((data) => setUserData(data));
+  // }, []);
   // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   const { value } = event.target;
   //   setstocksymbol(value);
   // };
+
+  const {
+    state: { user },
+  } = useLocation();
 
   // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   //   event.preventDefault();
@@ -76,9 +86,9 @@ const Buy: React.FC<Props> = ({ handleLogin }) => {
 
   return (
     <div>
-      <p>First Name: {UserData.firstName}</p>
-      <p>Last Name: {UserData.lastName}</p>
-      <p>Balance: {UserData.balance}</p>
+      <p>First Name: {user.firstName}</p>
+      <p>Last Name: {user.lastName}</p>
+      <p>Balance: {user.balance}</p>
       <div>
         <label>Stock Symbol:</label>
         <input
@@ -109,10 +119,10 @@ const Buy: React.FC<Props> = ({ handleLogin }) => {
           {isLoading ? "Selling" : "Sell"}
         </button>
         <br></br>
-        <button onClick={handleLogin}>Go back to welcome</button>
+        <button onClick={handleClick}>Go back to welcome</button>
       </div>
     </div>
   );
 };
 
-export default Buy;
+export default Sell;

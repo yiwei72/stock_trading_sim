@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { render, fireEvent, waitFor, act } from "@testing-library/react";
+import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Login from "../components/Login";
 
 jest.mock("axios", () => ({
@@ -8,12 +9,19 @@ jest.mock("axios", () => ({
   post: jest.fn(() => Promise.resolve({ data: {} })),
 }));
 
+jest.mock("react-router-dom", () => {
+  return {
+    ...jest.requireActual("react-router-dom"),
+    useNavigate: jest.fn(),
+  };
+});
+
 describe("Test Login component", () => {
   it("email and password input boxes can be filled correctly", () => {
-    const handleLogin = jest.fn();
-    const handleSignUp = jest.fn();
     const { getByPlaceholderText } = render(
-      <Login handleLogin={handleLogin} handleSignUp={handleSignUp} />
+      <Router>
+        <Login />
+      </Router>
     );
 
     const emailInput = getByPlaceholderText("Email");
@@ -30,10 +38,10 @@ describe("Test Login component", () => {
   });
 
   it("displays an error message when email or password is missing", () => {
-    const handleLogin = jest.fn();
-    const handleSignUp = jest.fn();
     const { getByPlaceholderText, getByText } = render(
-      <Login handleLogin={handleLogin} handleSignUp={handleSignUp} />
+      <Router>
+        <Login />
+      </Router>
     );
 
     const emailInput = getByPlaceholderText("Email");
@@ -53,8 +61,6 @@ describe("Test Login component", () => {
 
   it("should make a POST request to the correct endpoint", async () => {
     // Arrange
-    const handleLogin = jest.fn();
-    const handleSignUp = jest.fn();
     const loginUserData = {
       email: "test@email.com",
       password: "password123",
@@ -63,7 +69,9 @@ describe("Test Login component", () => {
 
     // Act
     const { getByPlaceholderText, getByText } = render(
-      <Login handleLogin={handleLogin} handleSignUp={handleSignUp} />
+      <Router>
+        <Login />
+      </Router>
     );
     const emailInput = getByPlaceholderText("Email");
     const passwordInput = getByPlaceholderText("Password");
@@ -84,12 +92,14 @@ describe("Test Login component", () => {
     });
   });
 
-  it("calls handleLogin function when response from server has result code 200", async () => {
-    const handleLogin = jest.fn();
-    const handleSignUp = jest.fn();
+  it("calls navigate function when response from server has result code 200", async () => {
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
 
     const { getByPlaceholderText, getByText } = render(
-      <Login handleLogin={handleLogin} handleSignUp={handleSignUp} />
+      <Router>
+        <Login />
+      </Router>
     );
 
     const emailInput = getByPlaceholderText("Email");
@@ -107,6 +117,6 @@ describe("Test Login component", () => {
     fireEvent.click(submitButton);
     await new Promise((resolve) => setTimeout(resolve, 0));
 
-    expect(handleLogin).toHaveBeenCalled();
+    expect(navigate).toHaveBeenCalledWith("/welcome");
   });
 });

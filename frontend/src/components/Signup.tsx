@@ -1,11 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
-
-interface SignupProps {
-  handleLogin: () => void;
-  handleLogout: () => void;
-}
+import { useNavigate } from "react-router-dom";
 
 interface SignupUserData {
   email: string;
@@ -14,7 +10,7 @@ interface SignupUserData {
   lastName: string;
 }
 
-const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
+const Signup: React.FC = () => {
   const { email, updateEmail } = useContext(EmailContext);
   const [confirm_password, setConfirmPassword] = useState("");
   const [signupUserData, setUserData] = useState<SignupUserData>({
@@ -26,6 +22,12 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/login");
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -54,7 +56,7 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
       updateEmail(signupUserData.email);
       console.log(email);
       if (response.data.resultCode === 200) {
-        handleLogin();
+        navigate("/welcome");
       } else {
         setErrorMessage(response.data.data);
       }
@@ -108,7 +110,7 @@ const Signup: React.FC<SignupProps> = ({ handleLogin, handleLogout }) => {
         </div>
         <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-          <button onClick={handleLogout}>
+          <button onClick={handleClick}>
             Already have an account? Log in here.
           </button>
           <button type="submit" disabled={isLoading}>
