@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { render, fireEvent, waitFor, act } from "@testing-library/react";
+import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Signup from "../components/Signup";
 
 jest.mock("axios", () => ({
@@ -8,12 +9,19 @@ jest.mock("axios", () => ({
   post: jest.fn(() => Promise.resolve({ data: {} })),
 }));
 
+jest.mock('react-router-dom', () => {
+  return {
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: jest.fn(),
+  };
+});
+
 describe("Test Signup component", () => {
   it("all input boxes can be filled correctly", () => {
-    const handleLogin = jest.fn();
-    const handleLogout = jest.fn();
     const { getByPlaceholderText } = render(
-      <Signup handleLogin={handleLogin} handleLogout={handleLogout} />
+      <Router>
+        <Signup />
+      </Router>
     );
 
     const emailInput = getByPlaceholderText("Email");
@@ -48,10 +56,10 @@ describe("Test Signup component", () => {
   });
 
   it("displays an error message when any input is missing", () => {
-    const handleLogin = jest.fn();
-    const handleLogout = jest.fn();
     const { getByPlaceholderText, getByText } = render(
-      <Signup handleLogin={handleLogin} handleLogout={handleLogout} />
+      <Router>
+        <Signup />
+      </Router>
     );
 
     const emailInput = getByPlaceholderText("Email");
@@ -85,10 +93,10 @@ describe("Test Signup component", () => {
   });
 
   it("displays an error message when password and confirm_password do not match", () => {
-    const handleLogin = jest.fn();
-    const handleLogout = jest.fn();
     const { getByPlaceholderText, getByText } = render(
-      <Signup handleLogin={handleLogin} handleLogout={handleLogout} />
+      <Router>
+        <Signup />
+      </Router>
     );
 
     const emailInput = getByPlaceholderText("Email");
@@ -121,5 +129,41 @@ describe("Test Signup component", () => {
 
     const errorMessage = getByText("Password and confirm password must match");
     expect(errorMessage).toBeDefined();
+  });
+
+  it("calls navigate function when response from server has result code 200", async () => {
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
+
+
+    const { getByPlaceholderText, getByText } = render(
+      <Router>
+        <Signup />
+      </Router>
+    );
+
+    const emailInput = getByPlaceholderText("Email");
+    const passwordInput = getByPlaceholderText("Password");
+    const confirmPasswordInput = getByPlaceholderText("Confirm Password");
+    const firstNameInput = getByPlaceholderText("Your First Name");
+    const lastNameInput = getByPlaceholderText("Your Last Name");
+
+    const submitButton = getByText("Sign Up");
+
+    fireEvent.change(emailInput, { target: { value: "test@email.com" } });
+    fireEvent.change(passwordInput, { target: { value: "password" } });
+    fireEvent.change(confirmPasswordInput, { target: { value: "password" } });
+    fireEvent.change(firstNameInput, { target: { value: "FirstName" } });
+    fireEvent.change(lastNameInput, { target: { value: "LastName" } });
+
+    const responseData = { resultCode: 200 };
+    (
+      axios.post as jest.MockedFunction<typeof axios.post>
+    ).mockResolvedValueOnce({ data: responseData });
+
+    fireEvent.click(submitButton);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(navigate).toHaveBeenCalledWith('/welcome');
   });
 });

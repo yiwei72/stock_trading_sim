@@ -3,50 +3,26 @@ import axios from "axios";
 import { EmailContext } from "../Context";
 import { useNavigate } from 'react-router-dom';
 
-interface LoginProps {
-  handleLogin: () => void;
-  handleSignUp: () => void;
-}
-
 interface LoginUserData {
   email: string;
   password: string;
 }
 
-// interface User {
-//   firstName: string;
-//   lastName: string;
-//   balance: number;
-//   holding: StockHolding[];
-// }
-
-// interface StockHolding {
-//   assetNumber: number;
-//   email: string;
-//   stockSymbol: string;
-//   price: number;
-//   quantity: number;
-//   timeStamp: number;
-// }
-
-// const Login: React.FC = () => {
-
-const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
+const Login: React.FC = () => {
   const { email, updateEmail } = useContext(EmailContext);
   const [loginUserData, setUserData] = useState<LoginUserData>({
     email: "",
     password: "",
   });
-  // const [user, setUser] = useState<User | null>(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const handleClick = () => {
-  //   navigate("/Signup");
-  // };
+  const handleClick = () => {
+    navigate("/signup");
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -66,17 +42,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
       updateEmail(loginUserData.email);
       console.log(email);
       if (response.data.resultCode === 200) {
-        handleLogin();
-      
-      // const responseLogin = await axios.post('/api/admin/login', loginUserData);
-      // console.log(responseLogin.data);
-      // if (responseLogin.data.resultCode === 200) {
-      //   const responseUser = await axios.post('/api/user/home', { email: loginUserData.email });
-      //   setUser(responseUser.data.data);
-      //   console.log(user);
-      //   navigate("/Welcome", { state: { user: responseUser.data.data } });
-      // } else {
-      //   setErrorMessage(responseLogin.data.data);
+        navigate("/welcome");
       }
     } catch (error: any) {
       setErrorMessage(error.message);
@@ -113,10 +79,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, handleSignUp }) => {
           <button type="submit" disabled={isLoading}>
             {isLoading ? "Logging In..." : "Log In"}
           </button>
-          <button onClick={handleSignUp}>
-            Don't have an account? Sign up here.
-          </button>
-          {/* <button onClick={handleClick}>Don't have an account? Sign up here.</button> */}
+          <button onClick={handleClick}>Don't have an account? Sign up here.</button>
         </div>
       </form>
     </div>
