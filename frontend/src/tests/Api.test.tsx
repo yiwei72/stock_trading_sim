@@ -8,7 +8,7 @@ describe('fetchStockPrice', () => {
     (axios.get as jest.Mocked<any>).mockResolvedValue({
       data: {
         'Global Quote': {
-          '05. price': '150.00'
+          '05. price': 150.00
         }
       }
     });
