@@ -9,9 +9,9 @@ jest.mock("axios", () => ({
   post: jest.fn(() => Promise.resolve({ data: {} })),
 }));
 
-jest.mock('react-router-dom', () => {
+jest.mock("react-router-dom", () => {
   return {
-    ...jest.requireActual('react-router-dom'),
+    ...jest.requireActual("react-router-dom"),
     useNavigate: jest.fn(),
   };
 });
@@ -135,7 +135,6 @@ describe("Test Signup component", () => {
     const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);
 
-
     const { getByPlaceholderText, getByText } = render(
       <Router>
         <Signup />
@@ -164,6 +163,6 @@ describe("Test Signup component", () => {
     fireEvent.click(submitButton);
     await new Promise((resolve) => setTimeout(resolve, 0));
 
-    expect(navigate).toHaveBeenCalledWith('/welcome');
+    expect(navigate).toHaveBeenCalledWith("/welcome");
   });
 });

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 interface LoginUserData {
   email: string;
@@ -79,7 +79,9 @@ const Login: React.FC = () => {
           <button type="submit" disabled={isLoading}>
             {isLoading ? "Logging In..." : "Log In"}
           </button>
-          <button onClick={handleClick}>Don't have an account? Sign up here.</button>
+          <button onClick={handleClick}>
+            Don't have an account? Sign up here.
+          </button>
         </div>
       </form>
     </div>

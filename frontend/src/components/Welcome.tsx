@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 interface User {
   firstName: string;
@@ -102,10 +102,14 @@ const Welcome: React.FC = () => {
         </tbody>
       </table>
       <div>
-        <button onClick={handleClickBuy} disabled={isLoading}>Buy</button>
+        <button onClick={handleClickBuy} disabled={isLoading}>
+          Buy
+        </button>
       </div>
       <div>
-        <button onClick={handleClickSell} disabled={isLoading}>Sell</button>
+        <button onClick={handleClickSell} disabled={isLoading}>
+          Sell
+        </button>
       </div>
       <br></br>
       <div>

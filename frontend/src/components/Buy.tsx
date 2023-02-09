@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import axios from "axios";
 import { fetchStockPrice } from "./Api";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 
 // interface User {
 //   firstName: string;
@@ -43,29 +43,31 @@ const Buy: React.FC = () => {
   //   setstocksymbol(value);
   // };
 
-  const { state: { user } } = useLocation();
+  const {
+    state: { user },
+  } = useLocation();
 
   // const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
   //   event.preventDefault();
 
-    // setIsLoading(true);
+  // setIsLoading(true);
 
-    // try {
-    //   //maybe some input restriction
-    //   const response = await axios.post("/api/admin/login", stockSymbol);
-    //   console.log(response.data);
-    //   //some handle
-    //   setStockVal(response.data);
-    //   if (response.data.resultCode === 200) {
-    //     //get data here
-    //   } else {
-    //     setErrorMessage(response.data.data);
-    //   }
-    // } catch (error: any) {
-    //   setErrorMessage(error.message);
-    // } finally {
-    //   setIsLoading(false);
-    // }
+  // try {
+  //   //maybe some input restriction
+  //   const response = await axios.post("/api/admin/login", stockSymbol);
+  //   console.log(response.data);
+  //   //some handle
+  //   setStockVal(response.data);
+  //   if (response.data.resultCode === 200) {
+  //     //get data here
+  //   } else {
+  //     setErrorMessage(response.data.data);
+  //   }
+  // } catch (error: any) {
+  //   setErrorMessage(error.message);
+  // } finally {
+  //   setIsLoading(false);
+  // }
   // };
 
   async function handleClickPrice(event: React.MouseEvent<HTMLButtonElement>) {

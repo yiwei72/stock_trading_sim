@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import axios from "axios";
 import { fetchStockPrice } from "./Api";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 
 // interface User {
 //   firstName: string;
@@ -43,7 +43,9 @@ const Sell: React.FC = () => {
   //   setstocksymbol(value);
   // };
 
-  const { state: { user } } = useLocation();
+  const {
+    state: { user },
+  } = useLocation();
 
   // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   //   event.preventDefault();
