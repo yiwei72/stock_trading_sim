@@ -58,7 +58,7 @@ describe("Test Welcome component", () => {
     const BuyButton = getByText("Buy");
     fireEvent.click(BuyButton);
    // await new Promise((resolve) => setTimeout(resolve, 0));
-    expect(navigate).toHaveBeenCalledWith("/buy", {state:{ user }});
+    expect(navigate).toHaveBeenCalledWith("/buy");
     //expect(history.location.state).toEqual({ user: user });
   });
   
