@@ -121,9 +121,8 @@ describe("Test Login component", () => {
         <Login />
       </Router>
     );
-    const signupButton = getByText("Don't have an account? Sign up here.")
+    const signupButton = getByText("Don't have an account? Sign up here.");
     fireEvent.click(signupButton);
     expect(navigate).toHaveBeenCalledWith("/signup");
   });
-  
 });
