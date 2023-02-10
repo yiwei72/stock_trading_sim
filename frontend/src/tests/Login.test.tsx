@@ -123,7 +123,7 @@ describe("Test Login component", () => {
     );
     const signupButton = getByText("Don't have an account? Sign up here.")
     fireEvent.click(signupButton);
-    expect(navigate).toHaveBeenCalledWith("/Signup");
+    expect(navigate).toHaveBeenCalledWith("/signup");
   });
   
 });
