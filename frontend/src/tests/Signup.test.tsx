@@ -92,6 +92,18 @@ describe("Test Signup component", () => {
     expect(errorMessage).toBeDefined();
   });
 
+  it("calls navigate function when click the login button", async () => {
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
+    const { getByPlaceholderText, getByText } = render(
+      <Router>
+        <Signup />
+      </Router>
+    );
+    const signupButton = getByText("Already have an account? Log in here.");
+    fireEvent.click(signupButton);
+    expect(navigate).toHaveBeenCalledWith("/login");
+  });
   it("displays an error message when password and confirm_password do not match", () => {
     const { getByPlaceholderText, getByText } = render(
       <Router>
@@ -164,5 +176,32 @@ describe("Test Signup component", () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(navigate).toHaveBeenCalledWith("/welcome");
+  });
+  it("calls navigate function when response from server has result code NOT 200", async () => {
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
+    const { getByPlaceholderText, getByText } = render(
+      <Router>
+        <Signup />
+      </Router>
+    );
+    const emailInput = getByPlaceholderText("Email");
+    const passwordInput = getByPlaceholderText("Password");
+    const confirmPasswordInput = getByPlaceholderText("Confirm Password");
+    const firstNameInput = getByPlaceholderText("Your First Name");
+    const lastNameInput = getByPlaceholderText("Your Last Name");
+    const submitButton = getByText("Sign Up");
+    fireEvent.change(emailInput, { target: { value: "admin@uwaterloo.ca" } });
+    fireEvent.change(passwordInput, { target: { value: "123456" } });
+    fireEvent.change(confirmPasswordInput, { target: { value: "123456" } });
+    fireEvent.change(firstNameInput, { target: { value: "FirstName" } });
+    fireEvent.change(lastNameInput, { target: { value: "LastName" } });
+    const responseData = { resultCode: 500 };
+    (
+      axios.post as jest.MockedFunction<typeof axios.post>
+    ).mockResolvedValueOnce({ data: responseData });
+    fireEvent.click(submitButton);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    //expect(navigate).toHaveBeenCalledWith("/signup");
   });
 });

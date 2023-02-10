@@ -3,7 +3,7 @@ import React from "react";
 import { render, fireEvent, waitFor, act } from "@testing-library/react";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Login from "../components/Login";
-
+import Signup from "../components/Signup";
 jest.mock("axios", () => ({
   get: jest.fn(() => Promise.resolve({ data: {} })),
   post: jest.fn(() => Promise.resolve({ data: {} })),
@@ -95,28 +95,34 @@ describe("Test Login component", () => {
   it("calls navigate function when response from server has result code 200", async () => {
     const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);
-
     const { getByPlaceholderText, getByText } = render(
       <Router>
         <Login />
       </Router>
     );
-
     const emailInput = getByPlaceholderText("Email");
     const passwordInput = getByPlaceholderText("Password");
     const submitButton = getByText("Log In");
-
+    const responseData = { resultCode: 200 };
     fireEvent.change(emailInput, { target: { value: "test@email.com" } });
     fireEvent.change(passwordInput, { target: { value: "password" } });
-
-    const responseData = { resultCode: 200 };
     (
       axios.post as jest.MockedFunction<typeof axios.post>
     ).mockResolvedValueOnce({ data: responseData });
-
     fireEvent.click(submitButton);
     await new Promise((resolve) => setTimeout(resolve, 0));
-
     expect(navigate).toHaveBeenCalledWith("/welcome");
+  });
+  it("calls navigate function when click the signup button", async () => {
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
+    const { getByPlaceholderText, getByText } = render(
+      <Router>
+        <Login />
+      </Router>
+    );
+    const signupButton = getByText("Don't have an account? Sign up here.");
+    fireEvent.click(signupButton);
+    expect(navigate).toHaveBeenCalledWith("/signup");
   });
 });
