@@ -92,6 +92,18 @@ describe("Test Signup component", () => {
     expect(errorMessage).toBeDefined();
   });
 
+  it("calls navigate function when click the login button", async () => {
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
+    const { getByPlaceholderText, getByText } = render(
+      <Router>
+        <Signup />
+      </Router>
+    );
+    const signupButton = getByText("Already have an account? Log in here.")
+    fireEvent.click(signupButton);
+    expect(navigate).toHaveBeenCalledWith("/login");
+  });
   it("displays an error message when password and confirm_password do not match", () => {
     const { getByPlaceholderText, getByText } = render(
       <Router>
