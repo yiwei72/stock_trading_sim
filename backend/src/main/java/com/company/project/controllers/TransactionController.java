@@ -28,4 +28,14 @@ public class TransactionController {
             return ResultGenerator.genFailResult();
         }
     }
+
+    @PostMapping("/sell")
+    public Result sell(@RequestBody TransactionInfoParam transactionInfoParam) {
+        if (transactionService.sell(transactionInfoParam)) {
+            return ResultGenerator.genSuccessResult();
+        }
+        else {
+            return ResultGenerator.genFailResult();
+        }
+    }
 }

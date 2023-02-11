@@ -39,7 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
             return false;
         }
 
-        // add one row to Transaction table
+        // add a row to Transaction table
         Transaction transaction = new Transaction();
         transaction.setType(type);
         transaction.setEmail(email);
@@ -81,6 +81,51 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public boolean sell(TransactionInfoParam transactionInfoParam) {
-        return false;
+        String email = transactionInfoParam.getEmail();
+        Integer type = transactionInfoParam.getType();
+        String stockSymbol = transactionInfoParam.getStockSymbol();
+        Double tradePrice = transactionInfoParam.getPrice();
+        Long tradeQuantity = transactionInfoParam.getQuantity();
+        User user = userMapper.selectByPrimaryKey(email);
+        Double prevBalance = user.getBalance();
+        Long tradeTimeStamp = System.currentTimeMillis();
+
+        HoldingExample holdingExample = new HoldingExample();
+        holdingExample.createCriteria().andEmailEqualTo(email).andStockSymbolEqualTo(stockSymbol);
+        List<Holding> holdingList = holdingMapper.selectByExample(holdingExample);
+        if (holdingList.isEmpty()) {
+            return false;
+        }
+        Holding holding = holdingList.get(0);
+        Long prevQuantity = holding.getQuantity();
+        if (prevQuantity < tradeQuantity) {
+            return false;
+        }
+
+        // add a row to Transaction table
+        Transaction transaction = new Transaction();
+        transaction.setType(type);
+        transaction.setEmail(email);
+        transaction.setStockSymbol(stockSymbol);
+        transaction.setTimeStamp(tradeTimeStamp);
+        transaction.setPrice(tradePrice);
+        transaction.setQuantity(tradeQuantity);
+        transactionMapper.insertSelective(transaction);
+
+        // update user balance
+        user.setBalance(prevBalance + tradePrice * tradeQuantity);
+        userMapper.updateByPrimaryKeySelective(user);
+
+        // update holding
+        if (prevQuantity.equals(tradeQuantity)) {
+            holdingMapper.deleteByExample(holdingExample);
+        }
+        else {
+            holding.setQuantity(prevQuantity - tradeQuantity);
+            holding.setTimeStamp(tradeTimeStamp);
+            holdingMapper.updateByExampleSelective(holding, holdingExample);
+        }
+
+        return true;
     }
 }
