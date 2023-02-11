@@ -1,6 +1,11 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { EmailContext, EmailProvider, UserAuthContext, UserAuthProvider } from "../Context";
+import {
+  EmailContext,
+  EmailProvider,
+  UserAuthContext,
+  UserAuthProvider,
+} from "../Context";
 
 describe("Email Context", () => {
   it("should render the email context provider with correct email", () => {

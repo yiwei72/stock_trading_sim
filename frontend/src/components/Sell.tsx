@@ -31,7 +31,7 @@ const Sell: React.FC = () => {
     email: "",
     stockSymbol: "",
     price: 0,
-    quantity: 0
+    quantity: 0,
   };
 
   const {
@@ -50,18 +50,25 @@ const Sell: React.FC = () => {
       if (!amount) {
         throw new Error("Sell Amount is required");
       }
-      const stock = user.holding.find((stock: { stockSymbol: string; }) => stock.stockSymbol === stockSymbol);
+      const stock = user.holding.find(
+        (stock: { stockSymbol: string }) => stock.stockSymbol === stockSymbol
+      );
       if (!stock || stock.quantity < amount) {
         throw new Error("Your stock count is insufficient");
       }
-      const stockPrice = Number(await fetchStockPrice(stockSymbol).catch(console.error));
+      const stockPrice = Number(
+        await fetchStockPrice(stockSymbol).catch(console.error)
+      );
       setStockVal(stockPrice);
       console.log("success!");
       transactionInfo.email = email;
       transactionInfo.stockSymbol = stockSymbol;
       transactionInfo.price = stockPrice;
       transactionInfo.quantity = amount;
-      const response = await axios.post("/api/transaction/sell", transactionInfo);
+      const response = await axios.post(
+        "/api/transaction/sell",
+        transactionInfo
+      );
       if (response.data.resultCode === 200) {
         navigate("/welcome");
       } else {
@@ -107,7 +114,9 @@ const Sell: React.FC = () => {
           <p>stock value:{stockVal} </p>
           <p>last updated:{lastUpdateTime}</p>
         </div>
-        {refreshErrorMessage && <p style={{ color: "red" }}>{refreshErrorMessage}</p>}
+        {refreshErrorMessage && (
+          <p style={{ color: "red" }}>{refreshErrorMessage}</p>
+        )}
         <button type="submit" disabled={isLoading} onClick={handleClickPrice}>
           {isLoading ? "Refreshing" : "Refresh"}
         </button>

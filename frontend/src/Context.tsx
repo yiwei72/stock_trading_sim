@@ -31,7 +31,7 @@ interface UserAuthData {
 
 const UserAuthContext = createContext<UserAuthData>({
   firstName: "",
-  updateFirstName: () => { },
+  updateFirstName: () => {},
 });
 
 const UserAuthProvider: React.FC = ({ children }) => {

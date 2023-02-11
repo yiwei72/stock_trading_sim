@@ -31,7 +31,7 @@ const Buy: React.FC = () => {
     email: "",
     stockSymbol: "",
     price: 0,
-    quantity: 0
+    quantity: 0,
   };
 
   const {
@@ -50,17 +50,22 @@ const Buy: React.FC = () => {
       if (!amount) {
         throw new Error("Buy Amount is required");
       }
-      const stockPrice = Number(await fetchStockPrice(stockSymbol).catch(console.error));
+      const stockPrice = Number(
+        await fetchStockPrice(stockSymbol).catch(console.error)
+      );
       setStockVal(stockPrice);
       if (user.balance < stockPrice * amount) {
         throw new Error("Your balance is insufficient");
-      } 
+      }
       transactionInfo.email = email;
       transactionInfo.stockSymbol = stockSymbol;
       transactionInfo.price = stockPrice;
       transactionInfo.quantity = amount;
       console.log(transactionInfo);
-      const response = await axios.post("/api/transaction/buy", transactionInfo);
+      const response = await axios.post(
+        "/api/transaction/buy",
+        transactionInfo
+      );
       if (response.data.resultCode === 200) {
         navigate("/welcome");
       } else {
@@ -106,7 +111,9 @@ const Buy: React.FC = () => {
           <p>stock value:{stockVal} </p>
           <p>last updated:{lastUpdateTime}</p>
         </div>
-        {refreshErrorMessage && <p style={{ color: "red" }}>{refreshErrorMessage}</p>}
+        {refreshErrorMessage && (
+          <p style={{ color: "red" }}>{refreshErrorMessage}</p>
+        )}
         <button type="submit" disabled={isLoading} onClick={handleClickPrice}>
           {isLoading ? "Refreshing" : "Refresh"}
         </button>
