@@ -46,7 +46,7 @@ const Welcome: React.FC = () => {
       }
     };
     fetchUserData();
-  }, [email]);
+  }, [email, updateFirstName]);
 
   const navigate = useNavigate();
 
