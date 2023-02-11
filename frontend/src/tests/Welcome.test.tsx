@@ -15,7 +15,6 @@ jest.mock("react-router-dom", () => {
     ...jest.requireActual("react-router-dom"),
     useNavigate: jest.fn(),
   };
-
 });
 describe("Test Welcome component", () => {
   /*
@@ -72,8 +71,7 @@ describe("Test Welcome component", () => {
     );
     const SellButton = getByText("Logout");
     fireEvent.click(SellButton);
-   // await new Promise((resolve) => setTimeout(resolve, 0));
+    // await new Promise((resolve) => setTimeout(resolve, 0));
     expect(navigate).toHaveBeenCalledWith("/login");
   });
-
 });
