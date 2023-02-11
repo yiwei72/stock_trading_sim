@@ -49,6 +49,7 @@ const Welcome: React.FC = () => {
   const navigate = useNavigate();
 
   const handleClickBuy = () => {
+    //navigate("/buy");
     navigate("/buy", { state: { user: user } });
   };
 
