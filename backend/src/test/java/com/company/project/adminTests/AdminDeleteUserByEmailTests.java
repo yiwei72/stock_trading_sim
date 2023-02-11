@@ -3,9 +3,12 @@ package com.company.project.adminTests;
 import com.company.project.controllers.AdminController;
 import com.company.project.controllers.param.AdminSignupParam;
 import com.company.project.controllers.param.UserIdentifyParam;
+import com.company.project.util.Result;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class AdminDeleteUserByEmailTests {
@@ -23,18 +26,13 @@ public class AdminDeleteUserByEmailTests {
         adminSignupParam.setPassword(password);
         adminSignupParam.setFirstName(firstName);
         adminSignupParam.setLastName(lastName);
-        System.out.println("Current email: " + email);
-        System.out.println("Current password: " + password);
-        System.out.println("Current firstName: " + firstName);
-        System.out.println("Current lastName: " + lastName);
-        System.out.println(adminController.signup(adminSignupParam));
+        adminController.signup(adminSignupParam);
 
         // delete the added user
         UserIdentifyParam userIdentifyParam = new UserIdentifyParam();
         userIdentifyParam.setEmail(email);
-        System.out.print("Test result: ");
-        System.out.println(adminController.deleteUserByEmail(userIdentifyParam));
-        System.out.println();
+        Result result = adminController.deleteUserByEmail(userIdentifyParam);
+        assertEquals(200, result.getResultCode());
     }
 
     @Test
@@ -45,8 +43,7 @@ public class AdminDeleteUserByEmailTests {
         // delete non-existent user
         UserIdentifyParam userIdentifyParam = new UserIdentifyParam();
         userIdentifyParam.setEmail(email);
-        System.out.print("Test result: ");
-        System.out.println(adminController.deleteUserByEmail(userIdentifyParam));
-        System.out.println();
+        Result result = adminController.deleteUserByEmail(userIdentifyParam);
+        assertEquals(500, result.getResultCode());
     }
 }
