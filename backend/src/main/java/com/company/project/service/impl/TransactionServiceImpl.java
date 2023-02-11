@@ -14,12 +14,9 @@ import java.util.List;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
-    @Resource
-    private UserMapper userMapper;
-    @Resource
-    private HoldingMapper holdingMapper;
-    @Resource
-    private TransactionMapper transactionMapper;
+    @Resource private UserMapper userMapper;
+    @Resource private HoldingMapper holdingMapper;
+    @Resource private TransactionMapper transactionMapper;
 
     @Override
     public boolean buy(TransactionInfoParam transactionInfoParam) {
@@ -62,12 +59,13 @@ public class TransactionServiceImpl implements TransactionService {
             newHolding.setQuantity(tradeQuantity);
             newHolding.setTimeStamp(tradeTimeStamp);
             holdingMapper.insertSelective(newHolding);
-        }
-        else {
+        } else {
             Holding holding = holdingList.get(0);
             Double prevAvePrice = holding.getPrice();
             Long prevQuantity = holding.getQuantity();
-            holding.setPrice(PriceCalculator.updateAvePrice(prevAvePrice, prevQuantity, tradePrice, tradeQuantity, type));
+            holding.setPrice(
+                    PriceCalculator.updateAvePrice(
+                            prevAvePrice, prevQuantity, tradePrice, tradeQuantity, type));
             holding.setQuantity(prevQuantity + tradeQuantity);
             holding.setTimeStamp(tradeTimeStamp);
             holdingMapper.updateByExampleSelective(holding, holdingExample);
@@ -116,8 +114,7 @@ public class TransactionServiceImpl implements TransactionService {
         // update holding
         if (prevQuantity.equals(tradeQuantity)) {
             holdingMapper.deleteByExample(holdingExample);
-        }
-        else {
+        } else {
             holding.setQuantity(prevQuantity - tradeQuantity);
             holding.setTimeStamp(tradeTimeStamp);
             holdingMapper.updateByExampleSelective(holding, holdingExample);
@@ -131,8 +128,7 @@ public class TransactionServiceImpl implements TransactionService {
         User user = userMapper.selectByPrimaryKey(email);
         if (user == null) {
             return null;
-        }
-        else {
+        } else {
             TransactionExample transactionExample = new TransactionExample();
             transactionExample.createCriteria().andEmailEqualTo(email);
             return transactionMapper.selectByExample(transactionExample);

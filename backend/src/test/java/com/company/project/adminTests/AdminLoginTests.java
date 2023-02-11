@@ -21,11 +21,11 @@ public class AdminLoginTests {
         AdminLoginParam adminLoginParam = new AdminLoginParam();
         adminLoginParam.setEmail(email);
         adminLoginParam.setPassword(password);
-//        System.out.println("Current email: " + email);
-//        System.out.println("Current password: " + password);
-//        System.out.print("Test result: ");
-//        System.out.println(adminController.login(adminLoginParam));
-//        System.out.println();
+        //        System.out.println("Current email: " + email);
+        //        System.out.println("Current password: " + password);
+        //        System.out.print("Test result: ");
+        //        System.out.println(adminController.login(adminLoginParam));
+        //        System.out.println();
         Result result = adminController.login(adminLoginParam);
         assertEquals(200, result.getResultCode());
     }
@@ -37,11 +37,11 @@ public class AdminLoginTests {
         AdminLoginParam adminLoginParam = new AdminLoginParam();
         adminLoginParam.setEmail(email);
         adminLoginParam.setPassword(password);
-//        System.out.println("Current email: " + email);
-//        System.out.println("Current password: " + password);
-//        System.out.print("Test result: ");
-//        System.out.println(adminController.login(adminLoginParam));
-//        System.out.println();
+        //        System.out.println("Current email: " + email);
+        //        System.out.println("Current password: " + password);
+        //        System.out.print("Test result: ");
+        //        System.out.println(adminController.login(adminLoginParam));
+        //        System.out.println();
         Result result = adminController.login(adminLoginParam);
         assertEquals(500, result.getResultCode());
     }
@@ -53,11 +53,11 @@ public class AdminLoginTests {
         AdminLoginParam adminLoginParam = new AdminLoginParam();
         adminLoginParam.setEmail(email);
         adminLoginParam.setPassword(password);
-//        System.out.println("Current email: " + email);
-//        System.out.println("Current password: " + password);
-//        System.out.print("Test result: ");
-//        System.out.println(adminController.login(adminLoginParam));
-//        System.out.println();
+        //        System.out.println("Current email: " + email);
+        //        System.out.println("Current password: " + password);
+        //        System.out.print("Test result: ");
+        //        System.out.println(adminController.login(adminLoginParam));
+        //        System.out.println();
         Result result = adminController.login(adminLoginParam);
         assertEquals(500, result.getResultCode());
     }
@@ -69,11 +69,11 @@ public class AdminLoginTests {
         AdminLoginParam adminLoginParam = new AdminLoginParam();
         adminLoginParam.setEmail(email);
         adminLoginParam.setPassword(password);
-//        System.out.println("Current email: " + email);
-//        System.out.println("Current password: " + password);
-//        System.out.print("Test result: ");
-//        System.out.println(adminController.login(adminLoginParam));
-//        System.out.println();
+        //        System.out.println("Current email: " + email);
+        //        System.out.println("Current password: " + password);
+        //        System.out.print("Test result: ");
+        //        System.out.println(adminController.login(adminLoginParam));
+        //        System.out.println();
         Result result = adminController.login(adminLoginParam);
         assertEquals(500, result.getResultCode());
     }
@@ -85,11 +85,11 @@ public class AdminLoginTests {
         AdminLoginParam adminLoginParam = new AdminLoginParam();
         adminLoginParam.setEmail(email);
         adminLoginParam.setPassword(password);
-//        System.out.println("Current email: " + email);
-//        System.out.println("Current password: " + password);
-//        System.out.print("Test result: ");
-//        System.out.println(adminController.login(adminLoginParam));
-//        System.out.println();
+        //        System.out.println("Current email: " + email);
+        //        System.out.println("Current password: " + password);
+        //        System.out.print("Test result: ");
+        //        System.out.println(adminController.login(adminLoginParam));
+        //        System.out.println();
         Result result = adminController.login(adminLoginParam);
         assertEquals(500, result.getResultCode());
     }

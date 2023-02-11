@@ -19,15 +19,13 @@ import java.util.List;
 @Api
 @RequestMapping("/transaction")
 public class TransactionController {
-    @Resource
-    private TransactionService transactionService;
+    @Resource private TransactionService transactionService;
 
     @PostMapping("/buy")
     public Result buy(@RequestBody TransactionInfoParam transactionInfoParam) {
         if (transactionService.buy(transactionInfoParam)) {
             return ResultGenerator.genSuccessResult();
-        }
-        else {
+        } else {
             return ResultGenerator.genFailResult();
         }
     }
@@ -36,8 +34,7 @@ public class TransactionController {
     public Result sell(@RequestBody TransactionInfoParam transactionInfoParam) {
         if (transactionService.sell(transactionInfoParam)) {
             return ResultGenerator.genSuccessResult();
-        }
-        else {
+        } else {
             return ResultGenerator.genFailResult();
         }
     }
@@ -47,8 +44,7 @@ public class TransactionController {
         List<Transaction> transactionList = transactionService.log(userIdentifyParam.getEmail());
         if (transactionList == null) {
             return ResultGenerator.genFailResult();
-        }
-        else {
+        } else {
             return ResultGenerator.genSuccessResult(transactionList);
         }
     }

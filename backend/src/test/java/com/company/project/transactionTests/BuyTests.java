@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class BuyTests {
-    @Autowired
-    private TransactionController transactionController;
+    @Autowired private TransactionController transactionController;
 
     @Test
     void testBuyWithoutEnoughBalance() {

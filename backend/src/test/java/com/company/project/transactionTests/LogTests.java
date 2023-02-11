@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class LogTests {
-    @Autowired
-    private TransactionController transactionController;
+    @Autowired private TransactionController transactionController;
 
     @Test
     void testNoSuchUserLog() {

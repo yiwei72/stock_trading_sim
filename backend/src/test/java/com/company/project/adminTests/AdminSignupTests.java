@@ -25,13 +25,13 @@ public class AdminSignupTests {
         adminSignupParam.setPassword(password);
         adminSignupParam.setFirstName(firstName);
         adminSignupParam.setLastName(lastName);
-//        System.out.println("Current email: " + email);
-//        System.out.println("Current password: " + password);
-//        System.out.println("Current firstName: " + firstName);
-//        System.out.println("Current lastName: " + lastName);
-//        System.out.print("Test result: ");
-//        System.out.println(adminController.signup(adminSignupParam));
-//        System.out.println();
+        //        System.out.println("Current email: " + email);
+        //        System.out.println("Current password: " + password);
+        //        System.out.println("Current firstName: " + firstName);
+        //        System.out.println("Current lastName: " + lastName);
+        //        System.out.print("Test result: ");
+        //        System.out.println(adminController.signup(adminSignupParam));
+        //        System.out.println();
         Result result = adminController.signup(adminSignupParam);
         assertEquals(200, result.getResultCode());
 
@@ -51,13 +51,13 @@ public class AdminSignupTests {
         adminSignupParam.setPassword(password);
         adminSignupParam.setFirstName(firstName);
         adminSignupParam.setLastName(lastName);
-//        System.out.println("Current email: " + email);
-//        System.out.println("Current password: " + password);
-//        System.out.println("Current firstName: " + firstName);
-//        System.out.println("Current lastName: " + lastName);
-//        System.out.print("Test result: ");
-//        System.out.println(adminController.signup(adminSignupParam));
-//        System.out.println();
+        //        System.out.println("Current email: " + email);
+        //        System.out.println("Current password: " + password);
+        //        System.out.println("Current firstName: " + firstName);
+        //        System.out.println("Current lastName: " + lastName);
+        //        System.out.print("Test result: ");
+        //        System.out.println(adminController.signup(adminSignupParam));
+        //        System.out.println();
         Result result = adminController.signup(adminSignupParam);
         assertEquals(500, result.getResultCode());
     }

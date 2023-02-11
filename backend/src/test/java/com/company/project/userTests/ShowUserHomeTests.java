@@ -18,10 +18,10 @@ public class ShowUserHomeTests {
         String email = "c222wang@uwaterloo.ca";
         UserIdentifyParam userIdentifyParam = new UserIdentifyParam();
         userIdentifyParam.setEmail(email);
-//        System.out.println("Current email: " + email);
-//        System.out.print("Test result: ");
-//        System.out.println(userController.showUserHome(userIdentifyParam));
-//        System.out.println();
+        //        System.out.println("Current email: " + email);
+        //        System.out.print("Test result: ");
+        //        System.out.println(userController.showUserHome(userIdentifyParam));
+        //        System.out.println();
         Result result = userController.showUserHome(userIdentifyParam);
         assertEquals(200, result.getResultCode());
     }
@@ -31,10 +31,10 @@ public class ShowUserHomeTests {
         String email = "nosuchuser@uwaterloo.ca";
         UserIdentifyParam userIdentifyParam = new UserIdentifyParam();
         userIdentifyParam.setEmail(email);
-//        System.out.println("Current email: " + email);
-//        System.out.print("Test result: ");
-//        System.out.println(userController.showUserHome(userIdentifyParam));
-//        System.out.println();
+        //        System.out.println("Current email: " + email);
+        //        System.out.print("Test result: ");
+        //        System.out.println(userController.showUserHome(userIdentifyParam));
+        //        System.out.println();
         Result result = userController.showUserHome(userIdentifyParam);
         assertEquals(500, result.getResultCode());
     }
