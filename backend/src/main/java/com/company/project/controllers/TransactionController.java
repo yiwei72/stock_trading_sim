@@ -1,6 +1,8 @@
 package com.company.project.controllers;
 
 import com.company.project.controllers.param.TransactionInfoParam;
+import com.company.project.controllers.param.UserIdentifyParam;
+import com.company.project.pojo.Transaction;
 import com.company.project.service.TransactionService;
 import com.company.project.util.Result;
 import com.company.project.util.ResultGenerator;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @Api
@@ -36,6 +39,17 @@ public class TransactionController {
         }
         else {
             return ResultGenerator.genFailResult();
+        }
+    }
+
+    @PostMapping("/log")
+    public Result<List<Transaction>> log(@RequestBody UserIdentifyParam userIdentifyParam) {
+        List<Transaction> transactionList = transactionService.log(userIdentifyParam.getEmail());
+        if (transactionList == null) {
+            return ResultGenerator.genFailResult();
+        }
+        else {
+            return ResultGenerator.genSuccessResult(transactionList);
         }
     }
 }

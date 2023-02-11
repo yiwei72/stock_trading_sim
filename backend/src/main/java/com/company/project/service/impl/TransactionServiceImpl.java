@@ -4,10 +4,7 @@ import com.company.project.controllers.param.TransactionInfoParam;
 import com.company.project.mapper.HoldingMapper;
 import com.company.project.mapper.TransactionMapper;
 import com.company.project.mapper.UserMapper;
-import com.company.project.pojo.Holding;
-import com.company.project.pojo.HoldingExample;
-import com.company.project.pojo.Transaction;
-import com.company.project.pojo.User;
+import com.company.project.pojo.*;
 import com.company.project.service.TransactionService;
 import com.company.project.util.PriceCalculator;
 import org.springframework.stereotype.Service;
@@ -127,5 +124,18 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
         return true;
+    }
+
+    @Override
+    public List<Transaction> log(String email) {
+        User user = userMapper.selectByPrimaryKey(email);
+        if (user == null) {
+            return null;
+        }
+        else {
+            TransactionExample transactionExample = new TransactionExample();
+            transactionExample.createCriteria().andEmailEqualTo(email);
+            return transactionMapper.selectByExample(transactionExample);
+        }
     }
 }
