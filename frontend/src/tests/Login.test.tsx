@@ -113,6 +113,28 @@ describe("Test Login component", () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
     expect(navigate).toHaveBeenCalledWith("/welcome");
   });
+  it("displays an error message when response from server has result code NOT 200", async () => {
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
+    const { getByPlaceholderText, getByText, findByText } = render(
+      <Router>
+        <Login />
+      </Router>
+    );
+    const emailInput = getByPlaceholderText("Email");
+    const passwordInput = getByPlaceholderText("Password");
+    fireEvent.change(emailInput, { target: { value: "test@email.com" } });
+    fireEvent.change(passwordInput, { target: { value: "password" } });
+    const submitButton = getByText("Log In");
+    const responseData = { resultCode: 500 };
+    (
+      axios.post as jest.MockedFunction<typeof axios.post>
+    ).mockResolvedValueOnce({ data: responseData });
+    fireEvent.click(submitButton);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    const errorMessage = findByText("Email or password is incorrect.");
+    expect(errorMessage).toBeDefined();
+  });
   it("calls navigate function when click the signup button", async () => {
     const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);

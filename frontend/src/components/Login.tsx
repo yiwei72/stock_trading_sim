@@ -43,6 +43,8 @@ const Login: React.FC = () => {
       console.log(email);
       if (response.data.resultCode === 200) {
         navigate("/welcome");
+      } else {
+        setErrorMessage(response.data.data);
       }
     } catch (error: any) {
       setErrorMessage(error.message);

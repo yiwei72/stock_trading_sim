@@ -24,4 +24,28 @@ const EmailProvider: React.FC = ({ children }) => {
   );
 };
 
-export { EmailContext, EmailProvider };
+interface UserAuthData {
+  firstName: string;
+  updateFirstName: (newFirstName: string) => void;
+}
+
+const UserAuthContext = createContext<UserAuthData>({
+  firstName: "",
+  updateFirstName: () => { },
+});
+
+const UserAuthProvider: React.FC = ({ children }) => {
+  const [firstName, setFirstName] = useState<string>("");
+
+  const updateFirstName = (newFirstName: string) => {
+    setFirstName(newFirstName);
+  };
+
+  return (
+    <UserAuthContext.Provider value={{ firstName, updateFirstName }}>
+      {children}
+    </UserAuthContext.Provider>
+  );
+};
+
+export { EmailContext, EmailProvider, UserAuthContext, UserAuthProvider };
