@@ -100,7 +100,7 @@ const Welcome: React.FC = () => {
           {user.holding.map((holding) => (
             <tr key={holding.stockSymbol}>
               <td>{holding.stockSymbol}</td>
-              <td>{holding.price}</td>
+              <td>{holding.price.toFixed(2)}</td>
               <td>{holding.quantity}</td>
             </tr>
           ))}
