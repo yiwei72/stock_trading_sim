@@ -58,7 +58,7 @@ const Buy: React.FC = () => {
         throw new Error("Your balance is insufficient");
       }
       transactionInfo.email = email;
-      transactionInfo.stockSymbol = stockSymbol;
+      transactionInfo.stockSymbol = stockSymbol.toUpperCase();
       transactionInfo.price = stockPrice;
       transactionInfo.quantity = amount;
       console.log(transactionInfo);
@@ -85,7 +85,7 @@ const Buy: React.FC = () => {
       if (!stockSymbol) {
         throw new Error("Stock Symbol is required");
       }
-      setStockVal(await fetchStockPrice(stockSymbol).catch(console.error));
+      setStockVal(await fetchStockPrice(stockSymbol.toUpperCase()).catch(console.error));
       setLastUpdateTime(new Date().toLocaleString());
     } catch (error: any) {
       setRefreshErrorMessage(error.message);
@@ -105,7 +105,7 @@ const Buy: React.FC = () => {
           type="text"
           name="stockSymbol"
           value={stockSymbol}
-          onChange={(e) => setStockSymbol(e.target.value)}
+          onChange={(e) => setStockSymbol(e.target.value.toUpperCase())}
         />
         <div>
           <p>stock value:{stockVal} </p>
