@@ -85,7 +85,9 @@ const Buy: React.FC = () => {
       if (!stockSymbol) {
         throw new Error("Stock Symbol is required");
       }
-      setStockVal(await fetchStockPrice(stockSymbol.toUpperCase()).catch(console.error));
+      setStockVal(
+        await fetchStockPrice(stockSymbol.toUpperCase()).catch(console.error)
+      );
       setLastUpdateTime(new Date().toLocaleString());
     } catch (error: any) {
       setRefreshErrorMessage(error.message);
