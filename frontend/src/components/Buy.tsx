@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-// import axios from "axios";
+import React, { useState, useContext } from "react";
+import axios from "axios";
 import { fetchStockPrice } from "./Api";
 import { useNavigate, useLocation } from "react-router-dom";
+import { EmailContext } from "../Context";
 
-// interface User {
-//   firstName: string;
-//   lastName: string;
-//   balance: number;
-// }
-// interface Stock {
-//   val: number;
-//   lastUpdated: string;
-// }
+interface TransactionInfo {
+  type: number;
+  email: string;
+  stockSymbol: string;
+  price: number;
+  quantity: number;
+}
 
 const Buy: React.FC = () => {
   const navigate = useNavigate();
@@ -20,55 +19,64 @@ const Buy: React.FC = () => {
     navigate("/welcome");
   };
 
-  // const [UserData, setUserData] = useState<User>({
-  //   firstName: "",
-  //   lastName: "",
-  //   balance: 0,
-  // });
-
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [refreshErrorMessage, setRefreshErrorMessage] = useState("");
+  const [buyErrorMessage, setBuyErrorMessage] = useState("");
   const [stockSymbol, setStockSymbol] = useState("");
   const [stockVal, setStockVal] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState("");
   const [amount, setAmount] = useState(0);
-  // useEffect(() => {
-  //   // Fetch user data from the backend API
-  //   fetch("https://api.example.com/user")
-  //     .then((response) => response.json())
-  //     .then((data) => setUserData(data));
-  // }, []);
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value } = event.target;
-  //   setstocksymbol(value);
-  // };
+  const transactionInfo: TransactionInfo = {
+    type: 1,
+    email: "",
+    stockSymbol: "",
+    price: 0,
+    quantity: 0,
+  };
 
   const {
     state: { user },
   } = useLocation();
+  const { email } = useContext(EmailContext);
 
-  // const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.preventDefault();
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
 
-  // setIsLoading(true);
-
-  // try {
-  //   //maybe some input restriction
-  //   const response = await axios.post("/api/admin/login", stockSymbol);
-  //   console.log(response.data);
-  //   //some handle
-  //   setStockVal(response.data);
-  //   if (response.data.resultCode === 200) {
-  //     //get data here
-  //   } else {
-  //     setErrorMessage(response.data.data);
-  //   }
-  // } catch (error: any) {
-  //   setErrorMessage(error.message);
-  // } finally {
-  //   setIsLoading(false);
-  // }
-  // };
+    try {
+      if (!stockSymbol) {
+        throw new Error("Stock Symbol is required");
+      }
+      if (!amount) {
+        throw new Error("Buy Amount is required");
+      }
+      const stockPrice = Number(
+        await fetchStockPrice(stockSymbol).catch(console.error)
+      );
+      setStockVal(stockPrice);
+      if (user.balance < stockPrice * amount) {
+        throw new Error("Your balance is insufficient");
+      }
+      transactionInfo.email = email;
+      transactionInfo.stockSymbol = stockSymbol;
+      transactionInfo.price = stockPrice;
+      transactionInfo.quantity = amount;
+      console.log(transactionInfo);
+      const response = await axios.post(
+        "/api/transaction/buy",
+        transactionInfo
+      );
+      if (response.data.resultCode === 200) {
+        navigate("/welcome");
+      } else {
+        setBuyErrorMessage("Purchase failed");
+      }
+    } catch (error: any) {
+      setBuyErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   async function handleClickPrice(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -80,7 +88,7 @@ const Buy: React.FC = () => {
       setStockVal(await fetchStockPrice(stockSymbol).catch(console.error));
       setLastUpdateTime(new Date().toLocaleString());
     } catch (error: any) {
-      setErrorMessage(error.message);
+      setRefreshErrorMessage(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -99,12 +107,12 @@ const Buy: React.FC = () => {
           value={stockSymbol}
           onChange={(e) => setStockSymbol(e.target.value)}
         />
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        {!errorMessage && (
-          <div>
-            <p>stock value:{stockVal} </p>
-            <p>last updated:{lastUpdateTime}</p>
-          </div>
+        <div>
+          <p>stock value:{stockVal} </p>
+          <p>last updated:{lastUpdateTime}</p>
+        </div>
+        {refreshErrorMessage && (
+          <p style={{ color: "red" }}>{refreshErrorMessage}</p>
         )}
         <button type="submit" disabled={isLoading} onClick={handleClickPrice}>
           {isLoading ? "Refreshing" : "Refresh"}
@@ -117,7 +125,8 @@ const Buy: React.FC = () => {
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
         />
-        <button type="submit" disabled={isLoading}>
+        {buyErrorMessage && <p style={{ color: "red" }}>{buyErrorMessage}</p>}
+        <button type="submit" disabled={isLoading} onClick={handleSubmit}>
           {isLoading ? "Buying" : "Buy"}
         </button>
         <br></br>

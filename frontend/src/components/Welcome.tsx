@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { EmailContext } from "../Context";
+import { EmailContext, UserAuthContext } from "../Context";
 import { useNavigate } from "react-router-dom";
 
 interface User {
@@ -18,7 +18,8 @@ interface User {
 }
 
 const Welcome: React.FC = () => {
-  const { email } = useContext(EmailContext);
+  const { email, updateEmail } = useContext(EmailContext);
+  const { updateFirstName } = useContext(UserAuthContext);
   const [user, setUser] = useState<User>({
     firstName: "",
     lastName: "",
@@ -37,6 +38,7 @@ const Welcome: React.FC = () => {
         const { data } = response.data;
         console.log(data);
         setUser(data);
+        updateFirstName(data.firstName);
       } catch (err) {
         console.error(err);
       } finally {
@@ -44,7 +46,7 @@ const Welcome: React.FC = () => {
       }
     };
     fetchUserData();
-  }, [email]);
+  }, [email, updateFirstName]);
 
   const navigate = useNavigate();
 
@@ -58,6 +60,8 @@ const Welcome: React.FC = () => {
   };
 
   const handleClickLogout = () => {
+    updateEmail("");
+    updateFirstName("");
     navigate("/login");
   };
 
@@ -88,7 +92,7 @@ const Welcome: React.FC = () => {
         <thead>
           <tr>
             <th>Stock Symbol</th>
-            <th>Price</th>
+            <th>Average Price</th>
             <th>Quantity</th>
           </tr>
         </thead>
@@ -96,7 +100,7 @@ const Welcome: React.FC = () => {
           {user.holding.map((holding) => (
             <tr key={holding.stockSymbol}>
               <td>{holding.stockSymbol}</td>
-              <td>{holding.price}</td>
+              <td>{holding.price.toFixed(2)}</td>
               <td>{holding.quantity}</td>
             </tr>
           ))}
