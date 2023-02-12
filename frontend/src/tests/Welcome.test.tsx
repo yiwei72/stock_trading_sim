@@ -1,7 +1,12 @@
 import axios from "axios";
 import React from "react";
 import { render, fireEvent, waitFor, act } from "@testing-library/react";
-import { BrowserRouter, Router, useNavigate, MemoryRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  Router,
+  useNavigate,
+  MemoryRouter,
+} from "react-router-dom";
 import Welcome from "../components/Welcome";
 import { EmailContext, UserAuthContext } from "../Context";
 
@@ -47,16 +52,16 @@ describe("Test Welcome component", () => {
     expect(navigate).toHaveBeenCalledWith("/login");
   });
 
-  it('updates the first name', async () => {
+  it("updates the first name", async () => {
     (axios.post as jest.Mocked<any>).mockResolvedValue({
       data: { data: user },
     });
 
-    const updateFirstName = jest.fn()
+    const updateFirstName = jest.fn();
     const component = (
       <MemoryRouter>
-        <EmailContext.Provider value={{ email: '', updateEmail: jest.fn() }}>
-          <UserAuthContext.Provider value={{ firstName: '', updateFirstName }}>
+        <EmailContext.Provider value={{ email: "", updateEmail: jest.fn() }}>
+          <UserAuthContext.Provider value={{ firstName: "", updateFirstName }}>
             <Welcome />
           </UserAuthContext.Provider>
         </EmailContext.Provider>
@@ -80,8 +85,10 @@ describe("Test Welcome component", () => {
 
     const component = (
       <MemoryRouter>
-        <EmailContext.Provider value={{ email: '', updateEmail: jest.fn() }}>
-          <UserAuthContext.Provider value={{ firstName: '', updateFirstName: jest.fn() }}>
+        <EmailContext.Provider value={{ email: "", updateEmail: jest.fn() }}>
+          <UserAuthContext.Provider
+            value={{ firstName: "", updateFirstName: jest.fn() }}
+          >
             <Welcome />
           </UserAuthContext.Provider>
         </EmailContext.Provider>
@@ -92,7 +99,11 @@ describe("Test Welcome component", () => {
       const { getByText } = render(component);
       fireEvent.click(getByText("Buy"));
       await new Promise((resolve) => setTimeout(resolve, 0));
-      expect(navigate).toHaveBeenCalledWith("/buy", { state: { user: {balance: 0, firstName: "", lastName: "", holding: []} } });
+      expect(navigate).toHaveBeenCalledWith("/buy", {
+        state: {
+          user: { balance: 0, firstName: "", lastName: "", holding: [] },
+        },
+      });
     });
   });
 
@@ -100,15 +111,16 @@ describe("Test Welcome component", () => {
     const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);
 
-
     (axios.post as jest.Mock).mockResolvedValue({
       data: { data: user },
     });
 
     const component = (
       <MemoryRouter>
-        <EmailContext.Provider value={{ email: '', updateEmail: jest.fn() }}>
-          <UserAuthContext.Provider value={{ firstName: '', updateFirstName: jest.fn() }}>
+        <EmailContext.Provider value={{ email: "", updateEmail: jest.fn() }}>
+          <UserAuthContext.Provider
+            value={{ firstName: "", updateFirstName: jest.fn() }}
+          >
             <Welcome />
           </UserAuthContext.Provider>
         </EmailContext.Provider>
@@ -119,7 +131,11 @@ describe("Test Welcome component", () => {
       const { getByText } = render(component);
       fireEvent.click(getByText("Sell"));
       await new Promise((resolve) => setTimeout(resolve, 0));
-      expect(navigate).toHaveBeenCalledWith("/sell", { state: { user: {balance: 0, firstName: "", lastName: "", holding: []} } });
+      expect(navigate).toHaveBeenCalledWith("/sell", {
+        state: {
+          user: { balance: 0, firstName: "", lastName: "", holding: [] },
+        },
+      });
     });
   });
 });
