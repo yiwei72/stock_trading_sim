@@ -10,6 +10,7 @@ import com.company.project.util.PriceCalculator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -65,7 +66,7 @@ public class TransactionServiceImpl implements TransactionService {
             Long prevQuantity = holding.getQuantity();
             holding.setPrice(
                     PriceCalculator.updateAvePrice(
-                            prevAvePrice, prevQuantity, tradePrice, tradeQuantity, type));
+                            prevAvePrice, prevQuantity, tradePrice, tradeQuantity, type, 4, RoundingMode.HALF_UP));
             holding.setQuantity(prevQuantity + tradeQuantity);
             holding.setTimeStamp(tradeTimeStamp);
             holdingMapper.updateByExampleSelective(holding, holdingExample);
