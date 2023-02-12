@@ -1,6 +1,8 @@
 package com.company.project.pojo;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+
 
 public class User implements Serializable {
     /**
@@ -160,7 +162,9 @@ public class User implements Serializable {
      * @mbg.generated Thu Feb 02 02:24:03 EST 2023
      */
     public void setBalance(Double balance) {
-        this.balance = balance;
+        DecimalFormat df = new DecimalFormat("#.##");
+        String formattedValue = df.format(balance);
+        this.balance = Double.parseDouble(formattedValue);
     }
 
     @Override
