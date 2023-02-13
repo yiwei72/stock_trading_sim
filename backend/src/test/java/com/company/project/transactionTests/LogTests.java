@@ -19,7 +19,7 @@ public class LogTests {
         UserIdentifyParam userIdentifyParam = new UserIdentifyParam();
         userIdentifyParam.setEmail(email);
         Result result = transactionController.log(userIdentifyParam);
-//        System.out.println(result);
+        //        System.out.println(result);
         assertEquals(500, result.getResultCode());
     }
 
@@ -29,7 +29,7 @@ public class LogTests {
         UserIdentifyParam userIdentifyParam = new UserIdentifyParam();
         userIdentifyParam.setEmail(email);
         Result result = transactionController.log(userIdentifyParam);
-//        System.out.println(result);
+        //        System.out.println(result);
         assertEquals(200, result.getResultCode());
     }
 
@@ -39,7 +39,7 @@ public class LogTests {
         UserIdentifyParam userIdentifyParam = new UserIdentifyParam();
         userIdentifyParam.setEmail(email);
         Result result = transactionController.log(userIdentifyParam);
-//        System.out.println(result);
+        //        System.out.println(result);
         assertEquals(200, result.getResultCode());
     }
 }
