@@ -4,7 +4,7 @@ import java.math.RoundingMode;
 
 public class PriceCalculator {
 
-    /** call it to update average price in Holding when finish buying type: buy=1, sell=-1 */
+    /** call it to update average price in Holding when finish buying, type: buy=1 sell=-1 */
     public static Double updateAvePrice(
             Double prevAvePrice,
             Long prevQuantity,
@@ -13,10 +13,6 @@ public class PriceCalculator {
             Integer type,
             int scale,
             RoundingMode roundingMode) {
-//        Double currTotalPrice = prevAvePrice * prevQuantity + type * tradePrice * tradeQuantity;
-//        Long currTotalQuantity = prevQuantity + type * tradeQuantity;
-//        return currTotalPrice / currTotalQuantity;
-
         Double prevTotalPrice = DoubleCalculator.mul(prevAvePrice, prevQuantity);
         Double tradeTotalPrice = DoubleCalculator.mul(tradePrice, tradeQuantity);
         Double currTotalPrice = 0.0;
@@ -28,5 +24,16 @@ public class PriceCalculator {
         }
         Long currTotalQuantity = prevQuantity + type * tradeQuantity;
         return DoubleCalculator.div(currTotalPrice, currTotalQuantity, scale, roundingMode);
+    }
+
+    /** call it to update user balance when finish trading, type: buy=1 sell=-1 */
+    public static Double updateBalance(Double prevBalance, Double tradePrice, Long tradeQuantity, Integer type) {
+        Double tradeTotalPrice = DoubleCalculator.mul(tradePrice, tradeQuantity);
+        if (type > 0) {
+            return DoubleCalculator.sub(prevBalance, tradeTotalPrice);
+        }
+        else {
+            return DoubleCalculator.add(prevBalance, tradeTotalPrice);
+        }
     }
 }

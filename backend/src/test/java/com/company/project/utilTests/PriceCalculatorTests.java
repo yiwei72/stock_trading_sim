@@ -16,4 +16,12 @@ public class PriceCalculatorTests {
         Double result = PriceCalculator.updateAvePrice(100.0, 100L, 50.0, 50L, 1, 4, RoundingMode.HALF_UP);
         assertEquals("83.3333", result.toString());
     }
+
+    @Test
+    public void testUpdateBalance() {
+        Double result1 = PriceCalculator.updateBalance(111.11, 2.22, 6L, 1);
+        assertEquals("97.79", result1.toString());
+        Double result2 = PriceCalculator.updateBalance(111.11, 2.22, 6L, -1);
+        assertEquals("124.43", result2.toString());
+    }
 }
