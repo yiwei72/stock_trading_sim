@@ -20,13 +20,14 @@ public class ResultGeneratorTests{
     }
     @tests
     public void testGenFailResultStr() {
-        Result result = Result.genFailResult("Small FAIL");
+        String message = "Small FAIL"
+        Result result = Result.genFailResult(message);
 
         // Assert that result code is set to RESULT_CODE_SERVER_ERROR
         assertEquals(Result.RESULT_CODE_SERVER_ERROR, result.getResultCode());
 
         // Assert that message is set to "FAIL"
-        assertEquals("Small FAIL", result.getMessage());
+        assertEquals(message, result.getMessage());
     }
     @Test
     public void testGenFailResultWithObjData() {

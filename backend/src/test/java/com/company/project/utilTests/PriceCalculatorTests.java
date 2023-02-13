@@ -2,7 +2,7 @@ package com.company.project.utilTests;
 
 import com.company.project.util.PriceCalculator;
 
-import aj.org.objectweb.asm.Type;
+//import aj.org.objectweb.asm.Type;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
