@@ -9,22 +9,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ResultGeneratorTests{
     @tests
-    public void testGetSuccessResultStr{
-        Result result1 = Result.genSuccessResult("Big SUCCESS");
+    public void testGenSuccessResultStr{
+        String message = "custom"
+        Result result1 = new Result
+        result1.genSuccessResult(message);
         // Assert that result code is set to RESULT_CODE_SUCCESS
         assertEquals(Result.RESULT_CODE_SUCCESS, result1.getResultCode());
         // Assert that message is set to "SUCCESS"
-        assertEquals("big SUCCESS", result1.getMessage());
+        assertEquals(message, result1.getMessage());
     }
     @tests
     public void testGenFailResultStr() {
-        Result result = Result.genFailResult("FAIL");
+        Result result = Result.genFailResult("Small FAIL");
 
         // Assert that result code is set to RESULT_CODE_SERVER_ERROR
         assertEquals(Result.RESULT_CODE_SERVER_ERROR, result.getResultCode());
 
         // Assert that message is set to "FAIL"
-        assertEquals("FAIL", result.getMessage());
+        assertEquals("Small FAIL", result.getMessage());
     }
     @Test
     public void testGenFailResultWithObjData() {
