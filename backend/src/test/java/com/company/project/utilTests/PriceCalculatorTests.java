@@ -2,7 +2,7 @@ package com.company.project.utilTests;
 
 import com.company.project.util.PriceCalculator;
 
-//import aj.org.objectweb.asm.Type;
+// import aj.org.objectweb.asm.Type;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,10 +19,10 @@ public class PriceCalculatorTests {
         Double result0 =
                 PriceCalculator.updateAvePrice(100.0, 100L, 50.0, 50L, 1, 4, RoundingMode.HALF_UP);
         assertEquals("83.3333", result0.toString());
-        Double result1 = 
+        Double result1 =
                 PriceCalculator.updateAvePrice(100.0, 100L, 50.0, 50L, -1, 4, RoundingMode.HALF_UP);
-        assertEquals("150.0", result1.toString());//has to be 150.0, not 150.0000
-            }
+        assertEquals("150.0", result1.toString()); // has to be 150.0, not 150.0000
+    }
 
     @Test
     public void testUpdateBalance() {

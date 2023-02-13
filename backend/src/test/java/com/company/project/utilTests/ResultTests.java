@@ -2,11 +2,11 @@ package com.company.project.utilTests;
 
 import com.company.project.util.Result;
 import org.junit.jupiter.api.Test;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.junit.test;
+// import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertFalse;
+// import static org.junit.jupiter.api.Assertions.assertFalse;
 public class ResultTests {
     @Test
     public void testResultConstructorWithIntAndString() {
@@ -29,20 +29,15 @@ public class ResultTests {
         String data = result.getData();
         assertEquals("test data", data);
     }
+
     @Test
     public void testToString() {
         int expectedCode = 200;
         String expectedMessage = "SUCCESS";
-        //String data ; // null
+        // String data ; // null
         Result<String> result1 = new Result<>(expectedCode, expectedMessage);
         result1.setData("");
         String expectedString = "Result{resultCode=200, message='SUCCESS', data=}";
         assertEquals(expectedString, result1.toString());
     }
-
-
-
-
-    
-
 }
