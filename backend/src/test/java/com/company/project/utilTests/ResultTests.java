@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.assertFalse;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 80ac9e1 (save frontend changes)
 public class ResultTests {
     @Test
     public void testResultConstructorWithIntAndString() {
