@@ -6,10 +6,12 @@ import com.company.project.mapper.TransactionMapper;
 import com.company.project.mapper.UserMapper;
 import com.company.project.pojo.*;
 import com.company.project.service.TransactionService;
+import com.company.project.util.DoubleCalculator;
 import com.company.project.util.PriceCalculator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -29,7 +31,7 @@ public class TransactionServiceImpl implements TransactionService {
         Double prevBalance = user.getBalance();
         Long tradeTimeStamp = System.currentTimeMillis();
 
-        if (prevBalance < tradePrice * tradeQuantity) {
+        if (prevBalance < DoubleCalculator.mul(tradePrice, tradeQuantity)) {
             return false;
         }
 
@@ -44,7 +46,8 @@ public class TransactionServiceImpl implements TransactionService {
         transactionMapper.insertSelective(transaction);
 
         // update user balance
-        user.setBalance(prevBalance - tradePrice * tradeQuantity);
+        user.setBalance(
+                PriceCalculator.updateBalance(prevBalance, tradePrice, tradeQuantity, type));
         userMapper.updateByPrimaryKeySelective(user);
 
         // update holding
@@ -65,7 +68,13 @@ public class TransactionServiceImpl implements TransactionService {
             Long prevQuantity = holding.getQuantity();
             holding.setPrice(
                     PriceCalculator.updateAvePrice(
-                            prevAvePrice, prevQuantity, tradePrice, tradeQuantity, type));
+                            prevAvePrice,
+                            prevQuantity,
+                            tradePrice,
+                            tradeQuantity,
+                            type,
+                            4,
+                            RoundingMode.HALF_UP));
             holding.setQuantity(prevQuantity + tradeQuantity);
             holding.setTimeStamp(tradeTimeStamp);
             holdingMapper.updateByExampleSelective(holding, holdingExample);
@@ -108,7 +117,8 @@ public class TransactionServiceImpl implements TransactionService {
         transactionMapper.insertSelective(transaction);
 
         // update user balance
-        user.setBalance(prevBalance + tradePrice * tradeQuantity);
+        user.setBalance(
+                PriceCalculator.updateBalance(prevBalance, tradePrice, tradeQuantity, type));
         userMapper.updateByPrimaryKeySelective(user);
 
         // update holding
