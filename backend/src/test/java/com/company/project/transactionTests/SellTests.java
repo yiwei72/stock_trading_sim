@@ -27,7 +27,7 @@ public class SellTests {
         transactionInfoParam.setPrice(price);
         transactionInfoParam.setQuantity(quantity);
         Result result = transactionController.sell(transactionInfoParam);
-        System.out.println(result);
+//        System.out.println(result);
         assertEquals(500, result.getResultCode());
     }
 
@@ -49,7 +49,7 @@ public class SellTests {
         transactionInfoParam.setType(-1);
         transactionInfoParam.setQuantity(999999999L);
         Result result = transactionController.sell(transactionInfoParam);
-        System.out.println(result);
+//        System.out.println(result);
         assertEquals(500, result.getResultCode());
     }
 
@@ -67,7 +67,7 @@ public class SellTests {
         transactionInfoParam.setPrice(price);
         transactionInfoParam.setQuantity(quantity);
         Result result = transactionController.sell(transactionInfoParam);
-        System.out.println(result);
+//        System.out.println(result);
         assertEquals(200, result.getResultCode());
     }
 
@@ -85,7 +85,7 @@ public class SellTests {
         transactionInfoParam.setPrice(price);
         transactionInfoParam.setQuantity(quantity);
         Result result = transactionController.sell(transactionInfoParam);
-        System.out.println(result);
+//        System.out.println(result);
         assertEquals(200, result.getResultCode());
     }
 }
