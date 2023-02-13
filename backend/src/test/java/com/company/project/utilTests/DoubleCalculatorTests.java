@@ -16,7 +16,7 @@ public class DoubleCalculatorTests {
         Double num1 = 111.11;
         Double num2 = 222.22;
         Double result = DoubleCalculator.add(num1, num2);
-//        System.out.println(result);
+        //        System.out.println(result);
         assertEquals("333.33", result.toString());
     }
 
@@ -25,7 +25,7 @@ public class DoubleCalculatorTests {
         Double num1 = 333.33;
         Double num2 = 222.22;
         Double result = DoubleCalculator.sub(num1, num2);
-//        System.out.println(result);
+        //        System.out.println(result);
         assertEquals("111.11", result.toString());
     }
 
@@ -34,13 +34,13 @@ public class DoubleCalculatorTests {
         Double num1 = 111.11;
         Double num2 = 222.22;
         Double result1 = DoubleCalculator.mul(num1, num2);
-//        System.out.println(result1);
+        //        System.out.println(result1);
         assertEquals("24690.8642", result1.toString());
 
         Double num3 = 333.33333;
         Long num4 = 100L;
         Double result2 = DoubleCalculator.mul(num3, num4);
-//        System.out.println(result2);
+        //        System.out.println(result2);
         assertEquals("33333.333", result2.toString());
     }
 
@@ -49,19 +49,19 @@ public class DoubleCalculatorTests {
         Double num1 = 654.321;
         Double num2 = 123.789;
         Double result1 = DoubleCalculator.div(num1, num2, 4, RoundingMode.HALF_UP);
-//        System.out.println(result1);
+        //        System.out.println(result1);
         assertEquals("5.2858", result1.toString());
 
         Double num3 = 654.789;
         Double num4 = 123.987;
         Double result2 = DoubleCalculator.div(num3, num4, 4, RoundingMode.HALF_UP);
-//        System.out.println(result2);
+        //        System.out.println(result2);
         assertEquals("5.2811", result2.toString());
 
         Double num5 = 123456.78;
         Long num6 = 100L;
         Double result3 = DoubleCalculator.div(num5, num6, 4, RoundingMode.HALF_UP);
-//        System.out.println(result3);
+        //        System.out.println(result3);
         assertEquals("1234.5678", result3.toString());
     }
 }

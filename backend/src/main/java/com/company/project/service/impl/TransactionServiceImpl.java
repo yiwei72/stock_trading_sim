@@ -46,7 +46,8 @@ public class TransactionServiceImpl implements TransactionService {
         transactionMapper.insertSelective(transaction);
 
         // update user balance
-        user.setBalance(PriceCalculator.updateBalance(prevBalance, tradePrice, tradeQuantity, type));
+        user.setBalance(
+                PriceCalculator.updateBalance(prevBalance, tradePrice, tradeQuantity, type));
         userMapper.updateByPrimaryKeySelective(user);
 
         // update holding
@@ -67,7 +68,13 @@ public class TransactionServiceImpl implements TransactionService {
             Long prevQuantity = holding.getQuantity();
             holding.setPrice(
                     PriceCalculator.updateAvePrice(
-                            prevAvePrice, prevQuantity, tradePrice, tradeQuantity, type, 4, RoundingMode.HALF_UP));
+                            prevAvePrice,
+                            prevQuantity,
+                            tradePrice,
+                            tradeQuantity,
+                            type,
+                            4,
+                            RoundingMode.HALF_UP));
             holding.setQuantity(prevQuantity + tradeQuantity);
             holding.setTimeStamp(tradeTimeStamp);
             holdingMapper.updateByExampleSelective(holding, holdingExample);
@@ -110,7 +117,8 @@ public class TransactionServiceImpl implements TransactionService {
         transactionMapper.insertSelective(transaction);
 
         // update user balance
-        user.setBalance(PriceCalculator.updateBalance(prevBalance, tradePrice, tradeQuantity, type));
+        user.setBalance(
+                PriceCalculator.updateBalance(prevBalance, tradePrice, tradeQuantity, type));
         userMapper.updateByPrimaryKeySelective(user);
 
         // update holding

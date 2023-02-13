@@ -18,8 +18,7 @@ public class PriceCalculator {
         Double currTotalPrice = 0.0;
         if (type > 0) {
             currTotalPrice = DoubleCalculator.add(prevTotalPrice, tradeTotalPrice);
-        }
-        else {
+        } else {
             currTotalPrice = DoubleCalculator.sub(prevTotalPrice, tradeTotalPrice);
         }
         Long currTotalQuantity = prevQuantity + type * tradeQuantity;
@@ -27,12 +26,12 @@ public class PriceCalculator {
     }
 
     /** call it to update user balance when finish trading, type: buy=1 sell=-1 */
-    public static Double updateBalance(Double prevBalance, Double tradePrice, Long tradeQuantity, Integer type) {
+    public static Double updateBalance(
+            Double prevBalance, Double tradePrice, Long tradeQuantity, Integer type) {
         Double tradeTotalPrice = DoubleCalculator.mul(tradePrice, tradeQuantity);
         if (type > 0) {
             return DoubleCalculator.sub(prevBalance, tradeTotalPrice);
-        }
-        else {
+        } else {
             return DoubleCalculator.add(prevBalance, tradeTotalPrice);
         }
     }
