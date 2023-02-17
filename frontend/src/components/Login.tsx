@@ -20,11 +20,13 @@ const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  updateEmail("");
+
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/signup");
-  };
+  // const handleClick = () => {
+  //   navigate("/signup");
+  // };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
