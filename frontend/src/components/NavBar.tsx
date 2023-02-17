@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 import { EmailContext } from "../Context";
 import React, { useState, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
-
+import './Login.css'
 
 export function Navbar(){
     
@@ -14,9 +14,18 @@ export function Navbar(){
         // trying to go to when they were redirected. This allows us to send them
         // along to that page after they login, which is a nicer user experience
         // than dropping them off on the home page.
-        return <></>
+        return <NavbarBS className="bg-white shadow-sm ">
+        <Container >
+            <Nav className="me-auto">
+                <Nav.Link to="/" as={NavLink} >Login</Nav.Link>
+                <Nav.Link to="/" as={NavLink}>Home</Nav.Link>
+                <Nav.Link to="/" as={NavLink}>Login</Nav.Link>
+            </Nav>
+            hi
+        </Container>
+    </NavbarBS>
       }
-      return <NavbarBS className="bg-white shadow-sm mb-4">
+      return <NavbarBS className="bg-white shadow-sm ">
       <Container>
           <Nav className="me-auto">
               <Nav.Link to="/" as={NavLink} >Login</Nav.Link>
