@@ -20,7 +20,7 @@ const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  updateEmail("");
+  
 
   const navigate = useNavigate();
 
