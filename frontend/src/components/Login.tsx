@@ -24,9 +24,6 @@ const Login: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // const handleClick = () => {
-  //   navigate("/signup");
-  // };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
