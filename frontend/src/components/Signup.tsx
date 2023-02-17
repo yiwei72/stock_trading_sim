@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
 import { useNavigate } from "react-router-dom";
+import './Login.css'
+import {HiOutlineMail,HiKey} from "react-icons/hi"
 
 interface SignupUserData {
   email: string;
@@ -68,57 +70,83 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
-      <h1>Sign up</h1>
-      <form onSubmit={handleSubmit}>
-        <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
-          <input
-            type="text"
-            placeholder="Email"
-            name="email"
-            value={signupUserData.email}
-            onChange={handleInputChange}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={signupUserData.password}
-            onChange={handleInputChange}
-          />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={confirm_password}
-            name="confirmPassword"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Your First Name"
-            name="firstName"
-            value={signupUserData.firstName}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            placeholder="Your Last Name"
-            name="lastName"
-            value={signupUserData.lastName}
-            onChange={handleInputChange}
-          />
+    <section>
+      <div className="signup-container">
+       
+        <div >
+          <h1>Sign up</h1>
+          <form onSubmit={handleSubmit}>
+            <div >
+              <div className="inputbox">
+                <HiOutlineMail className="icon"/>
+                <input
+                  type="text"
+                  name="email"
+                  value={signupUserData.email}
+                  onChange={handleInputChange}
+                />
+                <label>Email</label>
+              </div>
+              
+              <div className="inputbox">
+                <HiKey className="icon"/>
+                <input
+                  type="password"
+                  name="password"
+                  value={signupUserData.password}
+                  onChange={handleInputChange}
+                />
+                <label>Password</label>
+              </div>
+              
+              <div className="inputbox">
+                <HiKey className="icon"/>
+                <input
+                  type="password"
+                  value={confirm_password}
+                  name="confirmPassword"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <label>Confirm Password</label>
+              </div>
+
+              <div className="inputbox">
+                <input
+                  type="text"
+                  placeholder="Your First Name" 
+                  name="firstName"
+                  value={signupUserData.firstName}
+                  onChange={handleInputChange}
+                />
+              </div>
+              
+              <div className="inputbox">
+                <input
+                  type="text"
+                  placeholder="Your Last Name"
+                  name="lastName"
+                  value={signupUserData.lastName}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Signing Up..." : "Sign Up"}
+              </button>
+              <div className="register">
+                <p>Already have an account? 
+                <a href="/login">
+                  Log in here.
+                </a>
+                </p> 
+              </div>
+            </div>
+          </form>
         </div>
-        <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
-          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-          <button onClick={handleClick}>
-            Already have an account? Log in here.
-          </button>
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Signing Up..." : "Sign Up"}
-          </button>
-        </div>
-      </form>
-    </div>
+      </div>
+    </section>
   );
 };
 
