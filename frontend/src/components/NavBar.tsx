@@ -2,7 +2,7 @@
 import{Container, Nav,Navbar as NavbarBS} from "react-bootstrap"
 import { NavLink } from "react-router-dom"
 import { EmailContext } from "../Context";
-import React, { useState, useContext } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import './Login.css'
 
