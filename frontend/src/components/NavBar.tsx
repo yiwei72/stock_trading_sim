@@ -3,6 +3,7 @@ import{Container, Nav,Navbar as NavbarBS} from "react-bootstrap"
 import { NavLink } from "react-router-dom"
 import { EmailContext } from "../Context";
 import React, { useState, useContext } from "react";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 
 export function Navbar(){
@@ -13,16 +14,9 @@ export function Navbar(){
         // trying to go to when they were redirected. This allows us to send them
         // along to that page after they login, which is a nicer user experience
         // than dropping them off on the home page.
-        return <NavbarBS className="bg-white shadow-sm mb-3">
-        <Container>
-            <Nav>
-                
-            </Nav>
-            Stock Trading System
-        </Container>
-    </NavbarBS>
+        return <></>
       }
-      return <NavbarBS className="bg-white shadow-sm mb-3">
+      return <NavbarBS className="bg-white shadow-sm mb-4">
       <Container>
           <Nav className="me-auto">
               <Nav.Link to="/" as={NavLink} >Login</Nav.Link>

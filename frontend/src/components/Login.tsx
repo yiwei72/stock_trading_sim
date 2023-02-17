@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
 import { useNavigate } from "react-router-dom";
+import {HiOutlineMail,HiKey} from "react-icons/hi"
+import './Login.css'
 
 interface LoginUserData {
   email: string;
@@ -54,39 +56,61 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div
-      className="login-container"
-      style={{ display: "grid", placeItems: "center", columnGap: 20 }}
-    >
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
-          <input
-            type="text"
-            placeholder="Email"
-            name="email"
-            value={loginUserData.email}
-            onChange={handleInputChange}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={loginUserData.password}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
-          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Logging In..." : "Log In"}
-          </button>
-          <button onClick={handleClick}>
-            Don't have an account? Sign up here.
-          </button>
-        </div>
-      </form>
-    </div>
+    <section>
+      <div
+        className='login-container'
+        // style={{ display: "grid", placeItems: "center", columnGap: 20 }}
+      >
+                  {/* <h1>Login</h1> */}
+        <div className="form-value">
+          <h1>Login</h1>
+          <form onSubmit={handleSubmit}>
+          
+            <div >
+              <div className="inputbox">
+                <HiOutlineMail className="icon"/>
+                <input
+                  type="text"
+                  name="email"
+                  value={loginUserData.email}
+                  onChange={handleInputChange}
+                />
+                <label>Email</label>
+              </div>
+              
+              <div className="inputbox">  
+                <HiKey className="icon"/>
+                <input
+                type="password"
+                name="password"
+                value={loginUserData.password}
+                onChange={handleInputChange}
+              />
+                <label>Password</label>
+              </div>
+
+              
+            </div>
+            <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
+              {errorMessage && <p style={{ color: "white" }}>{errorMessage}</p>}
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Logging In..." : "Log In"}
+              </button>
+              {/* <button onClick={handleClick}>
+                Don't have an account? Sign up here.
+              </button> */}
+              <div className="register">
+                <p>Don't have a account?
+                <a href="/signup">
+                  Register
+                </a>
+                </p> 
+              </div>
+            </div>       
+          </form>
+        </div> 
+      </div>
+    </section>
   );
 };
 

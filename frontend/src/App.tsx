@@ -8,7 +8,7 @@ import { EmailProvider, UserAuthProvider } from "./Context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserAuth, LoginAuth } from "./AuthUtil";
 import { Navbar } from "./components/NavBar";
-import "bootstrap/dist/css/bootstrap.min.css"
+
 
 const App: React.FC = () => {
   return (
