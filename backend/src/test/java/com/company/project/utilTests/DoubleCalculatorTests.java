@@ -3,7 +3,6 @@ package com.company.project.utilTests;
 import com.company.project.util.DoubleCalculator;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
