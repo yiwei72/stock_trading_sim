@@ -32,7 +32,7 @@ section{
     position: relative;
     width: 400px;
     height: 650px;
-    background: transparent;
+    background: rgb(230, 66, 80);
     border: 2px solid rgba(255,255, 255, 0.5);
     border-radius: 20px;
     backdrop-filter:blur(15px) ;
