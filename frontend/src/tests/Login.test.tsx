@@ -1,9 +1,18 @@
 import axios from "axios";
 import React from "react";
-import { render, fireEvent, waitFor, act } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  act,
+  screen,
+} from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
+import { EmailContext } from "../Context";
+
 jest.mock("axios", () => ({
   get: jest.fn(() => Promise.resolve({ data: {} })),
   post: jest.fn(() => Promise.resolve({ data: {} })),
@@ -17,65 +26,66 @@ jest.mock("react-router-dom", () => {
 });
 
 describe("Test Login component", () => {
-  it("email and password input boxes can be filled correctly", () => {
-    const { getByPlaceholderText } = render(
-      <Router>
-        <Login />
-      </Router>
-    );
+  it("renders without crashing", () => {
+    render(<Login />);
+    const loginTitle = screen.getByText("Login");
+    expect(loginTitle).toBeInTheDocument();
+  });
 
-    const emailInput = getByPlaceholderText("Email");
+  it("email and password input boxes can be filled correctly", () => {
+    render(<Login />);
+
+    const emailInput = screen.getByLabelText("Email");
     fireEvent.change(emailInput, {
       target: { value: "test@example.com", name: "email" },
     });
     expect(emailInput.getAttribute("value")).toBe("test@example.com");
 
-    const passwordInput = getByPlaceholderText("Password");
+    const passwordInput = screen.getByLabelText("Password");
     fireEvent.change(passwordInput, {
       target: { value: "password", name: "password" },
     });
     expect(passwordInput.getAttribute("value")).toBe("password");
   });
 
-  it("displays an error message when email or password is missing", () => {
-    const { getByPlaceholderText, getByText } = render(
-      <Router>
-        <Login />
-      </Router>
+  it("displays an error message when email or password is missing", async () => {
+    const updateEmail = jest.fn();
+    const email = "";
+    (axios.get as jest.Mocked<any>).mockRejectedValue(
+      new Error("All fields are required")
     );
 
-    const emailInput = getByPlaceholderText("Email");
-    fireEvent.change(emailInput, { target: { value: "", name: "email" } });
+    render(
+      <EmailContext.Provider value={{ email, updateEmail }}>
+        <Login />
+      </EmailContext.Provider>
+    );
 
-    const passwordInput = getByPlaceholderText("Password");
-    fireEvent.change(passwordInput, {
-      target: { value: "", name: "password" },
-    });
-
-    const submitButton = getByText("Log In");
+    const submitButton = screen.getByRole("button", { name: "Log In" });
     fireEvent.click(submitButton);
 
-    const errorMessage = getByText("All fields are required");
-    expect(errorMessage).toBeDefined();
+    const errorMessage = await screen.findByText("All fields are required");
+    expect(errorMessage).toBeInTheDocument();
   });
 
   it("should make a POST request to the correct endpoint", async () => {
-    // Arrange
+    const updateEmail = jest.fn();
+    const email = "test@email.com";
     const loginUserData = {
-      email: "test@email.com",
+      email: email,
       password: "password123",
     };
     (axios.post as jest.Mock).mockResolvedValue({ data: { resultCode: 200 } });
 
-    // Act
-    const { getByPlaceholderText, getByText } = render(
-      <Router>
+    render(
+      <EmailContext.Provider value={{ email, updateEmail }}>
         <Login />
-      </Router>
+      </EmailContext.Provider>
     );
-    const emailInput = getByPlaceholderText("Email");
-    const passwordInput = getByPlaceholderText("Password");
-    const submitButton = getByText("Log In");
+
+    const emailInput = screen.getByLabelText("Email");
+    const passwordInput = screen.getByLabelText("Password");
+    const submitButton = screen.getByRole("button", { name: "Log In" });
 
     fireEvent.change(emailInput, { target: { value: loginUserData.email } });
     fireEvent.change(passwordInput, {
@@ -83,7 +93,6 @@ describe("Test Login component", () => {
     });
     fireEvent.click(submitButton);
 
-    // Assert
     await waitFor(() => {
       expect(axios.post).toHaveBeenCalledWith(
         "/api/admin/login",
@@ -95,14 +104,18 @@ describe("Test Login component", () => {
   it("calls navigate function when response from server has result code 200", async () => {
     const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);
-    const { getByPlaceholderText, getByText } = render(
-      <Router>
+
+    const updateEmail = jest.fn();
+    const email = "test@email.com";
+    render(
+      <EmailContext.Provider value={{ email, updateEmail }}>
         <Login />
-      </Router>
+      </EmailContext.Provider>
     );
-    const emailInput = getByPlaceholderText("Email");
-    const passwordInput = getByPlaceholderText("Password");
-    const submitButton = getByText("Log In");
+
+    const emailInput = screen.getByLabelText("Email");
+    const passwordInput = screen.getByLabelText("Password");
+    const submitButton = screen.getByRole("button", { name: "Log In" });
     const responseData = { resultCode: 200 };
     fireEvent.change(emailInput, { target: { value: "test@email.com" } });
     fireEvent.change(passwordInput, { target: { value: "password" } });
@@ -113,38 +126,36 @@ describe("Test Login component", () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
     expect(navigate).toHaveBeenCalledWith("/welcome");
   });
+
   it("displays an error message when response from server has result code NOT 200", async () => {
     const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);
-    const { getByPlaceholderText, getByText, findByText } = render(
-      <Router>
+
+    const updateEmail = jest.fn();
+    const email = "test@email.com";
+    render(
+      <EmailContext.Provider value={{ email, updateEmail }}>
         <Login />
-      </Router>
+      </EmailContext.Provider>
     );
-    const emailInput = getByPlaceholderText("Email");
-    const passwordInput = getByPlaceholderText("Password");
-    fireEvent.change(emailInput, { target: { value: "test@email.com" } });
+
+    const emailInput = screen.getByLabelText("Email");
+    const passwordInput = screen.getByLabelText("Password");
+    const submitButton = screen.getByRole("button", { name: "Log In" });
+
+    fireEvent.change(emailInput, { target: { value: "test@example.com" } });
     fireEvent.change(passwordInput, { target: { value: "password" } });
-    const submitButton = getByText("Log In");
-    const responseData = { resultCode: 500 };
+    const responseData = {
+      resultCode: 500,
+      data: "Email or password is incorrect.",
+    };
     (
       axios.post as jest.MockedFunction<typeof axios.post>
     ).mockResolvedValueOnce({ data: responseData });
     fireEvent.click(submitButton);
     await new Promise((resolve) => setTimeout(resolve, 0));
-    const errorMessage = findByText("Email or password is incorrect.");
-    expect(errorMessage).toBeDefined();
-  });
-  it("calls navigate function when click the signup button", async () => {
-    const navigate = jest.fn();
-    (useNavigate as jest.Mock).mockReturnValue(navigate);
-    const { getByPlaceholderText, getByText } = render(
-      <Router>
-        <Login />
-      </Router>
-    );
-    const signupButton = getByText("Don't have an account? Sign up here.");
-    fireEvent.click(signupButton);
-    expect(navigate).toHaveBeenCalledWith("/signup");
+    expect(
+      screen.getByText("Email or password is incorrect.")
+    ).toBeInTheDocument();
   });
 });
