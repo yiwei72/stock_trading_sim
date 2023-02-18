@@ -68,24 +68,26 @@ const Login: React.FC = () => {
             <div >
               <div className="inputbox">
                 <HiOutlineMail className="icon"/>
+                <label htmlFor="email-input">Email</label>
                 <input
+                  id="email-input"
                   type="text"
                   name="email"
                   value={loginUserData.email}
                   onChange={handleInputChange}
                 />
-                <label>Email</label>
               </div>
               
               <div className="inputbox">  
                 <HiKey className="icon"/>
+                <label htmlFor="password-input">Password</label>
                 <input
+                id="password-input"
                 type="password"
                 name="password"
                 value={loginUserData.password}
                 onChange={handleInputChange}
               />
-                <label>Password</label>
               </div>
 
               

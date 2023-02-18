@@ -77,54 +77,61 @@ const Signup: React.FC = () => {
               <div className="inputbox">
                 <HiOutlineMail className="icon"/>
                 <input
+                  id="email-input"
                   type="text"
                   name="email"
                   value={signupUserData.email}
                   onChange={handleInputChange}
                 />
-                <label>Email</label>
+                <label htmlFor="email-input">Email</label>
               </div>
               
               <div className="inputbox">
                 <HiKey className="icon"/>
                 <input
+                  id="password-input"
                   type="password"
                   name="password"
                   value={signupUserData.password}
                   onChange={handleInputChange}
                 />
-                <label>Password</label>
+                <label htmlFor="password-input">Password</label>
               </div>
               
               <div className="inputbox">
                 <HiKey className="icon"/>
                 <input
+                  id="confirm-password-input"
                   type="password"
                   value={confirm_password}
                   name="confirmPassword"
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                <label>Confirm Password</label>
+                <label htmlFor="confirm-password-input">Confirm Password</label>
               </div>
 
               <div className="inputbox">
                 <input
+                  id="firstName"
                   type="text"
                   placeholder="Your First Name" 
                   name="firstName"
                   value={signupUserData.firstName}
                   onChange={handleInputChange}
                 />
+                <label htmlFor="firstName">Your First Name</label>
               </div>
               
               <div className="inputbox">
                 <input
+                  id="lastName"
                   type="text"
                   placeholder="Your Last Name"
                   name="lastName"
                   value={signupUserData.lastName}
                   onChange={handleInputChange}
                 />
+                <label htmlFor="lastName">Your Last Name</label>
               </div>
             </div>
             <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
