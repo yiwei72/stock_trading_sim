@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
 import { useNavigate } from "react-router-dom";
-import {HiOutlineMail,HiKey} from "react-icons/hi"
-import './Login.css'
+import { HiOutlineMail, HiKey } from "react-icons/hi";
+import "./Login.css";
 
 interface LoginUserData {
   email: string;
@@ -20,10 +20,7 @@ const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  
-
   const navigate = useNavigate();
-
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -57,17 +54,16 @@ const Login: React.FC = () => {
   return (
     <section>
       <div
-        className='login-container'
+        className="login-container"
         // style={{ display: "grid", placeItems: "center", columnGap: 20 }}
       >
-                  {/* <h1>Login</h1> */}
+        {/* <h1>Login</h1> */}
         <div className="form-value">
           <h1>Login</h1>
           <form onSubmit={handleSubmit}>
-          
-            <div >
+            <div>
               <div className="inputbox">
-                <HiOutlineMail className="icon"/>
+                <HiOutlineMail className="icon" />
                 <label htmlFor="email-input">Email</label>
                 <input
                   id="email-input"
@@ -77,22 +73,22 @@ const Login: React.FC = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              
-              <div className="inputbox">  
-                <HiKey className="icon"/>
+
+              <div className="inputbox">
+                <HiKey className="icon" />
                 <label htmlFor="password-input">Password</label>
                 <input
-                id="password-input"
-                type="password"
-                name="password"
-                value={loginUserData.password}
-                onChange={handleInputChange}
-              />
+                  id="password-input"
+                  type="password"
+                  name="password"
+                  value={loginUserData.password}
+                  onChange={handleInputChange}
+                />
               </div>
-
-              
             </div>
-            <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
+            <div
+              style={{ display: "grid", placeItems: "center", columnGap: 20 }}
+            >
               {errorMessage && <p style={{ color: "white" }}>{errorMessage}</p>}
               <button type="submit" disabled={isLoading}>
                 {isLoading ? "Logging In..." : "Log In"}
@@ -101,15 +97,14 @@ const Login: React.FC = () => {
                 Don't have an account? Sign up here.
               </button> */}
               <div className="register">
-                <p>Don't have a account?
-                <a href="/signup">
-                  Register
-                </a>
-                </p> 
+                <p>
+                  Don't have a account?
+                  <a href="/signup">Register</a>
+                </p>
               </div>
-            </div>       
+            </div>
           </form>
-        </div> 
+        </div>
       </div>
     </section>
   );

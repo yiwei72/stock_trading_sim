@@ -1,6 +1,12 @@
 import axios from "axios";
 import React from "react";
-import { render, fireEvent, waitFor, act, screen } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  act,
+  screen,
+} from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Login from "../components/Login";
@@ -45,7 +51,9 @@ describe("Test Login component", () => {
   it("displays an error message when email or password is missing", async () => {
     const updateEmail = jest.fn();
     const email = "";
-    (axios.get as jest.Mocked<any>).mockRejectedValue(new Error("All fields are required"));
+    (axios.get as jest.Mocked<any>).mockRejectedValue(
+      new Error("All fields are required")
+    );
 
     render(
       <EmailContext.Provider value={{ email, updateEmail }}>
@@ -68,7 +76,7 @@ describe("Test Login component", () => {
       password: "password123",
     };
     (axios.post as jest.Mock).mockResolvedValue({ data: { resultCode: 200 } });
-    
+
     render(
       <EmailContext.Provider value={{ email, updateEmail }}>
         <Login />
@@ -119,7 +127,7 @@ describe("Test Login component", () => {
     expect(navigate).toHaveBeenCalledWith("/welcome");
   });
 
-  it("displays an error message when response from server has result code NOT 200", async () => {   
+  it("displays an error message when response from server has result code NOT 200", async () => {
     const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);
 
@@ -130,20 +138,24 @@ describe("Test Login component", () => {
         <Login />
       </EmailContext.Provider>
     );
-    
+
     const emailInput = screen.getByLabelText("Email");
     const passwordInput = screen.getByLabelText("Password");
     const submitButton = screen.getByRole("button", { name: "Log In" });
 
     fireEvent.change(emailInput, { target: { value: "test@example.com" } });
     fireEvent.change(passwordInput, { target: { value: "password" } });
-    const responseData = { resultCode: 500, data: "Email or password is incorrect." };
+    const responseData = {
+      resultCode: 500,
+      data: "Email or password is incorrect.",
+    };
     (
       axios.post as jest.MockedFunction<typeof axios.post>
     ).mockResolvedValueOnce({ data: responseData });
     fireEvent.click(submitButton);
     await new Promise((resolve) => setTimeout(resolve, 0));
-    expect(screen.getByText("Email or password is incorrect.")).toBeInTheDocument();
-
+    expect(
+      screen.getByText("Email or password is incorrect.")
+    ).toBeInTheDocument();
   });
 });

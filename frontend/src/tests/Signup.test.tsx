@@ -1,9 +1,15 @@
 import axios from "axios";
 import React from "react";
-import { render, fireEvent, waitFor, act, screen } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  act,
+  screen,
+} from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Router, useNavigate } from "react-router-dom";
-import { createMemoryHistory } from 'history';
+import { createMemoryHistory } from "history";
 import Signup from "../components/Signup";
 
 jest.mock("axios", () => ({
@@ -39,7 +45,6 @@ describe("Test Signup component", () => {
       target: { value: "password", name: "confirmPassword" },
     });
     expect(confirmPasswordInput.getAttribute("value")).toBe("password");
-
 
     const firstNameInput = screen.getByLabelText("Your First Name");
     fireEvent.change(firstNameInput, {
@@ -95,7 +100,9 @@ describe("Test Signup component", () => {
     const submitButton = screen.getByRole("button", { name: "Sign Up" });
     fireEvent.click(submitButton);
 
-    const errorMessage = await screen.findByText("Password and confirm password must match");
+    const errorMessage = await screen.findByText(
+      "Password and confirm password must match"
+    );
     expect(errorMessage).toBeDefined();
   });
 
@@ -110,7 +117,7 @@ describe("Test Signup component", () => {
     const confirmPasswordInput = screen.getByLabelText("Confirm Password");
     const firstNameInput = screen.getByLabelText("Your First Name");
     const lastNameInput = screen.getByLabelText("Your Last Name");
-    const submitButton =screen.getByRole("button", { name: "Sign Up" });
+    const submitButton = screen.getByRole("button", { name: "Sign Up" });
 
     fireEvent.change(emailInput, { target: { value: "test@email.com" } });
     fireEvent.change(passwordInput, { target: { value: "password" } });
@@ -139,7 +146,7 @@ describe("Test Signup component", () => {
     const confirmPasswordInput = screen.getByLabelText("Confirm Password");
     const firstNameInput = screen.getByLabelText("Your First Name");
     const lastNameInput = screen.getByLabelText("Your Last Name");
-    const submitButton =screen.getByRole("button", { name: "Sign Up" });
+    const submitButton = screen.getByRole("button", { name: "Sign Up" });
     fireEvent.change(emailInput, { target: { value: "admin@uwaterloo.ca" } });
     fireEvent.change(passwordInput, { target: { value: "123456" } });
     fireEvent.change(confirmPasswordInput, { target: { value: "123456" } });
