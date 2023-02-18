@@ -10,16 +10,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 @SpringBootTest
 public class DoubleCalculatorTests {
-    @Mock
-    private DoubleCalculator doubleCalculator;
+    @Mock private DoubleCalculator doubleCalculator;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         doubleCalculator = new DoubleCalculator();
     }
+
     @Test
     public void testAdd() {
         Double num1 = 1.0;
@@ -28,6 +29,7 @@ public class DoubleCalculatorTests {
         //        System.out.println(result);
         assertEquals(3.0, result, 0.001);
     }
+
     @Test
     public void testSub() {
         Double num1 = 333.33;
@@ -58,18 +60,18 @@ public class DoubleCalculatorTests {
         Double num2 = 123.789;
         Double result1 = DoubleCalculator.div(num1, num2, 4, RoundingMode.HALF_UP);
         //        System.out.println(result1);
-        assertEquals(5.2858, result1,0.00001);
+        assertEquals(5.2858, result1, 0.00001);
 
         Double num3 = 654.789;
         Double num4 = 123.987;
         Double result2 = DoubleCalculator.div(num3, num4, 4, RoundingMode.HALF_UP);
         //        System.out.println(result2);
-        assertEquals(5.2811, result2,0.0001);
+        assertEquals(5.2811, result2, 0.0001);
 
         Double num5 = 123456.78;
         Long num6 = 100L;
         Double result3 = DoubleCalculator.div(num5, num6, 4, RoundingMode.HALF_UP);
         //        System.out.println(result3);
-        assertEquals(1234.5678, result3,0.0001);
+        assertEquals(1234.5678, result3, 0.0001);
     }
 }
