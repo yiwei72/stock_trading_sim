@@ -64,7 +64,6 @@ const Login: React.FC = () => {
             <div>
               <div className="inputbox">
                 <HiOutlineMail className="icon" />
-                <label htmlFor="email-input">Email</label>
                 <input
                   id="email-input"
                   type="text"
@@ -72,11 +71,11 @@ const Login: React.FC = () => {
                   value={loginUserData.email}
                   onChange={handleInputChange}
                 />
+                <label htmlFor="email-input">Email</label>
               </div>
 
               <div className="inputbox">
                 <HiKey className="icon" />
-                <label htmlFor="password-input">Password</label>
                 <input
                   id="password-input"
                   type="password"
@@ -84,6 +83,7 @@ const Login: React.FC = () => {
                   value={loginUserData.password}
                   onChange={handleInputChange}
                 />
+                <label htmlFor="password-input">Password</label>
               </div>
             </div>
             <div
