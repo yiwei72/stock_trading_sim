@@ -13,7 +13,6 @@ public class PriceCalculatorTests {
 
     @Mock
     private PriceCalculator priceCalculator1;
-
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
