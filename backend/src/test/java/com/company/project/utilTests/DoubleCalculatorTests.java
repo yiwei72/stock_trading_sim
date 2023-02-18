@@ -1,9 +1,7 @@
 package com.company.project.utilTests;
-
 import com.company.project.util.DoubleCalculator;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,13 +12,11 @@ import org.mockito.MockitoAnnotations;
 @SpringBootTest
 public class DoubleCalculatorTests {
     @Mock private DoubleCalculator doubleCalculator;
-
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         doubleCalculator = new DoubleCalculator();
     }
-
     @Test
     public void testAdd() {
         Double num1 = 1.0;
@@ -29,7 +25,6 @@ public class DoubleCalculatorTests {
         //        System.out.println(result);
         assertEquals(3.0, result, 0.001);
     }
-
     @Test
     public void testSub() {
         Double num1 = 333.33;
