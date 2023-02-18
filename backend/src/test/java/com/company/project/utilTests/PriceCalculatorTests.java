@@ -20,6 +20,7 @@ public class PriceCalculatorTests {
         MockitoAnnotations.openMocks(this);
         priceCalculator = new PriceCalculator();
     }
+
     @Test
     public void testUpdateAvePrice() {
         Double result =
@@ -28,7 +29,6 @@ public class PriceCalculatorTests {
         Double result2 =
                 PriceCalculator.updateAvePrice(100.0, 2L, 50.0, 1L, -1, 4, RoundingMode.HALF_UP);
         assertEquals(150, result2, 0.001);
-
     }
 
     @Test
