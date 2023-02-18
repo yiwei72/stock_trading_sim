@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { EmailContext } from "../Context";
 import { useNavigate } from "react-router-dom";
-import './Login.css'
-import {HiOutlineMail,HiKey} from "react-icons/hi"
+import "./Login.css";
+import { HiOutlineMail, HiKey } from "react-icons/hi";
 
 interface SignupUserData {
   email: string;
@@ -26,7 +26,6 @@ const Signup: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
-
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -69,75 +68,82 @@ const Signup: React.FC = () => {
   return (
     <section>
       <div className="signup-container">
-       
-        <div >
+        <div>
           <h1>Sign up</h1>
           <form onSubmit={handleSubmit}>
-            <div >
+            <div>
               <div className="inputbox">
-                <HiOutlineMail className="icon"/>
+                <HiOutlineMail className="icon" />
                 <input
+                  id="email-input"
                   type="text"
                   name="email"
                   value={signupUserData.email}
                   onChange={handleInputChange}
                 />
-                <label>Email</label>
+                <label htmlFor="email-input">Email</label>
               </div>
-              
+
               <div className="inputbox">
-                <HiKey className="icon"/>
+                <HiKey className="icon" />
                 <input
+                  id="password-input"
                   type="password"
                   name="password"
                   value={signupUserData.password}
                   onChange={handleInputChange}
                 />
-                <label>Password</label>
+                <label htmlFor="password-input">Password</label>
               </div>
-              
+
               <div className="inputbox">
-                <HiKey className="icon"/>
+                <HiKey className="icon" />
                 <input
+                  id="confirm-password-input"
                   type="password"
                   value={confirm_password}
                   name="confirmPassword"
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                <label>Confirm Password</label>
+                <label htmlFor="confirm-password-input">Confirm Password</label>
               </div>
 
               <div className="inputbox">
                 <input
+                  id="firstName"
                   type="text"
-                  placeholder="Your First Name" 
+                  placeholder="Your First Name"
                   name="firstName"
                   value={signupUserData.firstName}
                   onChange={handleInputChange}
                 />
+                <label htmlFor="firstName">Your First Name</label>
               </div>
-              
+
               <div className="inputbox">
                 <input
+                  id="lastName"
                   type="text"
                   placeholder="Your Last Name"
                   name="lastName"
                   value={signupUserData.lastName}
                   onChange={handleInputChange}
                 />
+                <label htmlFor="lastName">Your Last Name</label>
               </div>
             </div>
-            <div style={{ display: "grid", placeItems: "center", columnGap: 20 }}>
+            <div
+              style={{ display: "grid", placeItems: "center", columnGap: 20 }}
+            >
               {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               <button type="submit" disabled={isLoading}>
                 {isLoading ? "Signing Up..." : "Sign Up"}
               </button>
               <div className="register">
-                <p>Already have an account? 
-                <a href="/login">
-                  Log in here.
-                </a>
-                </p> 
+                <p>
+                  Already have an account?
+                  <a href="/login">Log in here.</a>
+                </p>
               </div>
             </div>
           </form>

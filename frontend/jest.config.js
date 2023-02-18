@@ -5,6 +5,9 @@ module.exports = {
       "^.+\\.tsx?$": "babel-jest",
     },
     testRegex: '(/src/tests/.*|(\\.|/)(test|spec))\\.(ts|tsx)?$',
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+    moduleNameMapper: {
+      '\\.(css|less)$': 'jest-css-modules',
+    }
   };
   
