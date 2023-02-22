@@ -102,13 +102,14 @@ const Buy: React.FC = () => {
       <p>Last Name: {user.lastName}</p>
       <p>Balance: {user.balance}</p>
       <div>
-        <label>Stock Symbol:</label>
-        <input
-          type="text"
-          name="stockSymbol"
-          value={stockSymbol}
-          onChange={(e) => setStockSymbol(e.target.value.toUpperCase())}
-        />
+          <label htmlFor="stocksymbol-input">Stock Symbol:</label>
+          <input
+            id="stocksymbol-input"
+            type="text"
+            name="stockSymbol"
+            value={stockSymbol}
+            onChange={(e) => setStockSymbol(e.target.value.toUpperCase())}
+          />
         <div>
           <p>stock value:{stockVal} </p>
           <p>last updated:{lastUpdateTime}</p>
@@ -120,8 +121,9 @@ const Buy: React.FC = () => {
           {isLoading ? "Refreshing" : "Refresh"}
         </button>
         <br></br>
-        <label>Buy Amount:</label>
+        <label htmlFor="buy-amount-input">Buy Amount:</label>
         <input
+          id="buy-amount-input"
           type="number"
           name="amount"
           value={amount}
