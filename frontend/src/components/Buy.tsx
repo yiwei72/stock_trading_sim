@@ -102,14 +102,14 @@ const Buy: React.FC = () => {
       <p>Last Name: {user.lastName}</p>
       <p>Balance: {user.balance}</p>
       <div>
-          <label htmlFor="stocksymbol-input">Stock Symbol:</label>
-          <input
-            id="stocksymbol-input"
-            type="text"
-            name="stockSymbol"
-            value={stockSymbol}
-            onChange={(e) => setStockSymbol(e.target.value.toUpperCase())}
-          />
+        <label htmlFor="stocksymbol-input">Stock Symbol:</label>
+        <input
+          id="stocksymbol-input"
+          type="text"
+          name="stockSymbol"
+          value={stockSymbol}
+          onChange={(e) => setStockSymbol(e.target.value.toUpperCase())}
+        />
         <div>
           <p>stock value:{stockVal} </p>
           <p>last updated:{lastUpdateTime}</p>
