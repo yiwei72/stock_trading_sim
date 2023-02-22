@@ -103,8 +103,9 @@ const Sell: React.FC = () => {
       <p>Last Name: {user.lastName}</p>
       <p>Balance: {user.balance}</p>
       <div>
-        <label>Stock Symbol:</label>
+        <label htmlFor="stocksymbol-input">Stock Symbol:</label>
         <input
+          id="stocksymbol-input"
           type="text"
           name="stockSymbol"
           value={stockSymbol}
@@ -121,8 +122,9 @@ const Sell: React.FC = () => {
           {isLoading ? "Refreshing" : "Refresh"}
         </button>
         <br></br>
-        <label>Sell Amount:</label>
+        <label htmlFor="sell-amount-input">Sell Amount:</label>
         <input
+          id="sell-amount-input"
           type="number"
           name="amount"
           value={amount}

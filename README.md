@@ -21,7 +21,7 @@
 ### Windows/Mac/Linux:
 1. use `cd` command to go into the project code directory (Windows: powershell, Mac/Linux: terminal).
 2. run `docker-compose up`. The docker containers will keep running in the terminal. It does not stop.
-3. Open "127.0.0.1" on your browser and do your test/checking. Modify your code.
+3. Open "127.0.0.1" on your browser and do your test/checking. Modify your code. Then run `docker-compose build`.
 5. After you are done, use "ctrl + c" to terminate the docker containers.
 <br/><br/>
 
