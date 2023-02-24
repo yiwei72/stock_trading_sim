@@ -2,6 +2,21 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { EmailContext, UserAuthContext } from "../Context";
 import { useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import ShowChartIcon from '@mui/icons-material/ShowChart';
+import Avatar from '@mui/material/Avatar';
 
 interface User {
   firstName: string;
@@ -28,6 +43,7 @@ const Welcome: React.FC = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -67,60 +83,89 @@ const Welcome: React.FC = () => {
 
   return (
     <div>
-      {/* User Information Table */}
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Balance</th>
-          </tr>
-        </thead>
-        <tbody>
-          {user && (
-            <tr>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.balance}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-
-      {/* Stock Information Table */}
-      <table>
-        <thead>
-          <tr>
-            <th>Stock Symbol</th>
-            <th>Average Price</th>
-            <th>Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {user.holding.map((holding) => (
-            <tr key={holding.stockSymbol}>
-              <td>{holding.stockSymbol}</td>
-              <td>{holding.price.toFixed(2)}</td>
-              <td>{holding.quantity}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div>
-        <button onClick={handleClickBuy} disabled={isLoading}>
-          Buy
-        </button>
-      </div>
-      <div>
-        <button onClick={handleClickSell} disabled={isLoading}>
-          Sell
-        </button>
-      </div>
-      <br></br>
-      <div>
-        <button onClick={handleClickLogout}>Logout</button>
-      </div>
-    </div>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar component="nav" sx={{ bgcolor: '#E64250' }}>
+          <Toolbar>
+            <Box display="flex" alignItems="center" flexGrow={1}>
+              <Avatar sx={{ bgcolor: "transparent" }} variant="square">
+                <ShowChartIcon />
+              </Avatar>
+              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <Button sx={{ color: '#fff' }} onClick={handleClickBuy} disabled={isLoading}>Buy</Button>
+              </Box>
+              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <Button sx={{ color: '#fff' }} onClick={handleClickSell} disabled={isLoading}>Sell</Button>
+              </Box>
+            </Box>
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <Button sx={{ color: '#fff' }} onClick={handleClickLogout}>Logout</Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, p: 3 }}
+        >
+          <Toolbar />
+          <Grid container spacing={3}>
+            <Grid item xs={6}>
+              <Paper elevation={0} sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <Table>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#E64250' }}>First Name</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6">{user.firstName}</Typography>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#E64250' }}>Last Name</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6">{user.lastName}</Typography>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#E64250' }}>Balance</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6">{user.balance}</Typography>
+                    </TableCell>
+                  </TableRow>
+                </Table>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper elevation={4} sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#E64250' }}>&nbsp;&nbsp;Holdings</Typography>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: 'bold' }}>Stock Symbol</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold' }}>Average Price</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold' }}>Quantity</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {user.holding.map((holding) => (
+                      <TableRow key={holding.stockSymbol}>
+                        <TableCell>{holding.stockSymbol}</TableCell>
+                        <TableCell>{holding.price.toFixed(2)}</TableCell>
+                        <TableCell>{holding.quantity}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </div >
   );
 };
 

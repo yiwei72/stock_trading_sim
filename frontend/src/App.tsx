@@ -11,11 +11,9 @@ import { Navbar } from "./components/NavBar";
 
 const App: React.FC = () => {
   return (
-    <>
       <EmailProvider>
         <UserAuthProvider>
           <Router>
-            <Navbar />
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
@@ -48,7 +46,6 @@ const App: React.FC = () => {
           </Router>
         </UserAuthProvider>
       </EmailProvider>
-    </>
   );
 };
 
