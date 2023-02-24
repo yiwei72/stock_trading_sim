@@ -43,7 +43,6 @@ const Welcome: React.FC = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);

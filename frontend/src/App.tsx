@@ -7,7 +7,6 @@ import Sell from "./components/Sell";
 import { EmailProvider, UserAuthProvider } from "./Context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserAuth, LoginAuth } from "./AuthUtil";
-import { Navbar } from "./components/NavBar";
 
 const App: React.FC = () => {
   return (
