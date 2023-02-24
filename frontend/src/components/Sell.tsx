@@ -3,13 +3,13 @@ import axios from "axios";
 import { fetchStockPrice } from "./Api";
 import { useNavigate, useLocation } from "react-router-dom";
 import { EmailContext } from "../Context";
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
 
 interface TransactionInfo {
   type: number;
@@ -107,31 +107,52 @@ const Sell: React.FC = () => {
   }
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" height="100vh" sx={{ lineHeight: "3" }}>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+      sx={{ lineHeight: "3" }}
+    >
       <Paper elevation={3} sx={{ p: 8, m: 16 }}>
         <div>
           <Typography variant="h6" gutterBottom>
-            <span style={{ color: '#E64250', fontFamily: 'inherit' }}>First Name: </span>
-            <span style={{ fontFamily: 'inherit', marginLeft: 8 }}>{user.firstName}</span>
+            <span style={{ color: "#E64250", fontFamily: "inherit" }}>
+              First Name:{" "}
+            </span>
+            <span style={{ fontFamily: "inherit", marginLeft: 8 }}>
+              {user.firstName}
+            </span>
           </Typography>
           <Typography variant="h6" gutterBottom>
-            <span style={{ color: '#E64250', fontFamily: 'inherit' }}>Last Name: </span>
-            <span style={{ fontFamily: 'inherit', marginLeft: 8 }}>{user.lastName}</span>
+            <span style={{ color: "#E64250", fontFamily: "inherit" }}>
+              Last Name:{" "}
+            </span>
+            <span style={{ fontFamily: "inherit", marginLeft: 8 }}>
+              {user.lastName}
+            </span>
           </Typography>
           <Typography variant="h6" gutterBottom>
-            <span style={{ color: '#E64250', fontFamily: 'inherit' }}>Balance:</span>
-            <span style={{ fontFamily: 'inherit', marginLeft: 8 }}>{user.balance}</span>
+            <span style={{ color: "#E64250", fontFamily: "inherit" }}>
+              Balance:
+            </span>
+            <span style={{ fontFamily: "inherit", marginLeft: 8 }}>
+              {user.balance}
+            </span>
           </Typography>
           <Grid container spacing={2} alignItems="center">
             <Grid item>
               <label htmlFor="stocksymbol-input">
-                <Typography variant="h6" sx={{ color: '#E64250' }} gutterBottom>
+                <Typography variant="h6" sx={{ color: "#E64250" }} gutterBottom>
                   Stock Symbol:
                 </Typography>
               </label>
             </Grid>
             <Grid item sx={{ display: "flex", alignItems: "center" }}>
-              <FormControl error={refreshErrorMessage !== ""} sx={{ height: "40px" }}>
+              <FormControl
+                error={refreshErrorMessage !== ""}
+                sx={{ height: "40px" }}
+              >
                 <TextField
                   id="stocksymbol-input"
                   type="text"
@@ -151,7 +172,9 @@ const Sell: React.FC = () => {
               <Button
                 variant="outlined"
                 sx={{
-                  color: '#E64250', borderColor: '#E64250', "&:hover, &:focus": { borderColor: '#E64250' }
+                  color: "#E64250",
+                  borderColor: "#E64250",
+                  "&:hover, &:focus": { borderColor: "#E64250" },
                 }}
                 disabled={isLoading}
                 onClick={handleClickPrice}
@@ -161,13 +184,17 @@ const Sell: React.FC = () => {
             </Grid>
           </Grid>
           <div>
-            <Typography variant="body1" gutterBottom>stock value:{stockVal} </Typography>
-            <Typography variant="body1" gutterBottom>last updated:{lastUpdateTime}</Typography>
+            <Typography variant="body1" gutterBottom>
+              stock value:{stockVal}{" "}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              last updated:{lastUpdateTime}
+            </Typography>
           </div>
           <Grid container spacing={2} alignItems="center">
             <Grid item>
               <label htmlFor="sell-amount-input">
-                <Typography variant="h6" sx={{ color: '#E64250' }} gutterBottom>
+                <Typography variant="h6" sx={{ color: "#E64250" }} gutterBottom>
                   Sell Amount:
                 </Typography>
               </label>
@@ -185,14 +212,18 @@ const Sell: React.FC = () => {
               </FormControl>
             </Grid>
           </Grid>
-          {sellErrorMessage && <p style={{ color: "red" }}>{sellErrorMessage}</p>}
+          {sellErrorMessage && (
+            <p style={{ color: "red" }}>{sellErrorMessage}</p>
+          )}
           <br></br>
           <Grid container spacing={3} alignItems="center">
             <Grid item xs={12}>
               <Button
                 variant="contained"
                 sx={{
-                  color: '#fff', bgcolor: '#E64250', "&:hover, &:focus": { bgcolor: '#E64250' }
+                  color: "#fff",
+                  bgcolor: "#E64250",
+                  "&:hover, &:focus": { bgcolor: "#E64250" },
                 }}
                 disabled={isLoading}
                 onClick={handleSubmit}
@@ -202,7 +233,7 @@ const Sell: React.FC = () => {
               </Button>
             </Grid>
           </Grid>
-          <Button onClick={handleClick} sx={{ color: '#E64250' }}>
+          <Button onClick={handleClick} sx={{ color: "#E64250" }}>
             Go back to welcome
           </Button>
         </div>
