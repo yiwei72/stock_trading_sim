@@ -46,6 +46,6 @@ jobs:
       uses: codecov/codecov-action@v1
       if: steps.mvn_install.outputs.status == 0
       with:
-        file: backend/target/site/jacoco/jacoco.xml
+        file: backend/target/site/jacoco-ut/jacoco.xml
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

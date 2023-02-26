@@ -34,7 +34,7 @@
 ## Backend:
 1. `cd backend`
 2. run `mvn clean test jacoco:report`
-3. open `backend/target/site/jacoco/index.html` to view the coverage report.
+3. open `backend/target/site/jacoco-ut/index.html` to view the coverage report.
 
 
 <br/><br/>
