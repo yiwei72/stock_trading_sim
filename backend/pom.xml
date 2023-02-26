@@ -142,6 +142,11 @@
                 <goal>prepare-agent</goal>
                 <goal>report</goal>
                 </goals>
+                <configuration>
+                    <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+                    <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                </configuration>
             </execution>
             </executions>
         </plugin>
