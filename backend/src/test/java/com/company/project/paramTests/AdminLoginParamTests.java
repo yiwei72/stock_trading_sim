@@ -1,25 +1,22 @@
 package com.company.project.paramTests;
 
-//package com.company.project.controllers.param.AdminLoginParam;
+// package com.company.project.controllers.param.AdminLoginParam;
 import com.company.project.controllers.param.AdminLoginParam;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.MockitoAnnotations;
 
 import org.junit.jupiter.api.Test;
-//for testing case
+// for testing case
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
 
 public class AdminLoginParamTests {
     private Validator validator;
@@ -40,6 +37,7 @@ public class AdminLoginParamTests {
         Set<ConstraintViolation<AdminLoginParam>> violations = validator.validate(adminLoginParam);
         assertTrue(violations.isEmpty());
     }
+
     @Test
     void testAdminLoginParamEquals() {
         AdminLoginParam param1 = new AdminLoginParam();
@@ -54,6 +52,7 @@ public class AdminLoginParamTests {
         assertEquals(param1, param2);
         assertNotEquals(param1, param3);
     }
+
     @Test
     void testAdminLoginParamHashCode() {
         AdminLoginParam param1 = new AdminLoginParam();
@@ -69,6 +68,7 @@ public class AdminLoginParamTests {
         assertNotEquals(param1.hashCode(), param3.hashCode());
         assertNotEquals(param2.hashCode(), param3.hashCode());
     }
+
     @Test
     void testAdminLoginParamToString() {
         AdminLoginParam param = new AdminLoginParam();
@@ -78,6 +78,7 @@ public class AdminLoginParamTests {
         assertEquals(expected, param.toString());
         assertNotEquals("haha", param.toString());
     }
+
     @Test
     public void testEquals() {
         // Scenario 1: both instances have the same email and password values
@@ -135,5 +136,3 @@ public class AdminLoginParamTests {
         assertTrue(result);
     }
 }
-
-
