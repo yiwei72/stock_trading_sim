@@ -1,6 +1,5 @@
 package com.company.project.paramTests;
 
-// package com.company.project.controllers.param.AdminLoginParam;
 import com.company.project.controllers.param.AdminLoginParam;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import org.junit.jupiter.api.Test;
 // for testing case
 import javax.validation.ConstraintViolation;
 import java.util.Set;
@@ -18,6 +17,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+@SpringBootTest
 public class AdminLoginParamTests {
     private Validator validator;
 
