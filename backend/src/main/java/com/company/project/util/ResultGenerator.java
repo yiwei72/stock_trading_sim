@@ -42,11 +42,11 @@ public class ResultGenerator {
         return result;
     }
 
-//    public static Result genFailResult(Object data) {
-//        Result result = new Result();
-//        result.setResultCode(RESULT_CODE_SERVER_ERROR);
-//        result.setMessage(DEFAULT_FAIL_MESSAGE);
-//        result.setData(data);
-//        return result;
-//    }
+    //    public static Result genFailResult(Object data) {
+    //        Result result = new Result();
+    //        result.setResultCode(RESULT_CODE_SERVER_ERROR);
+    //        result.setMessage(DEFAULT_FAIL_MESSAGE);
+    //        result.setData(data);
+    //        return result;
+    //    }
 }

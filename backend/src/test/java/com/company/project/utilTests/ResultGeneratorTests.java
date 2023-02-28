@@ -22,7 +22,7 @@ public class ResultGeneratorTests {
     }
 
     @Test
-    public void testGenSuccessResultStr(){
+    public void testGenSuccessResultStr() {
         String message = "Custom success message";
         Result result = ResultGenerator.genSuccessResult(message);
         assertEquals(message, result.getMessage());
@@ -35,10 +35,10 @@ public class ResultGeneratorTests {
         assertEquals(message, result.getMessage());
     }
 
-//    @Test
-//    public void testGenFailResultObj() {
-//        List<String> testObj = new ArrayList<>();
-//        Result result = ResultGenerator.genSuccessResult(testObj);
-//        assertEquals(testObj, result.getData());
-//    }
+    //    @Test
+    //    public void testGenFailResultObj() {
+    //        List<String> testObj = new ArrayList<>();
+    //        Result result = ResultGenerator.genSuccessResult(testObj);
+    //        assertEquals(testObj, result.getData());
+    //    }
 }
