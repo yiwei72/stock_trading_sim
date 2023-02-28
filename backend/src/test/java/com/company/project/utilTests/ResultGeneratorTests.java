@@ -1,54 +1,44 @@
 package com.company.project.utilTests;
 
+import com.company.project.util.Result;
 import com.company.project.util.ResultGenerator;
 
-// import org.junit.test;
-
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest
 public class ResultGeneratorTests {
-    @Mock private ResultGenerator resultGenerator1;
+    @Mock private ResultGenerator resultGenerator;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        resultGenerator1 = new ResultGenerator();
+        resultGenerator = new ResultGenerator();
     }
-    /*
-    @Test
-    @DisplayName("Test generating a success result with custom message")
-    public void testGenSuccessResultStr(){
-
-        Result<String> result = ResultGenerator.genSuccessResult("Custom success message");
-
-        //assertEquals(200, result.getResultCode());
-        assertEquals("Custom success message", result.getMessage());
-        assertNull(result.getData());    }
 
     @Test
-    public void testGenFailResultStr() {
-        String message = "Small FAIL"
-        Result result = Result.genFailResult(message);
-
-
-        assertEquals(Result.RESULT_CODE_SERVER_ERROR, result.getResultCode());
-
+    public void testGenSuccessResultStr() {
+        String message = "Custom success message";
+        Result result = ResultGenerator.genSuccessResult(message);
         assertEquals(message, result.getMessage());
     }
 
     @Test
-    public void testGenFailResultWithObjData() {
-        Object testData = new Object();
-        Result result = Result.genFailResult(testData);
-
-        assertEquals(Result.RESULT_CODE_SERVER_ERROR, result.getResultCode());
-
-        assertEquals(Result.DEFAULT_FAIL_MESSAGE, result.getMessage());
-
-
-        assertEquals(testData, result.getData());
+    public void testGenFailResultStr() {
+        String message = "Small FAIL";
+        Result result = ResultGenerator.genFailResult(message);
+        assertEquals(message, result.getMessage());
     }
-    */
+
+    //    @Test
+    //    public void testGenFailResultObj() {
+    //        List<String> testObj = new ArrayList<>();
+    //        Result result = ResultGenerator.genSuccessResult(testObj);
+    //        assertEquals(testObj, result.getData());
+    //    }
 }
