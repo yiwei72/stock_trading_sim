@@ -2,3 +2,4 @@ ignore:
   - "backend/src/main/java/com/company/project/configuration"  # ignore folders and all its contents
   - "backend/src/main/java/com/company/project/pojo"
   - "backend/src/main/java/com/company/project/Application.java"
+  - "backend/src/main/java/com/company/project/controllers/param"
