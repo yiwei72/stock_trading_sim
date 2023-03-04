@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { EmailContext } from "../Context";
  
 interface Infos{

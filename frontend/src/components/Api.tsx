@@ -12,6 +12,7 @@ export async function getStockPrice(symbol: string) {
   //console.log(price);
 }
 
+
 /*the onClick property of the button element is expecting a MouseEventHandler type, but the getStockPrice function returns a Promise and not a MouseEventHandler.
 To resolve this issue, you should wrap the getStockPrice function in another function that calls it and passes the event as an argument to getStockPrice.
 */
@@ -22,3 +23,4 @@ export async function fetchStockPrice(symbol: string) {
 }
 //tsc alphavantageapi.ts to generate .js file
 //node alphavantageapi.js to test this file function, should print out the stock most recent data with high low, price, volume, etc
+
