@@ -139,7 +139,6 @@ describe("Test Welcome component", () => {
     });
   });
 
-  
   it("should navigate to /log when Log button is clicked", async () => {
     const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);
