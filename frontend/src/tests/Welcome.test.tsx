@@ -138,4 +138,36 @@ describe("Test Welcome component", () => {
       });
     });
   });
+
+  it("should navigate to /log when Log button is clicked", async () => {
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
+
+    (axios.post as jest.Mock).mockResolvedValue({
+      data: { data: user },
+    });
+
+    const component = (
+      <MemoryRouter>
+        <EmailContext.Provider value={{ email: "", updateEmail: jest.fn() }}>
+          <UserAuthContext.Provider
+            value={{ firstName: "", updateFirstName: jest.fn() }}
+          >
+            <Welcome />
+          </UserAuthContext.Provider>
+        </EmailContext.Provider>
+      </MemoryRouter>
+    );
+
+    await act(async () => {
+      const { getByText } = render(component);
+      fireEvent.click(getByText("Log"));
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      expect(navigate).toHaveBeenCalledWith("/log", {
+        state: {
+          user: { balance: 0, firstName: "", lastName: "", holding: [] },
+        },
+      });
+    });
+  });
 });

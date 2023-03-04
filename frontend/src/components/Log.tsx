@@ -93,7 +93,7 @@ const Log: React.FC = () => {
                 <th>Stock Symbol</th>
                 <th>Timestamp</th>
                 <th>Price</th>
-                <th>Type</th>
+                <th>Quantity</th>
               </tr>
             </thead>
             <tbody>
