@@ -4,6 +4,7 @@ import Signup from "./components/Signup";
 import Welcome from "./components/Welcome";
 import Buy from "./components/Buy";
 import Sell from "./components/Sell";
+import Log from "./components/Log";
 import { EmailProvider, UserAuthProvider } from "./Context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserAuth, LoginAuth } from "./AuthUtil";
@@ -41,6 +42,14 @@ const App: React.FC = () => {
                 element={
                   <UserAuth>
                     <Sell />
+                  </UserAuth>
+                }
+              />
+              <Route
+                path="/log"
+                element={
+                  <UserAuth>
+                    <Log />
                   </UserAuth>
                 }
               />
