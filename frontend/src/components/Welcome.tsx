@@ -74,6 +74,10 @@ const Welcome: React.FC = () => {
     navigate("/sell", { state: { user: user } });
   };
 
+  const handleClickLog = () => {
+    navigate("/log", { state: { user: user } });
+  };
+
   const handleClickLogout = () => {
     updateEmail("");
     updateFirstName("");
@@ -106,6 +110,15 @@ const Welcome: React.FC = () => {
                   disabled={isLoading}
                 >
                   Sell
+                </Button>
+              </Box>
+              <Box sx={{ display: { xs: "none", sm: "block" } }}>
+                <Button
+                  sx={{ color: "#fff" }}
+                  onClick={handleClickLog}
+                  disabled={isLoading}
+                >
+                  Log
                 </Button>
               </Box>
             </Box>
