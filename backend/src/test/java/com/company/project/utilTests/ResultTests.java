@@ -2,11 +2,11 @@ package com.company.project.utilTests;
 
 import com.company.project.util.Result;
 import org.junit.jupiter.api.Test;
-// import org.springframework.boot.test.context.SpringBootTest;
-// import org.junit.test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertFalse;
+
+@SpringBootTest
 public class ResultTests {
     @Test
     public void testResultConstructorWithIntAndString() {

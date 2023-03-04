@@ -3,6 +3,13 @@ import axios from "axios";
 import { fetchStockPrice } from "./Api";
 import { useNavigate, useLocation } from "react-router-dom";
 import { EmailContext } from "../Context";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
 
 interface TransactionInfo {
   type: number;
@@ -57,6 +64,7 @@ const Buy: React.FC = () => {
       if (user.balance < stockPrice * amount) {
         throw new Error("Your balance is insufficient");
       }
+      setBuyErrorMessage("");
       transactionInfo.email = email;
       transactionInfo.stockSymbol = stockSymbol.toUpperCase();
       transactionInfo.price = stockPrice;
@@ -85,6 +93,7 @@ const Buy: React.FC = () => {
       if (!stockSymbol) {
         throw new Error("Stock Symbol is required");
       }
+      setRefreshErrorMessage("");
       setStockVal(
         await fetchStockPrice(stockSymbol.toUpperCase()).catch(console.error)
       );
@@ -97,44 +106,140 @@ const Buy: React.FC = () => {
   }
 
   return (
-    <div>
-      <p>First Name: {user.firstName}</p>
-      <p>Last Name: {user.lastName}</p>
-      <p>Balance: {user.balance}</p>
-      <div>
-        <label>Stock Symbol:</label>
-        <input
-          type="text"
-          name="stockSymbol"
-          value={stockSymbol}
-          onChange={(e) => setStockSymbol(e.target.value.toUpperCase())}
-        />
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+      sx={{ lineHeight: "3" }}
+    >
+      <Paper elevation={3} sx={{ p: 8, m: 16 }}>
         <div>
-          <p>stock value:{stockVal} </p>
-          <p>last updated:{lastUpdateTime}</p>
+          <Typography variant="h6" gutterBottom>
+            <span style={{ color: "#E64250", fontFamily: "inherit" }}>
+              First Name:{" "}
+            </span>
+            <span style={{ fontFamily: "inherit", marginLeft: 8 }}>
+              {user.firstName}
+            </span>
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            <span style={{ color: "#E64250", fontFamily: "inherit" }}>
+              Last Name:{" "}
+            </span>
+            <span style={{ fontFamily: "inherit", marginLeft: 8 }}>
+              {user.lastName}
+            </span>
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            <span style={{ color: "#E64250", fontFamily: "inherit" }}>
+              Balance:
+            </span>
+            <span style={{ fontFamily: "inherit", marginLeft: 8 }}>
+              {user.balance}
+            </span>
+          </Typography>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item>
+              <label htmlFor="stocksymbol-input">
+                <Typography
+                  variant="h6"
+                  sx={{ color: "#E64250", htmlFor: "stocksymbol-input" }}
+                  gutterBottom
+                >
+                  Stock Symbol:
+                </Typography>
+              </label>
+            </Grid>
+            <Grid item sx={{ display: "flex", alignItems: "center" }}>
+              <FormControl
+                error={refreshErrorMessage !== ""}
+                sx={{ height: "40px" }}
+              >
+                <TextField
+                  id="stocksymbol-input"
+                  type="text"
+                  size="small"
+                  name="stockSymbol"
+                  value={stockSymbol}
+                  onChange={(e) => setStockSymbol(e.target.value.toUpperCase())}
+                />
+                {refreshErrorMessage && (
+                  <Typography variant="body2" color="error">
+                    {refreshErrorMessage}
+                  </Typography>
+                )}
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                sx={{
+                  color: "#E64250",
+                  borderColor: "#E64250",
+                  "&:hover, &:focus": { borderColor: "#E64250" },
+                }}
+                disabled={isLoading}
+                onClick={handleClickPrice}
+              >
+                {isLoading ? "Refreshing" : "Refresh"}
+              </Button>
+            </Grid>
+          </Grid>
+          <div>
+            <Typography variant="body1" gutterBottom>
+              stock value:{stockVal}{" "}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              last updated:{lastUpdateTime}
+            </Typography>
+          </div>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item>
+              <label htmlFor="buy-amount-input">
+                <Typography variant="h6" sx={{ color: "#E64250" }} gutterBottom>
+                  Buy Amount:
+                </Typography>
+              </label>
+            </Grid>
+            <Grid item sx={{ display: "flex", alignItems: "center" }}>
+              <FormControl>
+                <TextField
+                  id="buy-amount-input"
+                  type="number"
+                  size="small"
+                  name="amount"
+                  value={amount}
+                  onChange={(e) => setAmount(Number(e.target.value))}
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
+          {buyErrorMessage && <p style={{ color: "red" }}>{buyErrorMessage}</p>}
+          <br></br>
+          <Grid container spacing={3} alignItems="center">
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                sx={{
+                  color: "#fff",
+                  bgcolor: "#E64250",
+                  "&:hover, &:focus": { bgcolor: "#E64250" },
+                }}
+                disabled={isLoading}
+                onClick={handleSubmit}
+                style={{ width: "100%" }}
+              >
+                {isLoading ? "Buying" : "Buy"}
+              </Button>
+            </Grid>
+          </Grid>
+          <Button onClick={handleClick} sx={{ color: "#E64250" }}>
+            Go back to welcome
+          </Button>
         </div>
-        {refreshErrorMessage && (
-          <p style={{ color: "red" }}>{refreshErrorMessage}</p>
-        )}
-        <button type="submit" disabled={isLoading} onClick={handleClickPrice}>
-          {isLoading ? "Refreshing" : "Refresh"}
-        </button>
-        <br></br>
-        <label>Buy Amount:</label>
-        <input
-          type="number"
-          name="amount"
-          value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
-        />
-        {buyErrorMessage && <p style={{ color: "red" }}>{buyErrorMessage}</p>}
-        <button type="submit" disabled={isLoading} onClick={handleSubmit}>
-          {isLoading ? "Buying" : "Buy"}
-        </button>
-        <br></br>
-        <button onClick={handleClick}>Go back to welcome</button>
-      </div>
-    </div>
+      </Paper>
+    </Box>
   );
 };
 
