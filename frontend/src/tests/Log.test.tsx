@@ -106,47 +106,11 @@ const logs = [
   },
   {
     email: email,
-    price: 9,
-    quantity: 19,
-    serialNumber: 11,
-    stockSymbol: "AAPL",
-    timeStamp: 1677615749820,
-    type: 1,
-  },
-  {
-    email: email,
-    price: 10,
-    quantity: 20,
-    serialNumber: 12,
-    stockSymbol: "AAPL",
-    timeStamp: 1677615749820,
-    type: 1,
-  },
-  {
-    email: email,
-    price: 11,
-    quantity: 21,
-    serialNumber: 13,
-    stockSymbol: "AAPL",
-    timeStamp: 1677615749820,
-    type: 1,
-  },
-  {
-    email: email,
-    price: 12,
-    quantity: 22,
-    serialNumber: 14,
-    stockSymbol: "AAPL",
-    timeStamp: 1677615749820,
-    type: 1,
-  },
-  {
-    email: email,
     price: 200,
     quantity: 5,
     serialNumber: 2,
     stockSymbol: "GOOG",
-    timeStamp: 1677615749555,
+    timeStamp: 1677615749821,
     type: -1,
   },
   {
@@ -304,7 +268,7 @@ describe("Test Log component", () => {
     expect(await screen.findAllByText("200")).toBeDefined();
     expect(await screen.findAllByText("5")).toBeDefined();
 
-    fireEvent.click(screen.getByRole("button", { name: "Next page" }));
+    fireEvent.click(screen.getByRole("button", { name: /next page/i }));
     expect(await screen.queryByText("buy")).toBeNull();
   });
 });
