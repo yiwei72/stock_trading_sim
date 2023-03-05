@@ -11,49 +11,49 @@ import { UserAuth, LoginAuth } from "./AuthUtil";
 
 const App: React.FC = () => {
   return (
-      <EmailProvider>
-        <UserAuthProvider>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route
-                path="/welcome"
-                element={
-                  <LoginAuth>
-                    <Welcome />
-                  </LoginAuth>
-                }
-              />
-              <Route
-                path="/buy"
-                element={
-                  <UserAuth>
-                    <Buy />
-                  </UserAuth>
-                }
-              />
-              <Route
-                path="/sell"
-                element={
-                  <UserAuth>
-                    <Sell />
-                  </UserAuth>
-                }
-              />
-              <Route
-                path="/log"
-                element={
-                  <UserAuth>
-                    <Log />
-                  </UserAuth>
-                }
-              />
-            </Routes>
-          </Router>
-        </UserAuthProvider>
-      </EmailProvider>
+    <EmailProvider>
+      <UserAuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/welcome"
+              element={
+                <LoginAuth>
+                  <Welcome />
+                </LoginAuth>
+              }
+            />
+            <Route
+              path="/buy"
+              element={
+                <UserAuth>
+                  <Buy />
+                </UserAuth>
+              }
+            />
+            <Route
+              path="/sell"
+              element={
+                <UserAuth>
+                  <Sell />
+                </UserAuth>
+              }
+            />
+            <Route
+              path="/log"
+              element={
+                <UserAuth>
+                  <Log />
+                </UserAuth>
+              }
+            />
+          </Routes>
+        </Router>
+      </UserAuthProvider>
+    </EmailProvider>
   );
 };
 

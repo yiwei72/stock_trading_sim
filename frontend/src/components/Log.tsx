@@ -9,7 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TablePagination from '@mui/material/TablePagination';
+import TablePagination from "@mui/material/TablePagination";
 import Button from "@mui/material/Button";
 
 interface Infos {
@@ -67,7 +67,7 @@ const Log: React.FC = () => {
   // };
   const handlePageChange = (
     _event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number,
+    newPage: number
   ) => {
     setCurrentPage(newPage);
   };
@@ -112,7 +112,9 @@ const Log: React.FC = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{ fontWeight: "bold" }}>Type</TableCell>
-                    <TableCell sx={{ fontWeight: "bold" }}>Stock Symbol</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>
+                      Stock Symbol
+                    </TableCell>
                     <TableCell sx={{ fontWeight: "bold" }}>Timestamp</TableCell>
                     <TableCell sx={{ fontWeight: "bold" }}>Price</TableCell>
                     <TableCell sx={{ fontWeight: "bold" }}>Quantity</TableCell>
@@ -120,7 +122,10 @@ const Log: React.FC = () => {
                 </TableHead>
                 <TableBody>
                   {logs
-                    .slice(currentPage * PAGE_SIZE, (currentPage + 1) * PAGE_SIZE)
+                    .slice(
+                      currentPage * PAGE_SIZE,
+                      (currentPage + 1) * PAGE_SIZE
+                    )
                     .map((log, index) => (
                       <TableRow key={index}>
                         <TableCell>{log.type}</TableCell>
