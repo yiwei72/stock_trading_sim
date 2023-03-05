@@ -3,6 +3,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { EmailContext } from "../Context";
 import ReactPaginate from "react-paginate";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TablePagination from '@mui/material/TablePagination';
 
 interface Infos {
   serialNumber: number;
@@ -52,9 +60,15 @@ const Log: React.FC = () => {
   const [logs, setLogs] = useState<Info[]>([]);
   const [hasLog, setHasLogs] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-  const PAGE_SIZE: number = 20;
-  const handlePageChange = ({ selected }: { selected: number }) => {
-    setCurrentPage(selected);
+  const PAGE_SIZE: number = 10;
+  // const handlePageChange = ({ selected }: { selected: number }) => {
+  //   setCurrentPage(selected);
+  // };
+  const handlePageChange = (
+    _event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    setCurrentPage(newPage);
   };
 
   useEffect(() => {
@@ -81,11 +95,8 @@ const Log: React.FC = () => {
     fetchlog();
   }, [email]);
   return (
-    <div>
-      {!hasLog && <h1 style={{ color: "red" }}>{logErrorMessage}</h1>}
-
-      {hasLog && (
         <div>
+<<<<<<< Updated upstream
           <table>
             <thead>
               <tr>
@@ -115,10 +126,48 @@ const Log: React.FC = () => {
             onPageChange={handlePageChange}
             forcePage={currentPage}
           />
+=======
+          {!hasLog && <h1 style={{ color: "red" }}>{logErrorMessage}</h1>}
+
+          {hasLog && (
+            <div>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Type</TableCell>
+                    <TableCell>Stock Symbol</TableCell>
+                    <TableCell>Timestamp</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell>Quantity</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {logs
+                    .slice(currentPage * PAGE_SIZE, (currentPage + 1) * PAGE_SIZE)
+                    .map((log) => (
+                      <TableRow key={log.timestamp}>
+                        <TableCell>{log.type}</TableCell>
+                        <TableCell>{log.stockSymbol}</TableCell>
+                        <TableCell>{log.timestamp}</TableCell>
+                        <TableCell>{log.price}</TableCell>
+                        <TableCell>{log.quantity}</TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+              <TablePagination
+                rowsPerPageOptions={[]}
+                component="div"
+                count={logs.length}
+                rowsPerPage={PAGE_SIZE}
+                page={currentPage}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          )}
+          <button onClick={handleClick}>Go back to welcome</button>
+>>>>>>> Stashed changes
         </div>
-      )}
-      <button onClick={handleClick}>Go back to welcome</button>
-    </div>
   );
 };
 

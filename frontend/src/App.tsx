@@ -8,15 +8,12 @@ import Log from "./components/Log";
 import { EmailProvider, UserAuthProvider } from "./Context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserAuth, LoginAuth } from "./AuthUtil";
-import { Navbar } from "./components/NavBar";
 
 const App: React.FC = () => {
   return (
-    <>
       <EmailProvider>
         <UserAuthProvider>
           <Router>
-            <Navbar />
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
@@ -57,7 +54,6 @@ const App: React.FC = () => {
           </Router>
         </UserAuthProvider>
       </EmailProvider>
-    </>
   );
 };
 
