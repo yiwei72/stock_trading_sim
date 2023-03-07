@@ -27,7 +27,7 @@
 
 # How to run tests and get test coverage reports locally:
 ## Frontend:
-1. `cd frontent` to change directory into the frontend
+1. `cd frontend` to change directory into the frontend
 2. run `npm install`, `npm run build` and `npm test` in that order for the first time. Only run `npm run build` and `npm test` afterwards, unless there is a package version change.
 3. open `frontend/coverage/lcov-report/index.html` to view the coverage report.
 
