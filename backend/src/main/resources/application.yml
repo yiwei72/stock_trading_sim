@@ -6,7 +6,8 @@ spring:
     password: ECE651123
     url: jdbc:mysql://database-1.cbifqpta8wxq.us-east-2.rds.amazonaws.com:3306/stock_trader
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    type: com.alibaba.druid.pool.DruidDataSource
+    hikari:
+      max-lifetime: 600000
 
 mybatis:
   type-aliases-package: com.company.project.pojo
