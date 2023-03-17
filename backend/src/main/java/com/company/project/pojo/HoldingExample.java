@@ -18,6 +18,7 @@ public class HoldingExample {
      *
      * @mbg.generated Thu Feb 02 02:24:03 EST 2023
      */
+
     protected boolean distinct;
 
     /**
@@ -54,6 +55,7 @@ public class HoldingExample {
      *
      * @mbg.generated Thu Feb 02 02:24:03 EST 2023
      */
+
     public String getOrderByClause() {
         return orderByClause;
     }
@@ -642,6 +644,7 @@ public class HoldingExample {
         public String getTypeHandler() {
             return typeHandler;
         }
+
 
         protected Criterion(String condition) {
             super();
