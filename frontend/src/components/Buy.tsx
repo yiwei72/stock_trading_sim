@@ -91,7 +91,6 @@ const Buy: React.FC = () => {
 
   const [orderType, setOrderType] = useState<string>("market");
 
-
   async function handleClickPrice(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     setIsLoading(true);
@@ -242,28 +241,28 @@ const Buy: React.FC = () => {
           </Grid>
 
           <Grid container spacing={2} alignItems="center">
-  <Grid item>
-    <InputLabel htmlFor="order-type-select">
-      <Typography variant="h6" sx={{ color: "#E64250" }} gutterBottom>
-        Order Type:
-      </Typography>
-    </InputLabel>
-  </Grid>
-  <Grid item>
-    <FormControl sx={{ minWidth: 120 }}>
-      <Select
-        id="order-type-select"
-        data-testid="order-type-select"
-        value={orderType}
-        onChange={(e) => setOrderType(e.target.value as string)}
-      >
-        <MenuItem value="market">Market</MenuItem>
-        <MenuItem value="limit">Limit</MenuItem>
-        <MenuItem value="stop">Stop</MenuItem>
-      </Select>
-    </FormControl>
-  </Grid>
-</Grid>
+            <Grid item>
+              <InputLabel htmlFor="order-type-select">
+                <Typography variant="h6" sx={{ color: "#E64250" }} gutterBottom>
+                  Order Type:
+                </Typography>
+              </InputLabel>
+            </Grid>
+            <Grid item>
+              <FormControl sx={{ minWidth: 120 }}>
+                <Select
+                  id="order-type-select"
+                  data-testid="order-type-select"
+                  value={orderType}
+                  onChange={(e) => setOrderType(e.target.value as string)}
+                >
+                  <MenuItem value="market">Market</MenuItem>
+                  <MenuItem value="limit">Limit</MenuItem>
+                  <MenuItem value="stop">Stop</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
 
           <Button onClick={handleClick} sx={{ color: "#E64250" }}>
             Go back to welcome
@@ -280,4 +279,3 @@ export enum OrderType {
   Market = "market",
   Stop = "stop",
 }
-

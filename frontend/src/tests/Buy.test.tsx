@@ -6,11 +6,11 @@ import "@testing-library/jest-dom/extend-expect";
 import Buy from "../components/Buy";
 import { EmailContext } from "../Context";
 import { fetchStockPrice } from "../components/Api";
-import  OrderType from "../components/Buy"; 
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Grid from '@mui/material/Grid';
+import OrderType from "../components/Buy";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
 
 jest.mock("axios", () => ({
   get: jest.fn(() => Promise.resolve({ data: {} })),
@@ -227,15 +227,15 @@ describe("Test Buy component", () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  describe('Select', () => {
-    it('renders a select component with three menu items', () => {
+  describe("Select", () => {
+    it("renders a select component with three menu items", () => {
       render(
         <Grid item>
           <FormControl sx={{ minWidth: 120 }}>
             <Select
               id="order-type-select"
               data-testid="order-type-select"
-              value={'market'}
+              value={"market"}
               onChange={(e) => {}}
             >
               <MenuItem value="market">Market</MenuItem>
@@ -245,16 +245,12 @@ describe("Test Buy component", () => {
           </FormControl>
         </Grid>
       );
- 
-  
+
       // Find the select element by its data-testid attribute
-      const selectElement = screen.getByTestId('order-type-select');
-  
+      const selectElement = screen.getByTestId("order-type-select");
+
       // Check that the select element has three options
       expect(selectElement.children.length).toBe(4);
     });
-
-
-    });
   });
-
+});
