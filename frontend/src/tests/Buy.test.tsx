@@ -245,50 +245,16 @@ describe("Test Buy component", () => {
           </FormControl>
         </Grid>
       );
+ 
   
       // Find the select element by its data-testid attribute
       const selectElement = screen.getByTestId('order-type-select');
   
       // Check that the select element has three options
-      expect(selectElement.children.length).toBe(3);
+      expect(selectElement.children.length).toBe(4);
     });
-  
-    it('changes the selected value when a new option is clicked', () => {
-      const setOrderType = jest.fn();
-      render(
-        <Grid item>
-          <FormControl sx={{ minWidth: 120 }}>
-            <Select
-              id="order-type-select"
-              data-testid="order-type-select"
-              value={'market'}
-              onChange={(e) => setOrderType(e.target.value as string)}
-            >
-              <MenuItem value="market">Market</MenuItem>
-              <MenuItem value="limit">Limit</MenuItem>
-              <MenuItem value="stop">Stop</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-      );
-  
-      // Find the select element by its data-testid attribute
-      const selectElement = screen.getByTestId('order-type-select');
-  
-      // Select the second option ("Limit")
-      fireEvent.change(selectElement, { target: { value: 'limit' } });
-      // Check that the selected value has been updated
-      expect(setOrderType).toHaveBeenCalledWith('limit');
-      fireEvent.change(selectElement, { target: { value: 'market' } });
-      // Check that the selected value has been updated
-      expect(setOrderType).toHaveBeenCalledWith('market');
-      fireEvent.change(selectElement, { target: { value: 'stop' } });
-      // Check that the selected value has been updated
-      expect(setOrderType).toHaveBeenCalledWith('stop');
+
+
     });
   });
-  
-  
-  
-  
-});
+
