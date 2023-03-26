@@ -10,6 +10,9 @@ import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
 
 interface TransactionInfo {
   type: number;
@@ -85,6 +88,9 @@ const Buy: React.FC = () => {
       setIsLoading(false);
     }
   };
+
+  const [orderType, setOrderType] = useState<string>("market");
+
 
   async function handleClickPrice(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -234,6 +240,31 @@ const Buy: React.FC = () => {
               </Button>
             </Grid>
           </Grid>
+
+          <Grid container spacing={2} alignItems="center">
+  <Grid item>
+    <InputLabel htmlFor="order-type-select">
+      <Typography variant="h6" sx={{ color: "#E64250" }} gutterBottom>
+        Order Type:
+      </Typography>
+    </InputLabel>
+  </Grid>
+  <Grid item>
+    <FormControl sx={{ minWidth: 120 }}>
+      <Select
+        id="order-type-select"
+        data-testid="order-type-select"
+        value={orderType}
+        onChange={(e) => setOrderType(e.target.value as string)}
+      >
+        <MenuItem value="market">Market</MenuItem>
+        <MenuItem value="limit">Limit</MenuItem>
+        <MenuItem value="stop">Stop</MenuItem>
+      </Select>
+    </FormControl>
+  </Grid>
+</Grid>
+
           <Button onClick={handleClick} sx={{ color: "#E64250" }}>
             Go back to welcome
           </Button>
@@ -244,3 +275,9 @@ const Buy: React.FC = () => {
 };
 
 export default Buy;
+export enum OrderType {
+  Limit = "limit",
+  Market = "market",
+  Stop = "stop",
+}
+

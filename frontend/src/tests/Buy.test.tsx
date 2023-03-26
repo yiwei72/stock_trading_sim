@@ -6,6 +6,11 @@ import "@testing-library/jest-dom/extend-expect";
 import Buy from "../components/Buy";
 import { EmailContext } from "../Context";
 import { fetchStockPrice } from "../components/Api";
+import  OrderType from "../components/Buy"; 
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
 
 jest.mock("axios", () => ({
   get: jest.fn(() => Promise.resolve({ data: {} })),
@@ -221,4 +226,69 @@ describe("Test Buy component", () => {
     const errorMessage = await screen.findByText("Stock Symbol:");
     expect(errorMessage).toBeInTheDocument();
   });
+
+  describe('Select', () => {
+    it('renders a select component with three menu items', () => {
+      render(
+        <Grid item>
+          <FormControl sx={{ minWidth: 120 }}>
+            <Select
+              id="order-type-select"
+              data-testid="order-type-select"
+              value={'market'}
+              onChange={(e) => {}}
+            >
+              <MenuItem value="market">Market</MenuItem>
+              <MenuItem value="limit">Limit</MenuItem>
+              <MenuItem value="stop">Stop</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      );
+  
+      // Find the select element by its data-testid attribute
+      const selectElement = screen.getByTestId('order-type-select');
+  
+      // Check that the select element has three options
+      expect(selectElement.children.length).toBe(3);
+    });
+  
+    it('changes the selected value when a new option is clicked', () => {
+      const setOrderType = jest.fn();
+      render(
+        <Grid item>
+          <FormControl sx={{ minWidth: 120 }}>
+            <Select
+              id="order-type-select"
+              data-testid="order-type-select"
+              value={'market'}
+              onChange={(e) => setOrderType(e.target.value as string)}
+            >
+              <MenuItem value="market">Market</MenuItem>
+              <MenuItem value="limit">Limit</MenuItem>
+              <MenuItem value="stop">Stop</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      );
+  
+      // Find the select element by its data-testid attribute
+      const selectElement = screen.getByTestId('order-type-select');
+  
+      // Select the second option ("Limit")
+      fireEvent.change(selectElement, { target: { value: 'limit' } });
+      // Check that the selected value has been updated
+      expect(setOrderType).toHaveBeenCalledWith('limit');
+      fireEvent.change(selectElement, { target: { value: 'market' } });
+      // Check that the selected value has been updated
+      expect(setOrderType).toHaveBeenCalledWith('market');
+      fireEvent.change(selectElement, { target: { value: 'stop' } });
+      // Check that the selected value has been updated
+      expect(setOrderType).toHaveBeenCalledWith('stop');
+    });
+  });
+  
+  
+  
+  
 });
