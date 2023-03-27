@@ -1,5 +1,12 @@
 import React from "react";
-import { render, fireEvent, waitFor, screen, within, getByTestId } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  screen,
+  within,
+  getByTestId,
+} from "@testing-library/react";
 import { useNavigate, BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import "@testing-library/jest-dom/extend-expect";
@@ -227,8 +234,7 @@ describe("Test Buy component", () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  
-  it('changes the selected value when a new option is clicked', async () => {
+  it("changes the selected value when a new option is clicked", async () => {
     const { getByTestId } = render(<Buy />);
     const selectInput = getByTestId("order-type-select");
     fireEvent.change(selectInput.childNodes[1], { target: { value: "limit" } });
