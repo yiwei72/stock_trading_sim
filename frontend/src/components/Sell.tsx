@@ -52,8 +52,6 @@ const Sell: React.FC = () => {
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setIsLoading(true);
-  
-  
 
     try {
       if (!stockSymbol) {
