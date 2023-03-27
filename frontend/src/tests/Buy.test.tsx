@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, waitFor, screen } from "@testing-library/react";
+import { render, fireEvent, waitFor, screen, within, getByTestId } from "@testing-library/react";
 import { useNavigate, BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import "@testing-library/jest-dom/extend-expect";
@@ -227,30 +227,11 @@ describe("Test Buy component", () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  describe("Select", () => {
-    it("renders a select component with three menu items", () => {
-      render(
-        <Grid item>
-          <FormControl sx={{ minWidth: 120 }}>
-            <Select
-              id="order-type-select"
-              data-testid="order-type-select"
-              value={"market"}
-              onChange={(e) => {}}
-            >
-              <MenuItem value="market">Market</MenuItem>
-              <MenuItem value="limit">Limit</MenuItem>
-              <MenuItem value="stop">Stop</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-      );
-
-      // Find the select element by its data-testid attribute
-      const selectElement = screen.getByTestId("order-type-select");
-
-      // Check that the select element has three options
-      expect(selectElement.children.length).toBe(4);
-    });
+  
+  it('changes the selected value when a new option is clicked', async () => {
+    const { getByTestId } = render(<Buy />);
+    const selectInput = getByTestId("order-type-select");
+    fireEvent.change(selectInput.childNodes[1], { target: { value: "limit" } });
+    expect(selectInput.textContent).toMatch(/Limit\s*/i);
   });
 });
