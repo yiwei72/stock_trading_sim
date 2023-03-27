@@ -1,11 +1,23 @@
 import React from "react";
-import { render, fireEvent, waitFor, screen } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  screen,
+  within,
+  getByTestId,
+} from "@testing-library/react";
 import { useNavigate, BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import "@testing-library/jest-dom/extend-expect";
 import Sell from "../components/Sell";
 import { EmailContext } from "../Context";
 import { fetchStockPrice } from "../components/Api";
+import OrderType from "../components/Sell";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
 
 jest.mock("axios", () => ({
   get: jest.fn(() => Promise.resolve({ data: {} })),
@@ -215,5 +227,12 @@ describe("Test Sell component", () => {
     const lastUpdated = await screen.findByText(/last updated/);
     expect(stockValue).toBeInTheDocument();
     expect(lastUpdated).toBeInTheDocument();
+  });
+
+  it("changes the selected value when a new option is clicked", async () => {
+    const { getByTestId } = render(<Sell />);
+    const selectInput = getByTestId("order-type-select");
+    fireEvent.change(selectInput.childNodes[1], { target: { value: "limit" } });
+    expect(selectInput.textContent).toMatch(/Limit\s*/i);
   });
 });
