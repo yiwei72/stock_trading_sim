@@ -240,4 +240,29 @@ describe("Test Buy component", () => {
     fireEvent.change(selectInput.childNodes[1], { target: { value: "limit" } });
     expect(selectInput.textContent).toMatch(/Limit\s*/i);
   });
+
+  it("handles trigger price input changes and shows an error for invalid input", () => {
+    render(<Buy />);
+    const orderTypeSelect = screen.getByTestId("order-type-select");
+  
+    // Change order type to "limit"
+    fireEvent.change(orderTypeSelect.childNodes[1], { target: { value: "limit" } });
+  
+    const triggerPriceInput = screen.getByLabelText("Trigger Price:");
+    const validValue = "123.45";
+    const invalidValue = "123.456";
+    
+    // Valid value
+    fireEvent.change(triggerPriceInput, { target: { value: validValue } });
+    expect(triggerPriceInput).toHaveValue(validValue);
+    expect(screen.queryByText("Invalid trigger price format")).not.toBeInTheDocument();
+    
+    // Invalid value
+    fireEvent.change(triggerPriceInput, { target: { value: invalidValue } });
+    expect(triggerPriceInput).toHaveValue(validValue);
+    expect(screen.getByText("Invalid trigger price format")).toBeInTheDocument();
+  });
+  
+  
+  
 });
