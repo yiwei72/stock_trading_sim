@@ -37,7 +37,7 @@ const Buy: React.FC = () => {
   const [stockVal, setStockVal] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState("");
   const [amount, setAmount] = useState(0);
-  
+
   const transactionInfo: TransactionInfo = {
     type: 1,
     email: "",
@@ -46,7 +46,9 @@ const Buy: React.FC = () => {
     quantity: 0,
     //triggerPrice: 0,
   };
-  const [unfilledTriggerPrices, setUnfilledTriggerPrices] = useState<number[]>([]);
+  const [unfilledTriggerPrices, setUnfilledTriggerPrices] = useState<number[]>(
+    []
+  );
 
   const {
     state: { user },
@@ -93,7 +95,10 @@ const Buy: React.FC = () => {
         // Logic for limit or stop orders
         // Store the unfilled order and display it on the same page
         setUnfilledOrders((prevOrders) => [...prevOrders, transactionInfo]);
-        setUnfilledTriggerPrices((prevTriggerPrices) => [...prevTriggerPrices, triggerPrice || 0]);
+        setUnfilledTriggerPrices((prevTriggerPrices) => [
+          ...prevTriggerPrices,
+          triggerPrice || 0,
+        ]);
       } else {
         throw new Error("Invalid order type");
       }
@@ -103,7 +108,6 @@ const Buy: React.FC = () => {
       setIsLoading(false);
     }
   };
-
 
   const [orderType, setOrderType] = useState<string>("market");
   const [triggerPrice, setTriggerPrice] = useState<number | null>(null);
@@ -119,20 +123,21 @@ const Buy: React.FC = () => {
       setTriggerPriceError("Invalid trigger price format");
     }
   };
-  const UnfilledOrders: React.FC<{ orders: TransactionInfo[]; triggerPrices: number[] }> = ({ orders, triggerPrices }) => (
+  const UnfilledOrders: React.FC<{
+    orders: TransactionInfo[];
+    triggerPrices: number[];
+  }> = ({ orders, triggerPrices }) => (
     <div>
       <Typography variant="h6">Unfilled Orders:</Typography>
       {orders.map((order, index) => (
         <Typography key={index} variant="body1">
-          {order.stockSymbol} - {order.quantity} shares - Trigger Price: ${triggerPrices[index] ? triggerPrices[index].toFixed(2) : 'N/A'}
+          {order.stockSymbol} - {order.quantity} shares - Trigger Price: $
+          {triggerPrices[index] ? triggerPrices[index].toFixed(2) : "N/A"}
         </Typography>
       ))}
     </div>
   );
-  
-  
-  
-  
+
   async function handleClickPrice(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     setIsLoading(true);
@@ -283,68 +288,70 @@ const Buy: React.FC = () => {
           </Grid>
 
           <Grid container spacing={2} alignItems="center">
-      <Grid item>
-        <InputLabel htmlFor="order-type-select">
-          <Typography variant="h6" sx={{ color: "#E64250" }} gutterBottom>
-            Order Type:
-          </Typography>
-        </InputLabel>
-      </Grid>
-      <Grid item>
-        <FormControl sx={{ minWidth: 120 }}>
-          <Select
-            id="order-type-select"
-            data-testid="order-type-select"
-            value={orderType}
-            onChange={(e) => setOrderType(e.target.value as string)}
-          >
-            <MenuItem value="market">Market</MenuItem>
-            <MenuItem value="limit">Limit</MenuItem>
-            <MenuItem value="stop">Stop</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-    </Grid>
+            <Grid item>
+              <InputLabel htmlFor="order-type-select">
+                <Typography variant="h6" sx={{ color: "#E64250" }} gutterBottom>
+                  Order Type:
+                </Typography>
+              </InputLabel>
+            </Grid>
+            <Grid item>
+              <FormControl sx={{ minWidth: 120 }}>
+                <Select
+                  id="order-type-select"
+                  data-testid="order-type-select"
+                  value={orderType}
+                  onChange={(e) => setOrderType(e.target.value as string)}
+                >
+                  <MenuItem value="market">Market</MenuItem>
+                  <MenuItem value="limit">Limit</MenuItem>
+                  <MenuItem value="stop">Stop</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
 
-    {(orderType === "limit" || orderType === "stop") && (
-      <Grid container spacing={2} alignItems="center">
-        <Grid item>
-          <label htmlFor="trigger-price-input">
-            <Typography
-              variant="h6"
-              sx={{ color: "#E64250" }}
-              gutterBottom
-            >
-              Trigger Price:
-            </Typography>
-          </label>
-        </Grid>
-        <Grid item sx={{ display: "flex", alignItems: "center" }}>
-          <FormControl error={triggerPriceError !== ""}>
-            <TextField
-              label="Trigger Price:"
-              id="trigger-price-input"
-              type="text"
-              size="small"
-              name="triggerPrice"
-              value={triggerPrice !== null ? triggerPrice : ""}
-              onChange={handleTriggerPriceChange}
-            />
-            {triggerPriceError && (
-              <Typography variant="body2" color="error">
-                {triggerPriceError}
-              </Typography>
-            )}
-          </FormControl>
-        </Grid>
-      </Grid>
-    )}
-          
+          {(orderType === "limit" || orderType === "stop") && (
+            <Grid container spacing={2} alignItems="center">
+              <Grid item>
+                <label htmlFor="trigger-price-input">
+                  <Typography
+                    variant="h6"
+                    sx={{ color: "#E64250" }}
+                    gutterBottom
+                  >
+                    Trigger Price:
+                  </Typography>
+                </label>
+              </Grid>
+              <Grid item sx={{ display: "flex", alignItems: "center" }}>
+                <FormControl error={triggerPriceError !== ""}>
+                  <TextField
+                    label="Trigger Price:"
+                    id="trigger-price-input"
+                    type="text"
+                    size="small"
+                    name="triggerPrice"
+                    value={triggerPrice !== null ? triggerPrice : ""}
+                    onChange={handleTriggerPriceChange}
+                  />
+                  {triggerPriceError && (
+                    <Typography variant="body2" color="error">
+                      {triggerPriceError}
+                    </Typography>
+                  )}
+                </FormControl>
+              </Grid>
+            </Grid>
+          )}
+
           <Button onClick={handleClick} sx={{ color: "#E64250" }}>
             Go back to welcome
           </Button>
-          <UnfilledOrders orders={unfilledOrders} triggerPrices={unfilledTriggerPrices} />
-
+          <UnfilledOrders
+            orders={unfilledOrders}
+            triggerPrices={unfilledTriggerPrices}
+          />
         </div>
       </Paper>
     </Box>
