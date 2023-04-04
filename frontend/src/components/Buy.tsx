@@ -306,6 +306,7 @@ const Buy: React.FC = () => {
                   <MenuItem value="market">Market</MenuItem>
                   <MenuItem value="limit">Limit</MenuItem>
                   <MenuItem value="stop">Stop</MenuItem>
+                  <MenuItem value="error">Error</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
