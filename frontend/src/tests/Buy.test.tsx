@@ -235,10 +235,36 @@ describe("Test Buy component", () => {
   });
 
   it("changes the selected value when a new option is clicked", async () => {
-    const { getByTestId } = render(<Buy />);
+    const email = "admin@uwaterloo.ca";
+    const updateEmail = jest.fn();
+    const { getByLabelText, getByTestId, getByRole } = render(
+      <BrowserRouter>
+        <EmailContext.Provider value={{ email, updateEmail }}>
+          <Buy />
+        </EmailContext.Provider>
+      </BrowserRouter>
+    );
     const selectInput = getByTestId("order-type-select");
     fireEvent.change(selectInput.childNodes[1], { target: { value: "limit" } });
     expect(selectInput.textContent).toMatch(/Limit\s*/i);
+    fireEvent.change(getByLabelText("Stock Symbol:"), {
+      target: { value: "AAPL" },
+    });
+    fireEvent.change(getByLabelText("Buy Amount:"), {
+      target: { value: "10" },
+    });
+    fireEvent.change(getByLabelText("Trigger Price:"), {
+      target: { value: "20" },
+    });
+    const buyButton = getByRole("button", { name: /buy/i });
+    fireEvent.click(buyButton);
+
+    fireEvent.change(selectInput.childNodes[1], { target: { value: "stop" } });
+    expect(selectInput.textContent).toMatch("Stop");
+    const message = await screen.findByText(
+      "AAPL - 10 shares - Trigger Price: $20.00"
+    );
+    expect(message).toBeInTheDocument();
   });
 
   it("handles trigger price input changes and shows an error for invalid input", () => {
@@ -267,5 +293,61 @@ describe("Test Buy component", () => {
     expect(
       screen.getByText("Invalid trigger price format")
     ).toBeInTheDocument();
+  });
+
+  it("executes a stop order", async () => {
+    const email = "admin@uwaterloo.ca";
+    const updateEmail = jest.fn();
+    const { getByLabelText, getByTestId, getByRole } = render(
+      <BrowserRouter>
+        <EmailContext.Provider value={{ email, updateEmail }}>
+          <Buy />
+        </EmailContext.Provider>
+      </BrowserRouter>
+    );
+    const selectInput = getByTestId("order-type-select");
+    fireEvent.change(selectInput.childNodes[1], { target: { value: "stop" } });
+    expect(selectInput.textContent).toMatch("Stop");
+    fireEvent.change(getByLabelText("Stock Symbol:"), {
+      target: { value: "AAPL" },
+    });
+    fireEvent.change(getByLabelText("Buy Amount:"), {
+      target: { value: "10" },
+    });
+    fireEvent.change(getByLabelText("Trigger Price:"), {
+      target: { value: "0" },
+    });
+    const buyButton = getByRole("button", { name: /buy/i });
+    fireEvent.click(buyButton);
+    const message = await screen.findByText(
+      "AAPL - 10 shares - Trigger Price: $N/A"
+    );
+    expect(message).toBeInTheDocument();
+  });
+
+  it("Incorrect order type", async () => {
+    const email = "admin@uwaterloo.ca";
+    const updateEmail = jest.fn();
+    const { getByLabelText, getByTestId, getByRole } = render(
+      <BrowserRouter>
+        <EmailContext.Provider value={{ email, updateEmail }}>
+          <Buy />
+        </EmailContext.Provider>
+      </BrowserRouter>
+    );
+    const selectInput = getByTestId("order-type-select");
+    fireEvent.change(selectInput.childNodes[1], { target: { value: "error" } });
+    expect(selectInput.textContent).toMatch("");
+    fireEvent.change(getByLabelText("Stock Symbol:"), {
+      target: { value: "AAPL" },
+    });
+    fireEvent.change(getByLabelText("Buy Amount:"), {
+      target: { value: "10" },
+    });
+    const buyButton = getByRole("button", { name: /buy/i });
+    fireEvent.click(buyButton);
+    await waitFor(() => {
+      expect(screen.getByText("Invalid order type")).toBeInTheDocument();
+    });
   });
 });
