@@ -303,10 +303,11 @@ const Buy: React.FC = () => {
                   value={orderType}
                   onChange={(e) => setOrderType(e.target.value as string)}
                 >
+                  
                   <MenuItem value="market">Market</MenuItem>
                   <MenuItem value="limit">Limit</MenuItem>
                   <MenuItem value="stop">Stop</MenuItem>
-                  <MenuItem value="error">Error</MenuItem>
+                  <MenuItem value="error"> </MenuItem>
                 </Select>
               </FormControl>
             </Grid>

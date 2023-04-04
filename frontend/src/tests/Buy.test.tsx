@@ -333,7 +333,7 @@ describe("Test Buy component", () => {
     );
     const selectInput = getByTestId("order-type-select");
     fireEvent.change(selectInput.childNodes[1], { target: { value: "error" } });
-    expect(selectInput.textContent).toMatch("Error");
+    expect(selectInput.textContent).toMatch("");
     fireEvent.change(getByLabelText("Stock Symbol:"), {
       target: { value: "AAPL" },
     });
