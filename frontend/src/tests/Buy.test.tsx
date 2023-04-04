@@ -261,7 +261,9 @@ describe("Test Buy component", () => {
 
     fireEvent.change(selectInput.childNodes[1], { target: { value: "stop" } });
     expect(selectInput.textContent).toMatch("Stop");
-    const message = await screen.findByText("AAPL - 10 shares - Trigger Price: $20.00");
+    const message = await screen.findByText(
+      "AAPL - 10 shares - Trigger Price: $20.00"
+    );
     expect(message).toBeInTheDocument();
   });
 
@@ -317,7 +319,9 @@ describe("Test Buy component", () => {
     });
     const buyButton = getByRole("button", { name: /buy/i });
     fireEvent.click(buyButton);
-    const message = await screen.findByText("AAPL - 10 shares - Trigger Price: $N/A");
+    const message = await screen.findByText(
+      "AAPL - 10 shares - Trigger Price: $N/A"
+    );
     expect(message).toBeInTheDocument();
   });
 
