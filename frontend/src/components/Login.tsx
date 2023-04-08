@@ -4,7 +4,7 @@ import { EmailContext } from "../Context";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineMail, HiKey } from "react-icons/hi";
 import "./Login.css";
-import * as CryptoJS from 'crypto-js';
+import * as CryptoJS from "crypto-js";
 
 interface LoginUserData {
   email: string;
@@ -41,7 +41,10 @@ const Login: React.FC = () => {
         ...loginUserData,
         password: hashedPassword,
       };
-      const response = await axios.post("/api/admin/login", updatedLoginUserData);
+      const response = await axios.post(
+        "/api/admin/login",
+        updatedLoginUserData
+      );
       console.log(response.data);
       updateEmail(loginUserData.email);
       console.log(email);
