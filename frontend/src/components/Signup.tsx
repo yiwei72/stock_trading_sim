@@ -4,6 +4,7 @@ import { EmailContext } from "../Context";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { HiOutlineMail, HiKey } from "react-icons/hi";
+import * as CryptoJS from 'crypto-js';
 
 interface SignupUserData {
   email: string;
@@ -49,7 +50,12 @@ const Signup: React.FC = () => {
       if (signupUserData.password !== confirm_password) {
         throw new Error("Password and confirm password must match");
       }
-      const response = await axios.post("/api/admin/signup", signupUserData);
+      const hashedPassword = CryptoJS.SHA256(signupUserData.password).toString();
+      const updatedSignupUserData = {
+        ...signupUserData,
+        password: hashedPassword,
+      };
+      const response = await axios.post("/api/admin/signup", updatedSignupUserData);
       console.log(response.data);
       updateEmail(signupUserData.email);
       console.log(email);

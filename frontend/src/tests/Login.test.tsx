@@ -25,6 +25,15 @@ jest.mock("react-router-dom", () => {
   };
 });
 
+jest.mock('crypto-js', () => {
+  const mockSHA256 = jest.fn().mockImplementation(() => ({
+    toString: () => 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f',
+  }));
+  return {
+    SHA256: mockSHA256,
+  };
+});
+
 describe("Test Login component", () => {
   it("renders without crashing", () => {
     render(<Login />);
@@ -94,10 +103,10 @@ describe("Test Login component", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledWith(
-        "/api/admin/login",
-        loginUserData
-      );
+      expect(axios.post).toHaveBeenCalledWith("/api/admin/login", {
+        ...loginUserData,
+        password: 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f',
+      });
     });
   });
 
