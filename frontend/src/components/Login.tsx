@@ -4,6 +4,7 @@ import { EmailContext } from "../Context";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineMail, HiKey } from "react-icons/hi";
 import "./Login.css";
+import * as CryptoJS from "crypto-js";
 
 interface LoginUserData {
   email: string;
@@ -35,7 +36,15 @@ const Login: React.FC = () => {
       if (!loginUserData.email || !loginUserData.password) {
         throw new Error("All fields are required");
       }
-      const response = await axios.post("/api/admin/login", loginUserData);
+      const hashedPassword = CryptoJS.SHA256(loginUserData.password).toString();
+      const updatedLoginUserData = {
+        ...loginUserData,
+        password: hashedPassword,
+      };
+      const response = await axios.post(
+        "/api/admin/login",
+        updatedLoginUserData
+      );
       console.log(response.data);
       updateEmail(loginUserData.email);
       console.log(email);
