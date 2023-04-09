@@ -22,11 +22,14 @@ public class Result<T> implements Serializable {
     @ApiModelProperty("result data")
     private T data;
 
-    public Result() {}
+    public Result() {
+        this.data = null;
+    }
 
     public Result(int resultCode, String message) {
         this.resultCode = resultCode;
         this.message = message;
+        this.data = null;
     }
 
     public int getResultCode() {
