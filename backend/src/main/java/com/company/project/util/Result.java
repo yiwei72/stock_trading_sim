@@ -3,8 +3,6 @@ package com.company.project.util;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 
 public class Result<T> implements Serializable {
 
