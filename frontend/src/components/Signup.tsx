@@ -37,7 +37,7 @@ const Signup: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    const passwordRegex =  /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     try {
@@ -56,7 +56,6 @@ const Signup: React.FC = () => {
       if (!passwordRegex.test(signupUserData.password)) {
         throw new Error("Please follow the format of password");
       }
-      
       if (signupUserData.password !== confirm_password) {
         throw new Error("Password and confirm password must match");
       }
@@ -106,19 +105,19 @@ const Signup: React.FC = () => {
                   <label htmlFor="email-input">Email</label>
                 </div>
 
-                <div className="inputbox">
-                  <HiKey className="icon" />
-                  <input
-                    id="password-input"
-                    type="password"
-                    name="password"
-                    value={signupUserData.password}
-                    placeholder="8+ with numbers and letters"
-                    onChange={handleInputChange}
-                  />
-                  
-                  <label htmlFor="password-input">Password</label>
-                </div>
+              <div className="inputbox">
+                <HiKey className="icon" />
+                <input
+                  id="password-input"
+                  type="password"
+                  name="password"
+                  value={signupUserData.password}
+                  placeholder="8+ with numbers and letters"
+                  onChange={handleInputChange}
+                />
+
+                <label htmlFor="password-input">Password</label>
+              </div>
 
                 <div className="inputbox">
                   <HiKey className="icon" />

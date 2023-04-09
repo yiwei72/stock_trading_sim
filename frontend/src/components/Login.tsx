@@ -31,7 +31,6 @@ const Login: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    const passwordRegex =  /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     try {
@@ -40,9 +39,6 @@ const Login: React.FC = () => {
       }
       if (!emailRegex.test(loginUserData.email)) {
         throw new Error("Please follow the format of email");
-      }
-      if (!passwordRegex.test(loginUserData.password)) {
-        throw new Error("Please follow the format of password");
       }
       const hashedPassword = CryptoJS.SHA256(loginUserData.password).toString();
       const updatedLoginUserData = {
@@ -107,7 +103,7 @@ const Login: React.FC = () => {
             <div
               style={{ display: "grid", placeItems: "center", columnGap: 20 }}
             >
-              {errorMessage && <p style={{ color: "white" }}>{errorMessage}</p>}
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               <button type="submit" disabled={isLoading}>
                 {isLoading ? "Logging In..." : "Log In"}
               </button>
