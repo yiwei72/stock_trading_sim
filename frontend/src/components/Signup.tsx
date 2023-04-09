@@ -55,7 +55,6 @@ const Signup: React.FC = () => {
       if (!passwordRegex.test(signupUserData.password)) {
         throw new Error("Please follow the format of password");
       }
-
       if (signupUserData.password !== confirm_password) {
         throw new Error("Password and confirm password must match");
       }
