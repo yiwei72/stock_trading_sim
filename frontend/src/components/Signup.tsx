@@ -6,7 +6,6 @@ import "./Login.css";
 import { HiOutlineMail, HiKey } from "react-icons/hi";
 import * as CryptoJS from "crypto-js";
 
-
 interface SignupUserData {
   email: string;
   password: string;
@@ -25,7 +24,7 @@ const Signup: React.FC = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [ errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -86,24 +85,23 @@ const Signup: React.FC = () => {
   };
 
   return (
-      
-      <section>
-        <div className="signup-container">
-          <div>
-            <h1>Sign up</h1>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <div className="inputbox">
-                  <HiOutlineMail className="icon" />
-                  <input
-                    id="email-input"
-                    type="text"
-                    name="email"
-                    value={signupUserData.email}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="email-input">Email</label>
-                </div>
+    <section>
+      <div className="signup-container">
+        <div>
+          <h1>Sign up</h1>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <div className="inputbox">
+                <HiOutlineMail className="icon" />
+                <input
+                  id="email-input"
+                  type="text"
+                  name="email"
+                  value={signupUserData.email}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="email-input">Email</label>
+              </div>
 
               <div className="inputbox">
                 <HiKey className="icon" />
@@ -119,60 +117,60 @@ const Signup: React.FC = () => {
                 <label htmlFor="password-input">Password</label>
               </div>
 
-                <div className="inputbox">
-                  <HiKey className="icon" />
-                  <input
-                    id="confirm-password-input"
-                    type="password"
-                    value={confirm_password}
-                    name="confirmPassword"
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                  <label htmlFor="confirm-password-input">Confirm Password</label>
-                </div>
-
-                <div className="inputbox">
-                  <input
-                    id="firstName"
-                    type="text"
-                    placeholder="Your First Name"
-                    name="firstName"
-                    value={signupUserData.firstName}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="firstName">Your First Name</label>
-                </div>
-
-                <div className="inputbox">
-                  <input
-                    id="lastName"
-                    type="text"
-                    placeholder="Your Last Name"
-                    name="lastName"
-                    value={signupUserData.lastName}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="lastName">Your Last Name</label>
-                </div>
+              <div className="inputbox">
+                <HiKey className="icon" />
+                <input
+                  id="confirm-password-input"
+                  type="password"
+                  value={confirm_password}
+                  name="confirmPassword"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <label htmlFor="confirm-password-input">Confirm Password</label>
               </div>
-              <div
-                style={{ display: "grid", placeItems: "center", columnGap: 20 }}
-              >
-                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-                <button type="submit" disabled={isLoading}>
-                  {isLoading ? "Signing Up..." : "Sign Up"}
-                </button>
-                <div className="register">
-                  <p>
-                    Already have an account?
-                    <a href="/login">Log in here.</a>
-                  </p>
-                </div>
+
+              <div className="inputbox">
+                <input
+                  id="firstName"
+                  type="text"
+                  placeholder="Your First Name"
+                  name="firstName"
+                  value={signupUserData.firstName}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="firstName">Your First Name</label>
               </div>
-            </form>
-          </div>
+
+              <div className="inputbox">
+                <input
+                  id="lastName"
+                  type="text"
+                  placeholder="Your Last Name"
+                  name="lastName"
+                  value={signupUserData.lastName}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="lastName">Your Last Name</label>
+              </div>
+            </div>
+            <div
+              style={{ display: "grid", placeItems: "center", columnGap: 20 }}
+            >
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Signing Up..." : "Sign Up"}
+              </button>
+              <div className="register">
+                <p>
+                  Already have an account?
+                  <a href="/login">Log in here.</a>
+                </p>
+              </div>
+            </div>
+          </form>
         </div>
-      </section>
+      </div>
+    </section>
   );
 };
 
