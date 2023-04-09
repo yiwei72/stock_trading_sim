@@ -45,6 +45,7 @@ h1{
     color:#fff;
     text-align: center;
 }
+
 .inputbox{
     position:relative;
     margin: 30px 0;
@@ -60,6 +61,11 @@ h1{
     font-size: 1em;
     pointer-events: none;
     transition: .5s;
+}
+.inputbox label{
+    position: bottom;
+    top:50%;
+   
 }
 input:focus ~ label,
 input:valid ~ label{
