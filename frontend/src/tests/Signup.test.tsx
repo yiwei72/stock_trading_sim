@@ -36,15 +36,15 @@ describe("Test Signup component", () => {
 
     const passwordInput = screen.getByLabelText("Password");
     fireEvent.change(passwordInput, {
-      target: { value: "password", name: "password" },
+      target: { value: "password123", name: "password" },
     });
-    expect(passwordInput.getAttribute("value")).toBe("password");
+    expect(passwordInput.getAttribute("value")).toBe("password123");
 
     const confirmPasswordInput = screen.getByLabelText("Confirm Password");
     fireEvent.change(confirmPasswordInput, {
-      target: { value: "password", name: "confirmPassword" },
+      target: { value: "password123", name: "confirmPassword" },
     });
-    expect(confirmPasswordInput.getAttribute("value")).toBe("password");
+    expect(confirmPasswordInput.getAttribute("value")).toBe("password123");
 
     const firstNameInput = screen.getByLabelText("Your First Name");
     fireEvent.change(firstNameInput, {
@@ -79,12 +79,12 @@ describe("Test Signup component", () => {
 
     const passwordInput = screen.getByLabelText("Password");
     fireEvent.change(passwordInput, {
-      target: { value: "correct", name: "password" },
+      target: { value: "correct123", name: "password" },
     });
 
     const confirmPasswordInput = screen.getByLabelText("Confirm Password");
     fireEvent.change(confirmPasswordInput, {
-      target: { value: "wrong", name: "confirmPassword" },
+      target: { value: "wrong1234", name: "confirmPassword" },
     });
 
     const firstNameInput = screen.getByLabelText("Your First Name");
@@ -106,6 +106,80 @@ describe("Test Signup component", () => {
     expect(errorMessage).toBeDefined();
   });
 
+  it("displays an error message when email format is wrong", async () => {
+    render(<Signup />);
+
+    const emailInput = screen.getByLabelText("Email");
+    fireEvent.change(emailInput, {
+      target: { value: "test", name: "email" },
+    });
+
+    const passwordInput = screen.getByLabelText("Password");
+    fireEvent.change(passwordInput, {
+      target: { value: "correct123", name: "password" },
+    });
+
+    const confirmPasswordInput = screen.getByLabelText("Confirm Password");
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: "correct123", name: "confirmPassword" },
+    });
+
+    const firstNameInput = screen.getByLabelText("Your First Name");
+    fireEvent.change(firstNameInput, {
+      target: { value: "FirstName", name: "firstName" },
+    });
+
+    const lastNameInput = screen.getByLabelText("Your Last Name");
+    fireEvent.change(lastNameInput, {
+      target: { value: "LastName", name: "lastName" },
+    });
+
+    const submitButton = screen.getByRole("button", { name: "Sign Up" });
+    fireEvent.click(submitButton);
+
+    const errorMessage = await screen.findByText(
+      "Please follow the format of email"
+    );
+    expect(errorMessage).toBeDefined();
+  });
+
+  it("displays an error message when password format is wrong", async () => {
+    render(<Signup />);
+
+    const emailInput = screen.getByLabelText("Email");
+    fireEvent.change(emailInput, {
+      target: { value: "test@uwaterloo.ca", name: "email" },
+    });
+
+    const passwordInput = screen.getByLabelText("Password");
+    fireEvent.change(passwordInput, {
+      target: { value: "password", name: "password" },
+    });
+
+    const confirmPasswordInput = screen.getByLabelText("Confirm Password");
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: "password", name: "confirmPassword" },
+    });
+
+    const firstNameInput = screen.getByLabelText("Your First Name");
+    fireEvent.change(firstNameInput, {
+      target: { value: "FirstName", name: "firstName" },
+    });
+
+    const lastNameInput = screen.getByLabelText("Your Last Name");
+    fireEvent.change(lastNameInput, {
+      target: { value: "LastName", name: "lastName" },
+    });
+
+    const submitButton = screen.getByRole("button", { name: "Sign Up" });
+    fireEvent.click(submitButton);
+
+    const errorMessage = await screen.findByText(
+      "Please follow the format of password"
+    );
+    expect(errorMessage).toBeDefined();
+  });
+
   it("calls navigate function when response from server has result code 200", async () => {
     const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);
@@ -120,8 +194,8 @@ describe("Test Signup component", () => {
     const submitButton = screen.getByRole("button", { name: "Sign Up" });
 
     fireEvent.change(emailInput, { target: { value: "test@email.com" } });
-    fireEvent.change(passwordInput, { target: { value: "password" } });
-    fireEvent.change(confirmPasswordInput, { target: { value: "password" } });
+    fireEvent.change(passwordInput, { target: { value: "password123" } });
+    fireEvent.change(confirmPasswordInput, { target: { value: "password123" } });
     fireEvent.change(firstNameInput, { target: { value: "FirstName" } });
     fireEvent.change(lastNameInput, { target: { value: "LastName" } });
 
@@ -148,8 +222,8 @@ describe("Test Signup component", () => {
     const lastNameInput = screen.getByLabelText("Your Last Name");
     const submitButton = screen.getByRole("button", { name: "Sign Up" });
     fireEvent.change(emailInput, { target: { value: "admin@uwaterloo.ca" } });
-    fireEvent.change(passwordInput, { target: { value: "123456" } });
-    fireEvent.change(confirmPasswordInput, { target: { value: "123456" } });
+    fireEvent.change(passwordInput, { target: { value: "abcd123456" } });
+    fireEvent.change(confirmPasswordInput, { target: { value: "abcd123456" } });
     fireEvent.change(firstNameInput, { target: { value: "FirstName" } });
     fireEvent.change(lastNameInput, { target: { value: "LastName" } });
     const responseData = { resultCode: 500, data: "User already exists." };
