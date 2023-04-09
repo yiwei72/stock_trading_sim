@@ -107,7 +107,7 @@ const Login: React.FC = () => {
             <div
               style={{ display: "grid", placeItems: "center", columnGap: 20 }}
             >
-              {errorMessage && <p style={{ color: "white" }}>{errorMessage}</p>}
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               <button type="submit" disabled={isLoading}>
                 {isLoading ? "Logging In..." : "Log In"}
               </button>
