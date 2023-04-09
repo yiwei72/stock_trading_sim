@@ -96,7 +96,9 @@ describe("Test Login component", () => {
     const submitButton = screen.getByRole("button", { name: "Log In" });
     fireEvent.click(submitButton);
 
-    const errorMessage = await screen.findByText("Please follow the format of email");
+    const errorMessage = await screen.findByText(
+      "Please follow the format of email"
+    );
     expect(errorMessage).toBeInTheDocument();
   });
 

@@ -195,7 +195,9 @@ describe("Test Signup component", () => {
 
     fireEvent.change(emailInput, { target: { value: "test@email.com" } });
     fireEvent.change(passwordInput, { target: { value: "password123" } });
-    fireEvent.change(confirmPasswordInput, { target: { value: "password123" } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: "password123" },
+    });
     fireEvent.change(firstNameInput, { target: { value: "FirstName" } });
     fireEvent.change(lastNameInput, { target: { value: "LastName" } });
 
