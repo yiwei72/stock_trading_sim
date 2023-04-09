@@ -32,7 +32,7 @@ const Login: React.FC = () => {
     event.preventDefault();
     setIsLoading(true);
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    
+
     try {
       if (!loginUserData.email || !loginUserData.password) {
         throw new Error("All fields are required");
