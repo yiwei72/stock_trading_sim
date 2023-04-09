@@ -78,6 +78,30 @@ describe("Test Login component", () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
+  it("displays an error message when email input format is incorrect", async () => {
+    render(<Login />);
+
+    const emailInput = screen.getByLabelText("Email");
+    fireEvent.change(emailInput, {
+      target: { value: "test", name: "email" },
+    });
+    expect(emailInput.getAttribute("value")).toBe("test");
+
+    const passwordInput = screen.getByLabelText("Password");
+    fireEvent.change(passwordInput, {
+      target: { value: "password", name: "password" },
+    });
+    expect(passwordInput.getAttribute("value")).toBe("password");
+
+    const submitButton = screen.getByRole("button", { name: "Log In" });
+    fireEvent.click(submitButton);
+
+    const errorMessage = await screen.findByText(
+      "Please follow the format of email"
+    );
+    expect(errorMessage).toBeInTheDocument();
+  });
+
   it("should make a POST request to the correct endpoint", async () => {
     const updateEmail = jest.fn();
     const email = "test@email.com";
@@ -129,7 +153,7 @@ describe("Test Login component", () => {
     const submitButton = screen.getByRole("button", { name: "Log In" });
     const responseData = { resultCode: 200 };
     fireEvent.change(emailInput, { target: { value: "test@email.com" } });
-    fireEvent.change(passwordInput, { target: { value: "password" } });
+    fireEvent.change(passwordInput, { target: { value: "password111" } });
     (
       axios.post as jest.MockedFunction<typeof axios.post>
     ).mockResolvedValueOnce({ data: responseData });

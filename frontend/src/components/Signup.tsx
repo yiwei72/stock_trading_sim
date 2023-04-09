@@ -36,6 +36,8 @@ const Signup: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     try {
       if (
@@ -47,6 +49,13 @@ const Signup: React.FC = () => {
       ) {
         throw new Error("All fields are required");
       }
+      if (!emailRegex.test(signupUserData.email)) {
+        throw new Error("Please follow the format of email");
+      }
+      if (!passwordRegex.test(signupUserData.password)) {
+        throw new Error("Please follow the format of password");
+      }
+
       if (signupUserData.password !== confirm_password) {
         throw new Error("Password and confirm password must match");
       }
@@ -102,8 +111,10 @@ const Signup: React.FC = () => {
                   type="password"
                   name="password"
                   value={signupUserData.password}
+                  placeholder="8+ with numbers and letters"
                   onChange={handleInputChange}
                 />
+
                 <label htmlFor="password-input">Password</label>
               </div>
 

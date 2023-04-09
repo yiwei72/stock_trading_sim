@@ -31,10 +31,14 @@ const Login: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
+    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     try {
       if (!loginUserData.email || !loginUserData.password) {
         throw new Error("All fields are required");
+      }
+      if (!emailRegex.test(loginUserData.email)) {
+        throw new Error("Please follow the format of email");
       }
       const hashedPassword = CryptoJS.SHA256(loginUserData.password).toString();
       const updatedLoginUserData = {
@@ -90,6 +94,7 @@ const Login: React.FC = () => {
                   type="password"
                   name="password"
                   value={loginUserData.password}
+                  placeholder="8+ with numbers and letters"
                   onChange={handleInputChange}
                 />
                 <label htmlFor="password-input">Password</label>
@@ -98,7 +103,7 @@ const Login: React.FC = () => {
             <div
               style={{ display: "grid", placeItems: "center", columnGap: 20 }}
             >
-              {errorMessage && <p style={{ color: "white" }}>{errorMessage}</p>}
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               <button type="submit" disabled={isLoading}>
                 {isLoading ? "Logging In..." : "Log In"}
               </button>
