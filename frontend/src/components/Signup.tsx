@@ -156,7 +156,7 @@ const Signup: React.FC = () => {
             <div
               style={{ display: "grid", placeItems: "center", columnGap: 20 }}
             >
-              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+              {errorMessage && <p style={{ color: "blue" }}>{errorMessage}</p>}
               <button type="submit" disabled={isLoading}>
                 {isLoading ? "Signing Up..." : "Sign Up"}
               </button>
