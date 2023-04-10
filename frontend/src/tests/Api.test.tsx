@@ -15,8 +15,8 @@ describe("fetchStockPrice", () => {
 
     const stockPrice = await fetchStockPrice("AAPL");
     //testing range
-    expect(stockPrice).toBeGreaterThanOrEqual(100);
-    expect(stockPrice).toBeLessThanOrEqual(200);
+    expect(stockPrice.price).toBeGreaterThanOrEqual(100);
+    expect(stockPrice.price).toBeLessThanOrEqual(200);
     expect(axios.get).toHaveBeenCalledWith(
       "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=7U6WYWYO97NRET1Y"
     );

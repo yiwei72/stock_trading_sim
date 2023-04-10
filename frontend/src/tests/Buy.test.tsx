@@ -202,22 +202,23 @@ describe("Test Buy component", () => {
   it("calls fetchStockPrice and updates state on click", async () => {
     const stockPrice = 666;
     (fetchStockPrice as jest.Mock).mockResolvedValueOnce(stockPrice);
-
     render(<Buy />);
-
     const stockSymbolInput = screen.getByLabelText("Stock Symbol:");
     fireEvent.change(stockSymbolInput, { target: { value: "AAPL" } });
-
     const refreshButton = screen.getByRole("button", { name: "Refresh" });
     fireEvent.click(refreshButton);
-
     expect(fetchStockPrice).toHaveBeenCalledWith("AAPL");
-
-    const stockValue = await screen.findByText(`stock value:${stockPrice}`);
+    // Use a function to find the stock value text
+    const stockValue = await screen.findByText((_, element) => {
+      const textContent = element.textContent || '';
+      return textContent.includes(`stock value: ${stockPrice}`);
+    });
     const lastUpdated = await screen.findByText(/last updated/);
     expect(stockValue).toBeInTheDocument();
     expect(lastUpdated).toBeInTheDocument();
   });
+  
+  
 
   it("displays an error message if fetchStockPrice throws an error", async () => {
     (fetchStockPrice as jest.Mock).mockRejectedValue(new Error(""));
