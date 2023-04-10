@@ -100,14 +100,19 @@ const Sell: React.FC = () => {
         throw new Error("Stock Symbol is required");
       }
       setRefreshErrorMessage("");
-      setStockVal(await fetchStockPrice(stockSymbol).catch(console.error));
-      setLastUpdateTime(new Date().toLocaleString());
+      fetchStockPrice(stockSymbol.toUpperCase())
+        .then((stockPrice) => {
+          setStockVal(Number(stockPrice));
+          setLastUpdateTime(new Date().toLocaleString());
+        })
+        .catch(console.error);
     } catch (error: any) {
       setRefreshErrorMessage(error.message);
     } finally {
       setIsLoading(false);
     }
   }
+  
 
   return (
     <Box

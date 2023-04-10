@@ -20,7 +20,6 @@ interface TransactionInfo {
   stockSymbol: string;
   price: number;
   quantity: number;
-  //triggerPrice: number | null;
 }
 
 const Buy: React.FC = () => {
@@ -50,10 +49,28 @@ const Buy: React.FC = () => {
     []
   );
 
+  const [stockInfo, setStockInfo] = useState<{
+    open: string;
+    high: string;
+    low: string;
+    volume: string;
+    previousClose: string;
+    change: string;
+    changePercent: string;
+  } | null>(null);
+
   const {
     state: { user },
   } = useLocation();
   const { email } = useContext(EmailContext);
+
+const [stockOpen, setStockOpen] = useState(0);
+const [stockHigh, setStockHigh] = useState(0);
+const [stockLow, setStockLow] = useState(0);
+const [stockVolume, setStockVolume] = useState(0);
+const [stockPreviousClose, setStockPreviousClose] = useState(0);
+const [stockChange, setStockChange] = useState(0);
+const [stockChangePercent, setStockChangePercent] = useState("");
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -146,16 +163,72 @@ const Buy: React.FC = () => {
         throw new Error("Stock Symbol is required");
       }
       setRefreshErrorMessage("");
-      setStockVal(
-        await fetchStockPrice(stockSymbol.toUpperCase()).catch(console.error)
+  
+      const res = await axios.get(
+        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=7U6WYWYO97NRET1Y`
       );
-      setLastUpdateTime(new Date().toLocaleString());
+      const {
+        "01. symbol": symbol,
+        "02. open": open,
+        "03. high": high,
+        "04. low": low,
+        "05. price": price,
+        "06. volume": volume,
+        "07. latest trading day": latestTradingDay,
+        "08. previous close": previousClose,
+        "09. change": change,
+        "10. change percent": changePercent,
+      } = res.data["Global Quote"];
+  
+      setStockSymbol(symbol);
+      setStockVal(Number(price));
+      setLastUpdateTime(new Date(latestTradingDay).toLocaleString());
+  
+      // Additional information to return
+      const stockInfo = {
+        open,
+        high,
+        low,
+        volume,
+        previousClose,
+        change,
+        changePercent,
+      };
+      setStockOpen(Number(open));
+      setStockHigh(Number(high));
+      setStockLow(Number(low));
+      setStockVolume(Number(volume));
+      setStockPreviousClose(Number(previousClose));
+      setStockChange(Number(change));
+      setStockChangePercent(changePercent);
+      // Store additional stock information in the state
+      setStockInfo({
+        open,
+        high,
+        low,
+        volume,
+        previousClose,
+        change,
+        changePercent,
+      });
+    
+      return {
+        open,
+        high,
+        low,
+        volume,
+        previousClose,
+        change,
+        changePercent,
+      };
+  
     } catch (error: any) {
       setRefreshErrorMessage(error.message);
     } finally {
       setIsLoading(false);
     }
   }
+  
 
   return (
     <Box
@@ -239,6 +312,36 @@ const Buy: React.FC = () => {
             </Grid>
           </Grid>
           <div>
+          <div>
+  <Typography variant="body1" gutterBottom>
+    stock value:{stockVal}{" "}
+  </Typography>
+  <Typography variant="body1" gutterBottom>
+    last updated:{lastUpdateTime}
+  </Typography>
+  <Typography variant="body1" gutterBottom>
+    open: {stockOpen}
+  </Typography>
+  <Typography variant="body1" gutterBottom>
+    high: {stockHigh}
+  </Typography>
+  <Typography variant="body1" gutterBottom>
+    low: {stockLow}
+  </Typography>
+  <Typography variant="body1" gutterBottom>
+    volume: {stockVolume}
+  </Typography>
+  <Typography variant="body1" gutterBottom>
+    previous close: {stockPreviousClose}
+  </Typography>
+  <Typography variant="body1" gutterBottom>
+    change: {stockChange}
+  </Typography>
+  <Typography variant="body1" gutterBottom>
+    change percent: {stockChangePercent}
+  </Typography>
+</div>
+
             <Typography variant="body1" gutterBottom>
               stock value:{stockVal}{" "}
             </Typography>
