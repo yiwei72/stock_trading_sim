@@ -2,9 +2,9 @@
 
 spring:
   datasource:
-    username: YOUR_DATABASE_USERNAME_HERE
-    password: YOUR_DATABASE_PASSWORD_HERE
-    url: jdbc:mysql://AWS_Endpoint_Here:AWS_PORT/DATABASE_NAME
+    username: admin
+    password: ECE651123
+    url: jdbc:mysql://database-1.cbifqpta8wxq.us-east-2.rds.amazonaws.com:3306/stock_trader
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       max-lifetime: 600000

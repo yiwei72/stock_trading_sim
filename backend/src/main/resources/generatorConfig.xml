@@ -7,9 +7,9 @@
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <!-- 数据库的连接信息 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://AWS_Endpoint_Here:AWS_PORT/DATABASE_NAME"
-                        userId="YOUR_DATABASE_USERNAME_HERE"
-                        password="YOUR_DATABASE_PASSWORD_HERE">
+                        connectionURL="jdbc:mysql://database-1.cbifqpta8wxq.us-east-2.rds.amazonaws.com:3306/stock_trader"
+                        userId="admin"
+                        password="ECE651123">
         </jdbcConnection>
         <!-- javaBean的生成策略-->
         <javaModelGenerator targetPackage="com.company.project.pojo"
